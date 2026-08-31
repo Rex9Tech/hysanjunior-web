@@ -14,21 +14,31 @@ export const Radio: React.FC<RadioProps> = ({
   className,
   containerClassName,
   ...props
-}) => (
-  <label
-    className={cn(
-      "flex items-center gap-8 rounded-md border border-base-300 px-12 text-body-s font-medium text-base-content",
-      containerClassName,
-    )}
-  >
+}) => {
+  const radioInput = (
     <input
       {...props}
       type="radio"
       className={cn(
-        "radio radio-sm border-base-content/40 checked:border-primary checked:bg-primary",
+        "radio radio-primary radio-sm border-2 border-base-content/60 bg-base-200/60 hover:border-primary focus:border-primary checked:border-primary checked:bg-primary transition-colors disabled:opacity-60",
         className,
       )}
     />
-    <span>{children}</span>
-  </label>
-);
+  );
+
+  if (!children && !containerClassName) {
+    return radioInput;
+  }
+
+  return (
+    <label
+      className={cn(
+        "flex cursor-pointer select-none items-center gap-2 rounded-md border border-base-300 px-3 text-body-s font-medium text-base-content hover:bg-base-200/30 transition-colors",
+        containerClassName,
+      )}
+    >
+      {radioInput}
+      {children ? <span>{children}</span> : null}
+    </label>
+  );
+};
