@@ -4,6 +4,7 @@ export interface IVideoAsset {
   src: string;
   alt: string;
   title?: string;
+  type?: string;
 }
 
 export interface IVideoProps extends Omit<
@@ -14,6 +15,7 @@ export interface IVideoProps extends Omit<
   src?: string;
   alt?: string;
   title?: string;
+  type?: string;
   controls?: boolean;
   autoplay?: boolean;
   loop?: boolean;
@@ -26,6 +28,7 @@ export const Video: React.FC<IVideoProps> = ({
   src,
   alt,
   title,
+  type,
   controls = true,
   autoplay = false,
   loop = false,
@@ -36,6 +39,7 @@ export const Video: React.FC<IVideoProps> = ({
   const finalSrc = asset?.src ?? src ?? "";
   const finalAlt = alt ?? asset?.alt ?? "";
   const finalTitle = title ?? asset?.title ?? finalAlt;
+  const finalType = type ?? asset?.type ?? "video/mp4";
 
   return (
     <video
@@ -48,7 +52,7 @@ export const Video: React.FC<IVideoProps> = ({
       title={finalTitle}
       {...rest}
     >
-      <source src={finalSrc} type="video/mp4" />
+      <source src={finalSrc} type={finalType} />
       Your browser does not support the video tag.
     </video>
   );
