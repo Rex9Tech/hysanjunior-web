@@ -68,6 +68,20 @@ describe("ProductController", () => {
       );
     });
 
+    it("passes search parameter to ProductService", async () => {
+      vi.mocked(ProductService.getProducts).mockResolvedValue({
+        data: {
+          status: { code: 200, success: true, message: "OK" },
+          data: [],
+          meta: { pagination: { page: 1, limit: 20, total_count: 0, total_pages: 0 } },
+        },
+      } as never);
+
+      await ProductController.getProducts({ page: 1, search: "Pro" });
+
+      expect(ProductService.getProducts).toHaveBeenCalledWith({ page: 1, search: "Pro" });
+    });
+
     it("returns error on failure", async () => {
       vi.mocked(ProductService.getProducts).mockResolvedValue({
         data: {

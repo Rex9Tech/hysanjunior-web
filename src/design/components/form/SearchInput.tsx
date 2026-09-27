@@ -82,10 +82,11 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
         placeholder={placeholder}
         className={cn(
           "w-full rounded-md border-2 border-base-300 bg-base-100 py-2.5 pl-9 text-body-m text-base-content",
+          "[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden",
           effectiveTooltip && hasValue
-            ? "pr-14"
+            ? "pr-16"
             : effectiveTooltip || hasValue
-              ? "pr-8"
+              ? "pr-9"
               : "pr-4",
           "placeholder:text-base-content/40 transition-all duration-200 ease-out",
           "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
@@ -93,32 +94,31 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
         )}
       />
 
-      {effectiveTooltip && (
-        <div
-          className={cn(
-            "absolute flex items-center text-base-content/40 hover:text-base-content transition-colors z-10",
-            hasValue && !disabled ? "right-8" : "right-2.5",
+      {(effectiveTooltip || (hasValue && !disabled)) && (
+        <div className="absolute right-2.5 z-10 flex items-center gap-1.5">
+          {hasValue && !disabled && (
+            <button
+              type="button"
+              onClick={handleClear}
+              className="flex h-5 w-5 items-center justify-center rounded-full text-base-content/40 hover:bg-base-300 hover:text-base-content transition-colors"
+              aria-label="Clear search"
+              title="Clear"
+            >
+              <iconsLib.close className="h-3.5 w-3.5" />
+            </button>
           )}
-        >
-          <div
-            className="tooltip tooltip-top flex items-center"
-            data-tip={effectiveTooltip}
-          >
-            <iconsLib.info className="h-4 w-4 cursor-help" />
-          </div>
-        </div>
-      )}
 
-      {hasValue && !disabled && (
-        <button
-          type="button"
-          onClick={handleClear}
-          className="absolute right-2.5 z-10 flex h-5 w-5 items-center justify-center rounded-full text-base-content/40 hover:bg-base-300 hover:text-base-content transition-colors"
-          aria-label="Clear search"
-          title="Clear"
-        >
-          <iconsLib.close className="h-3.5 w-3.5" />
-        </button>
+          {effectiveTooltip && (
+            <div className="flex items-center text-base-content/40 hover:text-base-content transition-colors">
+              <div
+                className="tooltip tooltip-top tooltip-end flex items-center"
+                data-tip={effectiveTooltip}
+              >
+                <iconsLib.info className="h-4 w-4 cursor-help" />
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

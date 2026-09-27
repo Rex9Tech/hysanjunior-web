@@ -235,7 +235,7 @@ export const AdminParentAssetSelect: React.FC<IAdminParentAssetSelectProps> = ({
                 placeholder={t(
                   AppLocales.Admin.Assets.Form.ParentAssetSearchPlaceholder,
                 )}
-                className="w-full bg-transparent border-0 text-sm focus:outline-none placeholder:text-base-content/40 text-base-content py-1"
+                className="w-full bg-transparent border-0 text-sm focus:outline-none placeholder:text-base-content/40 text-base-content py-1 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
               />
               {searchQuery && (
                 <button

@@ -21,6 +21,7 @@ class ProductService {
         ? {
             page: params.page,
             limit: params.limit,
+            search: params.search,
             sort_by: params.sort_by,
             sort_order: params.sort_order,
           }
@@ -47,6 +48,7 @@ class ProductService {
       {
         page: params?.page,
         limit: params?.limit,
+        search: params?.search,
         sort_by: params?.sort_by,
         sort_order: params?.sort_order,
         discarded: "true",

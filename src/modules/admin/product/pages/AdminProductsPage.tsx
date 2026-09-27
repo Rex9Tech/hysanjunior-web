@@ -13,7 +13,7 @@ import {
 } from "../../../../hooks";
 import type { IApiPagination } from "../../../../models";
 import { iconsLib } from "../../../../assets";
-import { Button, StatusBadge } from "../../../../design";
+import { Button, SearchInput, StatusBadge } from "../../../../design";
 import type { IAdminProduct } from "../types";
 import ProductController from "../product.controller";
 import {
@@ -70,6 +70,8 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
+  const searchQuery = searchParams.get("search") || "";
+  const [searchInput, setSearchInput] = useState(searchQuery);
 
   const { sortBy, sortOrder, handleSort } = useSort({
     defaultSortBy:
@@ -92,13 +94,18 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
   } | null>(null);
 
   const updateFilters = useCallback(
-    (updates: { page?: number }) => {
+    (updates: { page?: number; search?: string }) => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
           if (updates.page !== undefined) {
             if (updates.page > 1) next.set("page", updates.page.toString());
             else next.delete("page");
+          }
+          if (updates.search !== undefined) {
+            if (updates.search.trim())
+              next.set("search", updates.search.trim());
+            else next.delete("search");
           }
           return next;
         },
@@ -107,6 +114,22 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
     },
     [setSearchParams],
   );
+
+  // Keep local search input in sync if URL search param changes externally
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => setSearchInput(searchQuery), 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  // Debounce search input by 300ms before updating URL and querying API
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchInput.trim() !== searchQuery) {
+        updateFilters({ search: searchInput.trim(), page: 1 });
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput, searchQuery, updateFilters]);
 
   const loadProducts = useCallback(async () => {
     if (!can(ADMIN_ACTIONS.READ, ADMIN_RESOURCES.PRODUCTS)) return;
@@ -119,12 +142,14 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
         ? await ProductController.getProducts({
             page,
             limit: ADMIN_PAGE_SIZE,
+            search: searchQuery.trim() || undefined,
             sort_by: sortBy,
             sort_order: sortOrder,
           })
         : await ProductController.getDiscardedProducts({
             page,
             limit: ADMIN_PAGE_SIZE,
+            search: searchQuery.trim() || undefined,
             sort_by: sortBy,
             sort_order: sortOrder,
           });
@@ -136,7 +161,7 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
       setError(result.error || t(AppLocales.Admin.Products.Errors.LoadList));
     }
     setLoading(false);
-  }, [can, page, setLoading, sortBy, sortOrder, t, view]);
+  }, [can, page, searchQuery, setLoading, sortBy, sortOrder, t, view]);
 
   useEffect(() => {
     if (permissionsLoading) return;
@@ -313,39 +338,55 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
           ) : null
         }
       >
-        {can(ADMIN_ACTIONS.DELETE, ADMIN_RESOURCES.PRODUCTS) && (
-          <Tabs
-            value={view}
-            onChange={(tab) => {
-              navigate(
-                tab === ADMIN_VIEW_MODES.ACTIVE
-                  ? AppRoutes.client.protected.admin.PRODUCTS
-                  : AppRoutes.client.protected.admin.PRODUCTS_RECYCLE_BIN,
-              );
-              updateFilters({ page: 1 });
-            }}
-            items={[
-              {
-                value: ADMIN_VIEW_MODES.ACTIVE,
-                label: t(AppLocales.Admin.Products.Tabs.ActiveProducts),
-                icon: iconsLib.sparkles,
-                count:
-                  view === ADMIN_VIEW_MODES.ACTIVE
-                    ? pagination?.total_count
-                    : undefined,
-              },
-              {
-                value: ADMIN_VIEW_MODES.DISCARDED,
-                label: t(AppLocales.Admin.Products.Tabs.RecycleBin),
-                icon: iconsLib.trash,
-                count:
-                  view === ADMIN_VIEW_MODES.DISCARDED
-                    ? pagination?.total_count
-                    : undefined,
-              },
-            ]}
-          />
-        )}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          {can(ADMIN_ACTIONS.DELETE, ADMIN_RESOURCES.PRODUCTS) ? (
+            <Tabs
+              value={view}
+              onChange={(tab) => {
+                navigate(
+                  tab === ADMIN_VIEW_MODES.ACTIVE
+                    ? AppRoutes.client.protected.admin.PRODUCTS
+                    : AppRoutes.client.protected.admin.PRODUCTS_RECYCLE_BIN,
+                );
+                updateFilters({ page: 1 });
+              }}
+              items={[
+                {
+                  value: ADMIN_VIEW_MODES.ACTIVE,
+                  label: t(AppLocales.Admin.Products.Tabs.ActiveProducts),
+                  icon: iconsLib.sparkles,
+                  count:
+                    view === ADMIN_VIEW_MODES.ACTIVE
+                      ? pagination?.total_count
+                      : undefined,
+                },
+                {
+                  value: ADMIN_VIEW_MODES.DISCARDED,
+                  label: t(AppLocales.Admin.Products.Tabs.RecycleBin),
+                  icon: iconsLib.trash,
+                  count:
+                    view === ADMIN_VIEW_MODES.DISCARDED
+                      ? pagination?.total_count
+                      : undefined,
+                },
+              ]}
+            />
+          ) : (
+            <div />
+          )}
+          <div className="w-full sm:w-72">
+            <SearchInput
+              placeholder={t(AppLocales.Admin.Products.SearchPlaceholder)}
+              searchableKeys={[
+                t(AppLocales.Admin.Products.Table.Product),
+                t(AppLocales.Admin.Products.Table.Code),
+              ]}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onClear={() => setSearchInput("")}
+            />
+          </div>
+        </div>
       </PageHeader>
 
       {/* Table & States */}

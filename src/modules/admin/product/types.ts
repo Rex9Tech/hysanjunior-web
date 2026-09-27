@@ -43,6 +43,7 @@ export interface IAdminProductFormValues {
 export interface IAdminProductListParams {
   page?: number;
   limit?: number;
+  search?: string;
   sort_by?: string;
   sort_order?: TSortOrder;
 }
