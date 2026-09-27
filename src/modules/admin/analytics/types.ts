@@ -10,8 +10,8 @@ export interface IAnalyticsKpis {
   period_revenue: number;
   revenue_delta_pct: number;
 
-  period_transactions: number;
-  transactions_delta_pct: number;
+  period_purchases: number;
+  purchases_delta_pct: number;
 
   active_subscriptions: number;
 
@@ -35,7 +35,7 @@ export interface IAnalyticsTimeSeriesPoint {
   key: string;
   revenue: number;
   discounts?: number;
-  transactions: number;
+  purchases: number;
   new_users: number;
   user_messages: number;
   ai_messages: number;

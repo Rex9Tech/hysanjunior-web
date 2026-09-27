@@ -17,11 +17,11 @@ import {
 } from "../../components";
 import { useAdminDetail } from "../../hooks/useAdminDetail";
 import PaymentController from "../payment.controller";
-import type { IAdminTransaction } from "../types";
+import type { IAdminPurchase } from "../types";
 
 const load = async (id: string) => {
-  const result = await PaymentController.getTransaction(id);
-  return { ...result, record: result.transaction };
+  const result = await PaymentController.getPurchase(id);
+  return { ...result, record: result.purchase };
 };
 const amount = (value: number, currency: string) =>
   new Intl.NumberFormat(undefined, {
@@ -29,11 +29,11 @@ const amount = (value: number, currency: string) =>
     currency: currency.toUpperCase(),
   }).format(value / 100);
 
-export const AdminTransactionDetailPage: React.FC = () => {
+export const AdminPurchaseDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const t = useTranslate();
-  const { record, error } = useAdminDetail<IAdminTransaction>(id, load);
-  const list = AppRoutes.client.protected.admin.TRANSACTIONS;
+  const { record, error } = useAdminDetail<IAdminPurchase>(id, load);
+  const list = AppRoutes.client.protected.admin.PURCHASES;
   return (
     <div className="space-y-6">
       <DetailHeader
@@ -42,14 +42,14 @@ export const AdminTransactionDetailPage: React.FC = () => {
             label: t(AppLocales.Admin.Common.Detail.Admin),
             to: AppRoutes.client.protected.admin.HOME,
           },
-          { label: t(AppLocales.Admin.Transactions.Title), to: list },
+          { label: t(AppLocales.Admin.Purchases.Title), to: list },
           {
             label:
               record?.product_name || t(AppLocales.Admin.Common.Detail.Details),
           },
         ]}
-        title={record?.product_name || t(AppLocales.Admin.Transactions.Detail.Title)}
-        description={record?.user_email || t(AppLocales.Admin.Transactions.Detail.Description)}
+        title={record?.product_name || t(AppLocales.Admin.Purchases.Detail.Title)}
+        description={record?.user_email || t(AppLocales.Admin.Purchases.Detail.Description)}
         backTo={list}
         icon={iconsLib.banknotes}
         statusBadge={record ? <StatusBadge status={record.status} /> : undefined}
@@ -70,13 +70,13 @@ export const AdminTransactionDetailPage: React.FC = () => {
       ) : record ? (
         <div className="grid gap-6 lg:grid-cols-2">
           <DetailSection
-            title={t(AppLocales.Admin.Transactions.Detail.Purchase)}
+            title={t(AppLocales.Admin.Purchases.Detail.Purchase)}
             icon={iconsLib.banknotes}
             accent
           >
             <DetailGrid columns={2}>
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Table.Amount)}
+                label={t(AppLocales.Admin.Purchases.Table.Amount)}
                 value={amount(record.unit_amount, record.currency)}
               />
               <DetailField
@@ -84,11 +84,11 @@ export const AdminTransactionDetailPage: React.FC = () => {
                 value={<StatusBadge status={record.status} />}
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.Product)}
+                label={t(AppLocales.Admin.Purchases.Detail.Product)}
                 value={record.product_name}
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.ProductCode)}
+                label={t(AppLocales.Admin.Purchases.Detail.ProductCode)}
                 value={record.product_code}
                 copyable
                 mono
@@ -103,7 +103,7 @@ export const AdminTransactionDetailPage: React.FC = () => {
                 }
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.PaidAt)}
+                label={t(AppLocales.Admin.Purchases.Detail.PaidAt)}
                 value={
                   record.paid_at ? (
                     <DateTime
@@ -118,12 +118,12 @@ export const AdminTransactionDetailPage: React.FC = () => {
             </DetailGrid>
           </DetailSection>
           <DetailSection
-            title={t(AppLocales.Admin.Transactions.Detail.Payment)}
+            title={t(AppLocales.Admin.Purchases.Detail.Payment)}
             icon={iconsLib.banknotes}
           >
             <DetailGrid>
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.User)}
+                label={t(AppLocales.Admin.Purchases.Detail.User)}
                 value={record.user_name || record.username}
               />
               <DetailField
@@ -131,16 +131,16 @@ export const AdminTransactionDetailPage: React.FC = () => {
                 value={record.user_email}
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.PaymentMethod)}
+                label={t(AppLocales.Admin.Purchases.Detail.PaymentMethod)}
                 value={record.payment_method_display}
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.PaymentIntent)}
+                label={t(AppLocales.Admin.Purchases.Detail.PaymentIntent)}
                 value={record.stripe_payment_intent_id}
                 className="sm:col-span-2"
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.Charge)}
+                label={t(AppLocales.Admin.Purchases.Detail.Charge)}
                 value={record.stripe_charge_id}
               />
             </DetailGrid>
@@ -189,3 +189,5 @@ export const AdminTransactionDetailPage: React.FC = () => {
     </div>
   );
 };
+
+export default AdminPurchaseDetailPage;

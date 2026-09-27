@@ -3,10 +3,10 @@ import { getApiError, parsePagyList, parseRecord } from "../../../services/api.s
 import PaymentService from "./payment.service";
 import type {
   IAdminCouponFilters,
+  IAdminPurchase,
+  IAdminPurchaseFilters,
   IAdminSubscription,
   IAdminSubscriptionFilters,
-  IAdminTransaction,
-  IAdminTransactionFilters,
   IAdminUserCouponFilters,
   IBatchCreateCouponPayload,
   ICreateCouponPayload,
@@ -14,29 +14,29 @@ import type {
 import type { ICoupon, IUserCoupon } from "../../payment/types";
 
 class PaymentController {
-  async getTransactions(params?: IAdminTransactionFilters) {
-    const response = await PaymentService.getTransactions(params);
+  async getPurchases(params?: IAdminPurchaseFilters) {
+    const response = await PaymentService.getPurchases(params);
     if (response.data?.status?.success) {
       const { records, pagination } =
-        parsePagyList<IAdminTransaction>(response);
-      return { success: true as const, transactions: records, pagination };
+        parsePagyList<IAdminPurchase>(response);
+      return { success: true as const, purchases: records, pagination };
     }
     return {
       success: false as const,
-      transactions: [],
+      purchases: [],
       pagination: null as IApiPagination | null,
-      error: getApiError(response, "Failed to load transactions"),
+      error: getApiError(response, "Failed to load purchases"),
     };
   }
 
-  async getTransaction(id: string) {
-    const response = await PaymentService.getTransaction(id);
+  async getPurchase(id: string) {
+    const response = await PaymentService.getPurchase(id);
     const body = response.data?.data;
     return response.data?.status?.success && body
-      ? { success: true as const, transaction: parseRecord<IAdminTransaction>(body as unknown as IAdminTransaction) }
+      ? { success: true as const, purchase: parseRecord<IAdminPurchase>(body as unknown as IAdminPurchase) }
       : {
           success: false as const,
-          error: getApiError(response, "Failed to load transaction"),
+          error: getApiError(response, "Failed to load purchase"),
         };
   }
 

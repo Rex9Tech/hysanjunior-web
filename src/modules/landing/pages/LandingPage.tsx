@@ -11,6 +11,7 @@ import {
   TestimonialCard,
   ContactForm,
   SponsorCard,
+  CandleQuoteCard,
   DoctrineCard,
 } from "../components";
 import { Button } from "../../../design/components/button";
@@ -195,7 +196,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
           <p className="text-sm sm:text-base text-base-content/90 max-w-2xl mx-auto leading-relaxed font-primary">
             The sovereign product foundation and architectural constitution for
             humans and AI coding agents. Forging clean, disciplined ground where
-            clarity meets code, and simplicity meets soul. 🛡️✨
+            clarity meets code, and <br /> simplicity meets soul. 🛡️✨
           </p>
           <p className="text-xs sm:text-sm text-base-content/70 italic font-primary">
             No journey is walked alone. Let&apos;s conquer greatness &amp;
@@ -339,8 +340,8 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 <p className="text-xs sm:text-sm text-base-content/75 leading-relaxed">
                   Unlike commercial boilerplates charging $300–$800 for basic
                   auth or gating features behind &ldquo;pro tiers&rdquo;, RexOne
-                  is 100% free, MIT/open, and sovereign. You own your code,
-                  data, and destiny.
+                  is 100% free, Apache 2.0 open-source, and sovereign. You own
+                  your code, data, and destiny.
                 </p>
               </div>
             </div>
@@ -429,8 +430,9 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             </p>
           </div>
 
-          <div className="flex justify-center items-center px-4">
+          <div className="flex flex-col items-center justify-center gap-6 px-4">
             <SponsorCard />
+            <CandleQuoteCard />
           </div>
         </section>
 

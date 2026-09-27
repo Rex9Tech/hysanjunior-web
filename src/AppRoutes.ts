@@ -69,8 +69,8 @@ class AppRoutes {
         PRODUCTS_RECYCLE_BIN: AppRoutes.admin("/products/bin"),
         PRODUCT_CREATE: AppRoutes.admin("/products/create"),
         PRODUCT_EDIT: AppRoutes.admin("/products/:id/edit"),
-        TRANSACTIONS: AppRoutes.admin("/transactions"),
-        TRANSACTION_DETAIL: AppRoutes.admin("/transactions/:id"),
+        PURCHASES: AppRoutes.admin("/purchases"),
+        PURCHASE_DETAIL: AppRoutes.admin("/purchases/:id"),
         SUBSCRIPTIONS: AppRoutes.admin("/subscriptions"),
         SUBSCRIPTION_DETAIL: AppRoutes.admin("/subscriptions/:id"),
         COUPONS: AppRoutes.admin("/coupons"),
@@ -172,7 +172,7 @@ class AppRoutes {
       PAYMENT_SUBSCRIPTION_RESUME: AppRoutes.api(
         "/payment/subscriptions/:id/resume",
       ), // POST
-      PAYMENT_TRANSACTIONS: AppRoutes.api("/payment/transactions"), // GET
+      PAYMENT_PURCHASES: AppRoutes.api("/payment/purchases"), // GET
       PAYMENT_COUPONS_VALIDATE: AppRoutes.api("/payment/coupons/validate"), // POST
 
       // Chat
@@ -253,9 +253,9 @@ class AppRoutes {
         PAYMENT_PRODUCT_UNDISCARD: AppRoutes.adminApi(
           "/payment/products/:id/undiscard",
         ), // POST
-        PAYMENT_TRANSACTIONS: AppRoutes.adminApi("/payment/transactions"), // GET
-        PAYMENT_TRANSACTION_DETAIL: AppRoutes.adminApi(
-          "/payment/transactions/:id",
+        PAYMENT_PURCHASES: AppRoutes.adminApi("/payment/purchases"), // GET
+        PAYMENT_PURCHASE_DETAIL: AppRoutes.adminApi(
+          "/payment/purchases/:id",
         ), // GET
         PAYMENT_SUBSCRIPTIONS: AppRoutes.adminApi("/payment/subscriptions"), // GET
         PAYMENT_SUBSCRIPTION_DETAIL: AppRoutes.adminApi(

@@ -4,8 +4,8 @@ import PaymentService from "./payment.service";
 
 vi.mock("./payment.service", () => ({
   default: {
-    getTransactions: vi.fn(),
-    getTransaction: vi.fn(),
+    getPurchases: vi.fn(),
+    getPurchase: vi.fn(),
     getSubscriptions: vi.fn(),
     getSubscription: vi.fn(),
     createBatchCoupons: vi.fn(),
@@ -36,17 +36,17 @@ const listResponse = {
 describe("AdminPaymentController", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it("parses the admin transaction collection", async () => {
-    vi.mocked(PaymentService.getTransactions).mockResolvedValue(listResponse as never);
-    const result = await PaymentController.getTransactions({ page: 1 });
+  it("parses the admin purchase collection", async () => {
+    vi.mocked(PaymentService.getPurchases).mockResolvedValue(listResponse as never);
+    const result = await PaymentController.getPurchases({ page: 1 });
     expect(result.success).toBe(true);
-    expect(result.transactions).toEqual([{ id: "record-1" }]);
+    expect(result.purchases).toEqual([{ id: "record-1" }]);
   });
 
-  it("parses a transaction detail", async () => {
-    vi.mocked(PaymentService.getTransaction).mockResolvedValue({ data: { status: { success: true }, data: item } } as never);
-    const result = await PaymentController.getTransaction("record-1");
-    expect(result.transaction).toEqual({ id: "record-1" });
+  it("parses a purchase detail", async () => {
+    vi.mocked(PaymentService.getPurchase).mockResolvedValue({ data: { status: { success: true }, data: item } } as never);
+    const result = await PaymentController.getPurchase("record-1");
+    expect(result.purchase).toEqual({ id: "record-1" });
   });
 
   it("parses the admin subscription collection", async () => {

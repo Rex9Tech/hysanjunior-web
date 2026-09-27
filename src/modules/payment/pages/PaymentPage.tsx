@@ -8,7 +8,7 @@ import {
   BadgeVariants,
   ComponentSizes,
 } from "../../../design/constants";
-import { IAccess, IProduct, ISubscription, ITransaction } from "..";
+import { IAccess, IProduct, ISubscription, IPurchase } from "..";
 import { PaymentController } from "..";
 import { CheckoutDialog } from "../components";
 import { AnalyticsService } from "../../../services";
@@ -22,7 +22,7 @@ export const PaymentPage: React.FC = () => {
   const { success, error } = useToast();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
-  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+  const [purchases, setPurchases] = useState<IPurchase[]>([]);
   const [accesses, setAccesses] = useState<IAccess[]>([]);
   const [cancelTargetId, setCancelTargetId] = useState<string | null>(null);
   const [checkoutProduct, setCheckoutProduct] = useState<IProduct | null>(null);
@@ -30,11 +30,11 @@ export const PaymentPage: React.FC = () => {
 
   const fetchData = React.useCallback(async () => {
     setLoading(true);
-    const [productsResult, subscriptionsResult, transactionsResult, accessesResult] =
+    const [productsResult, subscriptionsResult, purchasesResult, accessesResult] =
       await Promise.all([
         PaymentController.getProducts(),
         PaymentController.getSubscriptions(),
-        PaymentController.getTransactions(),
+        PaymentController.getPurchases(),
         PaymentController.getActiveAccesses(),
       ]);
 
@@ -51,8 +51,8 @@ export const PaymentPage: React.FC = () => {
       setSubscriptions(subscriptionsResult.subscriptions);
     }
 
-    if (transactionsResult.success && transactionsResult.transactions) {
-      setTransactions(transactionsResult.transactions);
+    if (purchasesResult.success && purchasesResult.purchases) {
+      setPurchases(purchasesResult.purchases);
     }
 
     if (accessesResult.success && accessesResult.accesses) {
@@ -119,7 +119,7 @@ export const PaymentPage: React.FC = () => {
   };
 
   const getPurchaseCount = (productId: string) => {
-    return transactions.filter((t) => t.product_id === productId && t.paid)
+    return purchases.filter((t) => t.product_id === productId && t.paid)
       .length;
   };
 

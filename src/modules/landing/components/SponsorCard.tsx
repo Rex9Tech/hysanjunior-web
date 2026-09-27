@@ -111,6 +111,26 @@ export const SponsorCard: React.FC<ISponsorCardProps> = ({
             <span>Complete Rails, React & Flutter Trinity</span>
           </div>
         </div>
+
+        {/* Loving-Kindness Quote */}
+        <blockquote className="p-3.5 sm:p-4 rounded-xl border border-primary/30 bg-primary/5 text-xs sm:text-sm text-base-content/85 italic leading-relaxed space-y-2">
+          <p>
+            &ldquo;I&apos;m not a wealthy founder or a venture-backed company ~
+            I&apos;m just an independent developer and meditator who built RexOne
+            with my own hands. I could have easily closed-sourced this enterprise
+            foundation or charged $800+ behind a commercial paywall. Instead, out
+            of pure loving-kindness (mettā) cultivated through my meditation
+            journey under Theravada Buddhist teachings, I chose to gift RexOne
+            100% free and open-source under Apache 2.0 to empower builders,
+            indie hackers, and learners worldwide.
+          </p>
+          <p>
+            If this foundation saves you months of engineering, please kindly
+            return the loving-kindness: sponsor on GitHub and star the
+            repositories. Thank you so much for your generosity and kindness.
+            🙏&rdquo;
+          </p>
+        </blockquote>
       </div>
 
       {/* CTA Footer */}

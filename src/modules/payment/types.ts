@@ -2,8 +2,9 @@ import type {
   TAccessStatus,
   TBillingInterval,
   TCouponType,
+  TPaymentType,
+  TPurchaseStatus,
   TSubscriptionStatus,
-  TTransactionStatus,
 } from "./constants";
 
 export interface IProduct {
@@ -92,14 +93,14 @@ export interface IPurchaseCoupon {
   currency: string;
 }
 
-export interface ITransaction {
+export interface IPurchase {
   id: string;
 
   stripe_payment_intent_id: string;
   stripe_charge_id: string | null;
   stripe_customer_id: string | null;
 
-  status: TTransactionStatus;
+  status: TPurchaseStatus;
 
   payment_method_id: string | null;
   payment_method_type: string | null;
@@ -195,7 +196,7 @@ export interface ICoupon {
   metadata?: Record<string, unknown> | null;
 }
 
-export type TPurchaseType = "trx" | "sbs";
+export type { TPaymentType } from "./constants";
 
 export interface IUserCoupon {
   id: string;
@@ -207,8 +208,8 @@ export interface IUserCoupon {
   user_email?: string;
   product_id: string;
   product_name?: string;
-  purchase_id: string;
-  purchase_type: TPurchaseType;
+  payment_id: string;
+  payment_type: TPaymentType;
   discount_amount: number;
   original_amount: number;
   final_amount: number;

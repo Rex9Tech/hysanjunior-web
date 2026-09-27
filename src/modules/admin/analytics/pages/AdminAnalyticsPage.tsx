@@ -135,7 +135,7 @@ export const AdminAnalyticsPage: React.FC = () => {
           icon={iconsLib.banknotes}
           subtitle={`All-time: $${kpis.total_revenue.toLocaleString()}`}
           onClick={() =>
-            navigate(AppRoutes.client.protected.admin.TRANSACTIONS)
+            navigate(AppRoutes.client.protected.admin.PURCHASES)
           }
         />
 
@@ -152,7 +152,7 @@ export const AdminAnalyticsPage: React.FC = () => {
           title={t(AppLocales.Admin.Nav.Items.Products)}
           value={kpis.active_subscriptions.toLocaleString()}
           icon={iconsLib.cube}
-          subtitle={`${kpis.period_transactions} ${t(AppLocales.Admin.Analytics.Kpis.ThisMonth)}`}
+          subtitle={`${kpis.period_purchases} ${t(AppLocales.Admin.Analytics.Kpis.ThisMonth)}`}
           onClick={() => navigate(AppRoutes.client.protected.admin.PRODUCTS)}
         />
 

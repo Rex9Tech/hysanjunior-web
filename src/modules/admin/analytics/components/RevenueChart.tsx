@@ -28,7 +28,7 @@ export const RevenueChart: React.FC<IRevenueChartProps> = ({
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-body-m font-semibold text-base-content">
-            Revenue & Paid Transactions
+            Revenue & Paid Purchases
           </h3>
           <p className="text-caption text-base-content opacity-60">
             Gross revenue generated over the selected time range
@@ -89,8 +89,8 @@ export const RevenueChart: React.FC<IRevenueChartProps> = ({
                         </p>
                       ) : null}
                       <p className="text-caption text-base-content opacity-70">
-                        {item.transactions} transaction
-                        {item.transactions === 1 ? "" : "s"}
+                        {item.purchases} purchase
+                        {item.purchases === 1 ? "" : "s"}
                       </p>
                     </div>
                   );

@@ -29,13 +29,13 @@ Built under the same creed as RexOne Core: **Start from One. Not from Zero. Clea
 
 ### 🏛️ Unified Ecosystem & Constitutional Directives
 
-| Resource | Purpose & Canonical Specification |
-| :--- | :--- |
-| **🏛️ Unified Ecosystem** | Complete cross-platform architecture, feature parity matrix, and communication protocols across Core, Web, and Mobile: **[Ecosystem Architecture](https://github.com/rex-9/rexone-core/blob/dev/ECOSYSTEM.md)** and **[Visual Walkthrough](https://github.com/rex-9/rexone-core/blob/dev/docs/VISUAL_WALKTHROUGH.md)** |
-| **📜 Constitutional Law** | Non-negotiable architecture, design system, and state laws: **[LAW.md](LAW.md)** *(Zero exceptions)* |
-| **🤖 Operational Agent Governance** | Autonomous agent rules, secret isolation, and documentation synchronization: **[AGENTS.md](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md)** |
-| **🌐 AI Discovery & GEO** | Generative Engine Optimization, crawler allowlists, and LLM context files: **[AI Discovery & GEO Guide](docs/SEO_GEO.md)** |
-| **🌍 Global Webmaster & Registry** | Google Search Console, Bing, Yandex, Naver, IndexNow, and developer catalogs: **[Worldwide Registration Guide](docs/WORLDWIDE_REGISTRATION.md)** |
+| Resource                            | Purpose & Canonical Specification                                                                                                                                                                                                                                                                                      |
+| :---------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🏛️ Unified Ecosystem**            | Complete cross-platform architecture, feature parity matrix, and communication protocols across Core, Web, and Mobile: **[Ecosystem Architecture](https://github.com/rex-9/rexone-core/blob/dev/ECOSYSTEM.md)** and **[Visual Walkthrough](https://github.com/rex-9/rexone-core/blob/dev/docs/VISUAL_WALKTHROUGH.md)** |
+| **📜 Constitutional Law**           | Non-negotiable architecture, design system, and state laws: **[LAW.md](LAW.md)** _(Zero exceptions)_                                                                                                                                                                                                                   |
+| **🤖 Operational Agent Governance** | Autonomous agent rules, secret isolation, and documentation synchronization: **[AGENTS.md](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md)**                                                                                                                                                                  |
+| **🌐 AI Discovery & GEO**           | Generative Engine Optimization, crawler allowlists, and LLM context files: **[AI Discovery & GEO Guide](docs/SEO_GEO.md)**                                                                                                                                                                                             |
+| **🌍 Global Webmaster & Registry**  | Google Search Console, Bing, Yandex, Naver, IndexNow, and developer catalogs: **[Worldwide Registration Guide](docs/WORLDWIDE_REGISTRATION.md)**                                                                                                                                                                       |
 
 ---
 
@@ -53,30 +53,32 @@ Instead of burning money and compute wasting AI tokens on weak, inconsistent fro
 
 RexOne Web pioneers **Discipline-Driven Development (DDD)** for client-side applications. In an era where AI agents can generate hundreds of React components in seconds, the bottleneck is never component generation—it is **preventing chaotic state corruption, brittle DOM hacks, and architectural rot**.
 
-> *You bring the idea. AI writes the code. RexOne keeps both of you from destroying the foundation.*
+> _You bring the idea. AI writes the code. RexOne keeps both of you from destroying the foundation._
 
 #### Fearless Frontend Realities Others Hesitate to Reveal:
+
 1. **The Frontend AI Vibe-Coding Mess**: An unguided AI agent will gladly dump raw `fetch()` calls inside UI buttons, invent duplicate state atoms, or tangle business logic into JSX. Within 3 prompts, your context window is hopelessly corrupted. Discipline-Driven Development enforces strict boundaries: UI components own presentation, controllers coordinate outcomes, services handle transport, and models define contracts.
 2. **The "Full-Stack Server Framework" Quagmire**: Cramming API routing, database queries, background tasks, and client hydration into a single node runtime produces fragile houses of cards where a minor framework update breaks production auth and SSR rendering. True engineering enforces client-server separation: an API-first backend (Rails 8) and a sovereign client-first web portal (React 19).
 3. **Zero Deprecation Shims & Zombie Code**: Retaining dead code, backwards-compatibility shims, or duplicate props is cowardice. Under Constitutional Law U14, when a contract is superseded, the old code is wiped out completely.
-4. **100% Free Sovereignty**: Unlike commercial boilerplates that charge $300–$800 for basic auth or lock RBAC behind "pro tiers", RexOne Web is 100% free, MIT/open, and sovereign.
+4. **100% Free Sovereignty**: Unlike commercial boilerplates that charge $300–$800 for basic auth or lock RBAC behind "pro tiers", RexOne Web is 100% free, Apache 2.0 open-source, and sovereign.
 
 ### 📊 Architectural Comparison: Why RexOne Wins
 
-| Dimension / Capability | 🛡️ **RexOne Sovereign Trinity** | 📦 **Next.js Full-Stack Boilerplates** | 🔥 **Firebase / Cloud Serverless** | 🪤 **Supabase / BaaS Starter Kits** | 🚂 **Rails & Laravel Monoliths** |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Architectural Model** | ✅ **Sovereign Tri-Platform**: Rails 8 API + React 19 SPA + pure Flutter 3 native client | ❌ **Node Monolith**: API, DB, jobs & DOM crammed into 1 fragile runtime | ❌ **Serverless Spaghetti**: Disconnected Cloud Functions + NoSQL Firestore | ⚠️ **Client-Heavy BaaS**: Direct client DB queries + scattered edge functions | ⚠️ **HTML Monolith**: Server-rendered HTML with Turbo/Livewire |
-| **Native Mobile App** | ✅ **Native 60fps Flutter**: Shared contracts, biometrics, hardware media & push | ❌ **None or Webview Shell**: Sluggish Capacitor/Cordova wrapper | ⚠️ **Fragmented SDKs**: Direct NoSQL queries from mobile with zero encapsulation | ⚠️ **Raw Client SDK**: Mobile apps directly expose database tables via client key | ⚠️ **Turbo / Webview**: Web pages wrapped in a native navigation shell |
-| **Offline-First Durability** | ✅ **Drift SQLite (`rexone_offline`)**: Schema mirroring, offline subtitles & AES-256 saves | ❌ **None**: Application breaks entirely on network disconnect | ⚠️ **Flaky Document Cache**: Primitive document cache prone to sync desync | ⚠️ **No Relational Offline**: Unreliable offline sync across foreign keys | ❌ **None**: Server-rendered pages require constant connectivity |
-| **Database Integrity** | ✅ **Strict Relational PostgreSQL**: Foreign keys, ACID, UUIDs, soft-deletes | ⚠️ **ORM Inconsistencies**: Serverless connection pool limits on Prisma/Drizzle | ❌ **NoSQL Hell**: No joins, no cascading deletes, data duplication nightmare | ✅ **PostgreSQL**: Relational integrity via managed Postgres instance | ✅ **PostgreSQL / MySQL**: Mature relational ORM (ActiveRecord / Eloquent) |
-| **Background Processing** | ✅ **Solid Queue (Fibers + Threads)**: Workload pooling, recurring cron, zero Redis costs | ❌ **Serverless Timeouts**: Forced into third-party Inngest, QStash, or Celery ($$$) | ❌ **Execution Timeouts**: Severe execution limits, cold starts & high invocation bills | ⚠️ **Edge Functions**: Strict 10s CPU limits, no persistent background workers | ⚠️ **Redis Dependency**: Requires external Redis broker & extra hosting RAM |
-| **Real-Time Delivery** | ✅ **Native Action Cable**: Persistent WebSockets, auto-reconnect & binary STT/TTS | ❌ **Broken on Serverless**: Forced into expensive Pusher / Ably tiers ($$$) | ⚠️ **Firestore Listeners**: Pay-per-document-read billing nightmare under active polling | ⚠️ **Supabase Realtime**: Row-level broadcast, high connection pricing tiers | ⚠️ **External Broker**: Requires Redis/Reverb/Soketi daemon configuration |
-| **Object Storage** | ✅ **Self-Hosted Garage S3**: High-performance local S3, zero egress bills | ❌ **Vendor Cloud**: AWS S3 / Cloudflare R2 egress fees | ❌ **Google Cloud Storage**: Proprietary bucket pricing & steep download egress fees | ⚠️ **Proprietary Storage**: Vendor-locked BaaS pricing ladders | ⚠️ **ActiveStorage / Flysystem**: Tied to third-party cloud S3 bucket bills |
-| **AI Workflows & Speech** | ✅ **Durable Queued AI**: Chunked streaming, 16kHz live STT, binary MP3 TTS | ⚠️ **Edge Timeouts**: LLM streams crash on cold starts or Vercel limits | ❌ **Synchronous Timeouts**: Long-running LLM inferences hit function deadlines | ❌ **Client Leaks**: Client-side API keys or basic Edge Function calls | ⚠️ **Basic Wrappers**: Simple synchronous chat endpoints |
-| **Anti-Vibe Governance** | ✅ **Constitutional Law (`LAW.md`)**: Laws U14/U15 stop AI tech debt and zombie code | ❌ **Unguided Vibe-Coding**: Fragile abstractions, dead shims & runaway debt | ❌ **Scattered Cloud Logic**: Code fragmented across dozens of uncoordinated functions | ❌ **RLS Spaghetti**: 100+ line SQL security policies prone to data leaks | ⚠️ **Conventions Only**: No explicit constitutional AI agent rules |
-| **Cost & Sovereignty** | ✅ **100% Free & Open (MIT)**: Zero paywalls, zero "Pro" upsells, sovereign VPS deploy | ❌ **$199–$499 Paid License**: Features gated behind tier paywalls | ❌ **Google Vendor Trap**: Massive cloud bills as user volume scales ($5k–$20k/mo) | ❌ **Monthly Cloud Lock-in**: Free tier lulls you into $5,000/mo hostage bill | ❌ **$299–$799 Paid License**: Commercial starter kit paywalls (Jumpstart, Spark) |
+| Dimension / Capability       | 🛡️ **RexOne Sovereign Trinity**                                                               | 📦 **Next.js Full-Stack Boilerplates**                                               | 🔥 **Firebase / Cloud Serverless**                                                       | 🪤 **Supabase / BaaS Starter Kits**                                               | 🚂 **Rails & Laravel Monoliths**                                                  |
+| :--------------------------- | :-------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| **Architectural Model**      | ✅ **Sovereign Tri-Platform**: Rails 8 API + React 19 SPA + pure Flutter 3 native client      | ❌ **Node Monolith**: API, DB, jobs & DOM crammed into 1 fragile runtime             | ❌ **Serverless Spaghetti**: Disconnected Cloud Functions + NoSQL Firestore              | ⚠️ **Client-Heavy BaaS**: Direct client DB queries + scattered edge functions     | ⚠️ **HTML Monolith**: Server-rendered HTML with Turbo/Livewire                    |
+| **Native Mobile App**        | ✅ **Native 60fps Flutter**: Shared contracts, biometrics, hardware media & push              | ❌ **None or Webview Shell**: Sluggish Capacitor/Cordova wrapper                     | ⚠️ **Fragmented SDKs**: Direct NoSQL queries from mobile with zero encapsulation         | ⚠️ **Raw Client SDK**: Mobile apps directly expose database tables via client key | ⚠️ **Turbo / Webview**: Web pages wrapped in a native navigation shell            |
+| **Offline-First Durability** | ✅ **Drift SQLite (`rexone_offline`)**: Schema mirroring, offline subtitles & AES-256 saves   | ❌ **None**: Application breaks entirely on network disconnect                       | ⚠️ **Flaky Document Cache**: Primitive document cache prone to sync desync               | ⚠️ **No Relational Offline**: Unreliable offline sync across foreign keys         | ❌ **None**: Server-rendered pages require constant connectivity                  |
+| **Database Integrity**       | ✅ **Strict Relational PostgreSQL**: Foreign keys, ACID, UUIDs, soft-deletes                  | ⚠️ **ORM Inconsistencies**: Serverless connection pool limits on Prisma/Drizzle      | ❌ **NoSQL Hell**: No joins, no cascading deletes, data duplication nightmare            | ✅ **PostgreSQL**: Relational integrity via managed Postgres instance             | ✅ **PostgreSQL / MySQL**: Mature relational ORM (ActiveRecord / Eloquent)        |
+| **Background Processing**    | ✅ **Solid Queue (Fibers + Threads)**: Workload pooling, recurring cron, zero Redis costs     | ❌ **Serverless Timeouts**: Forced into third-party Inngest, QStash, or Celery ($$$) | ❌ **Execution Timeouts**: Severe execution limits, cold starts & high invocation bills  | ⚠️ **Edge Functions**: Strict 10s CPU limits, no persistent background workers    | ⚠️ **Redis Dependency**: Requires external Redis broker & extra hosting RAM       |
+| **Real-Time Delivery**       | ✅ **Native Action Cable**: Persistent WebSockets, auto-reconnect & binary STT/TTS            | ❌ **Broken on Serverless**: Forced into expensive Pusher / Ably tiers ($$$)         | ⚠️ **Firestore Listeners**: Pay-per-document-read billing nightmare under active polling | ⚠️ **Supabase Realtime**: Row-level broadcast, high connection pricing tiers      | ⚠️ **External Broker**: Requires Redis/Reverb/Soketi daemon configuration         |
+| **Object Storage**           | ✅ **Self-Hosted Garage S3**: High-performance local S3, zero egress bills                    | ❌ **Vendor Cloud**: AWS S3 / Cloudflare R2 egress fees                              | ❌ **Google Cloud Storage**: Proprietary bucket pricing & steep download egress fees     | ⚠️ **Proprietary Storage**: Vendor-locked BaaS pricing ladders                    | ⚠️ **ActiveStorage / Flysystem**: Tied to third-party cloud S3 bucket bills       |
+| **AI Workflows & Speech**    | ✅ **Durable Queued AI**: Chunked streaming, 16kHz live STT, binary MP3 TTS                   | ⚠️ **Edge Timeouts**: LLM streams crash on cold starts or Vercel limits              | ❌ **Synchronous Timeouts**: Long-running LLM inferences hit function deadlines          | ❌ **Client Leaks**: Client-side API keys or basic Edge Function calls            | ⚠️ **Basic Wrappers**: Simple synchronous chat endpoints                          |
+| **Anti-Vibe Governance**     | ✅ **Constitutional Law (`LAW.md`)**: Laws U14/U15 stop AI tech debt and zombie code          | ❌ **Unguided Vibe-Coding**: Fragile abstractions, dead shims & runaway debt         | ❌ **Scattered Cloud Logic**: Code fragmented across dozens of uncoordinated functions   | ❌ **RLS Spaghetti**: 100+ line SQL security policies prone to data leaks         | ⚠️ **Conventions Only**: No explicit constitutional AI agent rules                |
+| **Cost & Sovereignty**       | ✅ **100% Free & Open (Apache 2.0)**: Zero paywalls, zero "Pro" upsells, sovereign VPS deploy | ❌ **$199–$499 Paid License**: Features gated behind tier paywalls                   | ❌ **Google Vendor Trap**: Massive cloud bills as user volume scales ($5k–$20k/mo)       | ❌ **Monthly Cloud Lock-in**: Free tier lulls you into $5,000/mo hostage bill     | ❌ **$299–$799 Paid License**: Commercial starter kit paywalls (Jumpstart, Spark) |
 
 RexOne Web stops architectural decay before it starts:
+
 - **Server Frameworks on the Frontend Suck**: Clumsy server-rendered view hacks cannot match the fluid, state-aware responsiveness demanded by modern users. React 19 + TypeScript provides complete type safety, component modularity, and rich interactive control.
 - **Client-First Responsibility**: Routes, contexts, controllers, services, models, modules, and design primitives have strict, distinct responsibilities.
 - **The Foundation Bends Around the Product**: RexOne Web provides the customer-facing application shell and a complete operational Admin Portal (RBAC, users, products, coupons, feedback, client logs) backed by the same versioned API contracts.
@@ -124,25 +126,25 @@ It is to provide a **clear client foundation**—strong enough to carry ambitiou
 
 ## Feature map
 
-| Foundation    | What is ready                                                                                               | Details                                                |
-| ------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Identity      | Email/passcode flows, confirmation, recovery, Google sign-in, session expiry                                | [Authentication & security](#authentication--security) |
-| Navigation    | Public and protected routes with centralized route definitions                                              | [Routing & access](#routing--access)                   |
-| Design        | Reusable inputs (including DateTimePicker, NumberInput), buttons, dialogs, overlays, media, themes, and typography | [Design system](docs/DESIGN_SYSTEM.md)                 |
-| State         | React contexts, Jotai atoms, and deliberate browser persistence                                             | [State & application flow](#state--application-flow)   |
-| Commerce      | Product selection, Stripe Checkout handoff, success, and cancellation flows                                 | [Payments & entitlements](#payments--entitlements)     |
-| Media         | Real-time compression tracking, 10MB image / 100MB video uploads, thumbnails, progressive video/audio streaming with SRT subtitles and optimal badges | [Media & assets](#media--assets)                       |
-| Speech        | Binary MP3 streaming playback (`/v1/speech/tts`), chat TTS, and live audio recognition                      | [Speech & audio](#speech--audio)                       |
-| AI            | Non-blocking queued chat, durable history, live completion alerts, and language tools                       | [AI capabilities](#ai-capabilities)                    |
-| Real time     | Action Cable-compatible WebSocket lifecycle and reconnect handling                                          | [Real-time delivery](#real-time-delivery)              |
-| Localization  | English, Spanish, and Burmese resources with organized typed keys                                           | [Localization](#localization)                          |
-| Observability | React boundary, global browser capture, structured context, and Core API delivery                           | [Client observability](#client-observability)          |
-| Admin         | User (with confirmation status auditing), role, permission, product (with access inspection), chat, asset, and notification management with RBAC | [Administration](#administration--operational-consoles) |
-| Governance    | Constitutional Architecture (LAW.md) & AI Agent Operational Rules (AGENTS.md)                                | [LAW.md](LAW.md) · [AGENTS.md](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md) |
-| Testing (E2E) | 21 real user journey specs across 6 auth flows via Playwright Page Object Model                             | [End-to-End Testing](#end-to-end-testing-playwright)   |
-| AI & GEO      | llms.txt, llms-full.txt, East/West crawler robots.txt, Schema.org JSON-LD, sitemap                         | [AI Discovery & GEO](#ai-discovery--geo)               |
-| Quality       | TypeScript builds, ESLint, Vitest unit tests, Playwright, and production preview                            | [Quality toolchain](#quality-toolchain)                |
-| Delivery      | Vite production output and a Docker-based development environment                                           | [Delivery](#delivery)                                  |
+| Foundation    | What is ready                                                                                                                                         | Details                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Identity      | Email/passcode flows, confirmation, recovery, Google sign-in, session expiry                                                                          | [Authentication & security](#authentication--security)                                  |
+| Navigation    | Public and protected routes with centralized route definitions                                                                                        | [Routing & access](#routing--access)                                                    |
+| Design        | Reusable inputs (including DateTimePicker, NumberInput), buttons, dialogs, overlays, media, themes, and typography                                    | [Design system](docs/DESIGN_SYSTEM.md)                                                  |
+| State         | React contexts, Jotai atoms, and deliberate browser persistence                                                                                       | [State & application flow](#state--application-flow)                                    |
+| Commerce      | Product selection, Stripe Checkout handoff, success, and cancellation flows                                                                           | [Payments & entitlements](#payments--entitlements)                                      |
+| Media         | Real-time compression tracking, 10MB image / 100MB video uploads, thumbnails, progressive video/audio streaming with SRT subtitles and optimal badges | [Media & assets](#media--assets)                                                        |
+| Speech        | Binary MP3 streaming playback (`/v1/speech/tts`), chat TTS, and live audio recognition                                                                | [Speech & audio](#speech--audio)                                                        |
+| AI            | Non-blocking queued chat, durable history, live completion alerts, and language tools                                                                 | [AI capabilities](#ai-capabilities)                                                     |
+| Real time     | Action Cable-compatible WebSocket lifecycle and reconnect handling                                                                                    | [Real-time delivery](#real-time-delivery)                                               |
+| Localization  | English, Spanish, and Burmese resources with organized typed keys                                                                                     | [Localization](#localization)                                                           |
+| Observability | React boundary, global browser capture, structured context, and Core API delivery                                                                     | [Client observability](#client-observability)                                           |
+| Admin         | User (with confirmation status auditing), role, permission, product (with access inspection), chat, asset, and notification management with RBAC      | [Administration](#administration--operational-consoles)                                 |
+| Governance    | Constitutional Architecture (LAW.md) & AI Agent Operational Rules (AGENTS.md)                                                                         | [LAW.md](LAW.md) · [AGENTS.md](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md) |
+| Testing (E2E) | 21 real user journey specs across 6 auth flows via Playwright Page Object Model                                                                       | [End-to-End Testing](#end-to-end-testing-playwright)                                    |
+| AI & GEO      | llms.txt, llms-full.txt, East/West crawler robots.txt, Schema.org JSON-LD, sitemap                                                                    | [AI Discovery & GEO](#ai-discovery--geo)                                                |
+| Quality       | TypeScript builds, ESLint, Vitest unit tests, Playwright, and production preview                                                                      | [Quality toolchain](#quality-toolchain)                                                 |
+| Delivery      | Vite production output and a Docker-based development environment                                                                                     | [Delivery](#delivery)                                                                   |
 
 ## Architecture
 
@@ -234,6 +236,7 @@ The client provides a permission-governed operational administration portal (`sr
 ## ⚡ Quick Start
 
 ### Prerequisites
+
 - Node.js `22.13.0` or newer
 - npm `10` or newer
 - Running **[RexOne Core](https://github.com/rex-9/rexone-core)** API (`http://localhost:3000`)
@@ -272,14 +275,14 @@ npm run check:locales
 
 To maintain high architectural discipline without cluttering the primary showcase, exhaustive technical specifications, API contracts, and design tokens are organized in **[`docs/`](docs/)**:
 
-| Resource | Scope & Canonical Specification |
-| :--- | :--- |
-| **📖 Master Web Documentation Hub** | Architecture topology, admin workflows, and testing guide: **[`docs/README.md`](docs/README.md)** |
-| **🎨 Design System & Tokens** | DaisyUI 5 tokens, scarlet phosphor neon palette, and typography: **[`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)** |
-| **🌐 AI Discovery & GEO Guide** | Generative Engine Optimization, crawler allowlists, and JSON-LD: **[`docs/SEO_GEO.md`](docs/SEO_GEO.md)** |
-| **🚀 Production Deployment** | Vite production builds, Coolify Docker deployment, and Nginx proxy: **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)** |
-| **🛡️ Architecture Invariant Checks** | AST linter enforcing LAW.md (centralized keys, no raw cookies): **[`docs/ARCHITECTURE_CHECKS.md`](docs/ARCHITECTURE_CHECKS.md)** |
-| **🌍 Worldwide Webmaster Registry** | Search Console, Bing, Yandex, Naver, IndexNow, and catalogs: **[`docs/WORLDWIDE_REGISTRATION.md`](docs/WORLDWIDE_REGISTRATION.md)** |
+| Resource                             | Scope & Canonical Specification                                                                                                     |
+| :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| **📖 Master Web Documentation Hub**  | Architecture topology, admin workflows, and testing guide: **[`docs/README.md`](docs/README.md)**                                   |
+| **🎨 Design System & Tokens**        | DaisyUI 5 tokens, scarlet phosphor neon palette, and typography: **[`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)**               |
+| **🌐 AI Discovery & GEO Guide**      | Generative Engine Optimization, crawler allowlists, and JSON-LD: **[`docs/SEO_GEO.md`](docs/SEO_GEO.md)**                           |
+| **🚀 Production Deployment**         | Vite production builds, Coolify Docker deployment, and Nginx proxy: **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**                  |
+| **🛡️ Architecture Invariant Checks** | AST linter enforcing LAW.md (centralized keys, no raw cookies): **[`docs/ARCHITECTURE_CHECKS.md`](docs/ARCHITECTURE_CHECKS.md)**    |
+| **🌍 Worldwide Webmaster Registry**  | Search Console, Bing, Yandex, Naver, IndexNow, and catalogs: **[`docs/WORLDWIDE_REGISTRATION.md`](docs/WORLDWIDE_REGISTRATION.md)** |
 
 ---
 
@@ -323,12 +326,24 @@ This application is built on top of the **RexOne Ecosystem** (`rex-9`). When cre
 
 ## 💖 Sponsor & Support RexOne
 
-RexOne is built and maintained by Rex ([@rex-9](https://github.com/rex-9)). If RexOne saves you engineering weeks, AI tokens, or cloud compute costs, consider supporting the foundation!
+> _"I'm not a wealthy founder or a venture-backed company ~ I'm an independent developer and meditator who built RexOne with my own hands. I could have easily closed-sourced this enterprise foundation or charged $800+ behind a commercial paywall. Instead, out of pure loving-kindness (mettā) cultivated through my meditation journey under Theravada Buddhist teachings, I chose to gift RexOne 100% free and open-source under Apache 2.0 to empower builders, indie hackers, and learners worldwide._
+>
+> _If this foundation saves you months of engineering, thousands of dollars, or sparks your product journey, please consider supporting me so I can sustain my life and craft. Kindly return the loving-kindness: [Sponsor Rex on GitHub](https://github.com/sponsors/rex-9) and star the repositories. Thank you so much for your generosity and kindness. 🙏"_
+
+RexOne Web is architected, forged, and maintained by Rex ([@rex-9](https://github.com/rex-9)). If RexOne saves you engineering months, AI tokens, or cloud compute costs, please consider supporting the foundation!
 
 [![Sponsor rex-9](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/rex-9)
 [![GitHub Stars](https://img.shields.io/github/stars/rex-9/rexone-web.svg?style=social&label=Star)](https://github.com/rex-9/rexone-web)
 
 👉 **[Sponsor Rex on GitHub](https://github.com/sponsors/rex-9)**
+
+---
+
+## 🕯️ The Candle Philosophy of Open Source
+
+> _"Sharing is like lighting candles from one candle to another: sharing one's light does not make its own flame dimmer or weaker, but the world illuminates more and more with each light shared... making the world more and more beautiful... one light at a time... ~ "_
+>
+> — **Htet Naing (Rex9)**, _Creator of RexOne_
 
 ## Author
 

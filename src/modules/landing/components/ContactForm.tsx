@@ -36,7 +36,7 @@ export const ContactForm: React.FC = () => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Kindly enter your Full Name"
+          placeholder="Your Full Name"
           required
         />
       </div>
@@ -48,7 +48,7 @@ export const ContactForm: React.FC = () => {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Kindly enter your Email"
+          placeholder="Your Email"
           required
         />
       </div>
@@ -59,7 +59,7 @@ export const ContactForm: React.FC = () => {
           name="details"
           value={details}
           onChange={(e) => setDetails(e.target.value)}
-          placeholder="How can I kindly help you?"
+          placeholder="How may I kindly help you?"
           required
           rows={3}
           autoExpand={false}
@@ -72,7 +72,7 @@ export const ContactForm: React.FC = () => {
           variant={ButtonVariants.PRIMARY}
           type={ButtonTypes.SUBMIT}
           size={ComponentSizes.MD}
-          className="!px-6 !py-3 text-base"
+          className="px-6! py-3! text-base"
         >
           Submit
         </Button>

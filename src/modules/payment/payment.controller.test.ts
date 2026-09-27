@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import PaymentController from "./payment.controller";
 import { PaymentService } from "./index";
-import { IAccess, IProduct, ISubscription, ITransaction } from "./types";
+import { IAccess, IProduct, ISubscription, IPurchase } from "./types";
 
 vi.mock("./index", () => ({
   PaymentService: {
@@ -11,7 +11,7 @@ vi.mock("./index", () => ({
     getSubscriptions: vi.fn(),
     cancelSubscription: vi.fn(),
     resumeSubscription: vi.fn(),
-    getTransactions: vi.fn(),
+    getPurchases: vi.fn(),
     createCheckout: vi.fn(),
     validateCoupon: vi.fn(),
   },
@@ -43,8 +43,8 @@ const mockSubscription: ISubscription = {
   current_period_end: "2026-10-01T00:00:00Z",
 } as any;
 
-const mockTransaction: ITransaction = {
-  id: "txn-1",
+const mockPurchase: IPurchase = {
+  id: "pur-1",
   unit_amount: 2900,
   price: "USD 29.00",
   currency: "USD",
@@ -159,19 +159,19 @@ describe("PaymentController", () => {
     });
   });
 
-  describe("getTransactions", () => {
-    it("returns paginated transactions", async () => {
-      vi.mocked(PaymentService.getTransactions).mockResolvedValue({
+  describe("getPurchases", () => {
+    it("returns paginated purchases", async () => {
+      vi.mocked(PaymentService.getPurchases).mockResolvedValue({
         data: {
           status: { code: 200, success: true, message: "OK" },
-          data: [{ id: "txn-1", type: "transaction", attributes: mockTransaction }] as any,
+          data: [{ id: "pur-1", type: "purchase", attributes: mockPurchase }] as any,
           meta: { pagination: { current_page: 1, total_pages: 1, total_count: 1, limit: 10 } } as any,
         },
       });
 
-      const result = await PaymentController.getTransactions();
+      const result = await PaymentController.getPurchases();
       expect(result.success).toBe(true);
-      expect(result.transactions.length).toBe(1);
+      expect(result.purchases.length).toBe(1);
     });
   });
 

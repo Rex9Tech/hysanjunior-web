@@ -1,5 +1,5 @@
-export * from "./AdminTransactionsPage";
-export * from "./AdminTransactionDetailPage";
+export * from "./AdminPurchasesPage";
+export * from "./AdminPurchaseDetailPage";
 export * from "./AdminSubscriptionsPage";
 export * from "./AdminSubscriptionDetailPage";
 export * from "./AdminCouponsPage";

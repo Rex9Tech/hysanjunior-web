@@ -1,5 +1,5 @@
 import type { TSortOrder } from "../../../hooks/useSort";
-import type { ISubscription, ITransaction } from "../../payment/types";
+import type { ISubscription, IPurchase } from "../../payment/types";
 
 export interface IAdminPaymentIdentity {
   product_code?: string | null;
@@ -8,10 +8,10 @@ export interface IAdminPaymentIdentity {
   user_email?: string | null;
 }
 
-export type IAdminTransaction = ITransaction & IAdminPaymentIdentity;
+export type IAdminPurchase = IPurchase & IAdminPaymentIdentity;
 export type IAdminSubscription = ISubscription & IAdminPaymentIdentity;
 
-export interface IAdminTransactionFilters {
+export interface IAdminPurchaseFilters {
   page?: number;
   limit?: number;
   search?: string;
@@ -53,7 +53,7 @@ export interface IAdminUserCouponFilters {
   coupon_id?: string;
   user_id?: string;
   product_id?: string;
-  purchase_type?: string;
+  payment_type?: string;
   search?: string;
   sort_by?: string;
   sort_order?: TSortOrder;
@@ -80,4 +80,3 @@ export interface IBatchCreateCouponPayload {
   prefix?: string;
   coupon: ICreateCouponPayload;
 }
-

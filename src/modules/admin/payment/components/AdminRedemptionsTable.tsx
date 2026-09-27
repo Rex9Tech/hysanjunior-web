@@ -58,7 +58,7 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
   const { isLoading, setLoading } = useLoading();
 
   const page = Number(params.get("page") || 1);
-  const purchaseType = params.get("purchase_type") || "";
+  const paymentType = params.get("payment_type") || "";
   const search = params.get("search") || "";
 
   const [searchInput, setSearchInput] = useState(search);
@@ -115,7 +115,7 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
     const filterParams = {
       page,
       limit: ADMIN_PAGE_SIZE,
-      purchase_type: purchaseType || undefined,
+      payment_type: paymentType || undefined,
       search: search || undefined,
       sort_by: sortBy,
       sort_order: sortOrder,
@@ -139,7 +139,7 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
   }, [
     couponId,
     page,
-    purchaseType,
+    paymentType,
     search,
     sortBy,
     sortOrder,
@@ -218,21 +218,21 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
       ),
     },
     {
-      key: "purchase_type",
+      key: "payment_type",
       header: t(AppLocales.Admin.UserCoupons.Table.Type),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.PURCHASE_TYPE,
+      sortKey: ADMIN_USER_COUPON_SORT_KEYS.PAYMENT_TYPE,
       render: (item) => (
         <Badge
           variant={
-            item.purchase_type === "sbs"
+            item.payment_type === "subscription"
               ? BadgeVariants.INFO
               : BadgeVariants.DEFAULT
           }
           size={ComponentSizes.SM}
         >
-          {item.purchase_type === "sbs"
+          {item.payment_type === "subscription"
             ? t(AppLocales.Admin.UserCoupons.Types.Subscription)
-            : t(AppLocales.Admin.UserCoupons.Types.Transaction)}
+            : t(AppLocales.Admin.UserCoupons.Types.Purchase)}
         </Badge>
       ),
     },
@@ -287,13 +287,13 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
 
         <div className="w-48">
           <Dropdown
-            value={purchaseType}
-            onValueChange={(val) => update({ purchase_type: val, page: 1 })}
+            value={paymentType}
+            onValueChange={(val) => update({ payment_type: val, page: 1 })}
             placeholder={t(AppLocales.Admin.UserCoupons.FilterAll)}
             options={[
               { value: "", label: t(AppLocales.Admin.UserCoupons.FilterAll) },
-              { value: "trx", label: t(AppLocales.Admin.UserCoupons.FilterTrx) },
-              { value: "sbs", label: t(AppLocales.Admin.UserCoupons.FilterSbs) },
+              { value: "purchase", label: t(AppLocales.Admin.UserCoupons.FilterPurchase) },
+              { value: "subscription", label: t(AppLocales.Admin.UserCoupons.FilterSubscription) },
             ]}
           />
         </div>

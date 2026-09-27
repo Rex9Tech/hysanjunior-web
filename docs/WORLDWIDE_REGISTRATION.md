@@ -287,7 +287,7 @@ The core message across all platforms centers on two unmatched pillars:
 - **URL**: [https://alternativeto.net/software/new/](https://alternativeto.net/software/new/)
 - **Software Name**: `RexOne`
 - **Website**: `https://rexone.rex9.me`
-- **License**: `Open Source (MIT)`
+- **License**: `Open Source (Apache-2.0)`
 - **Platforms**: `Web`, `Self-Hosted`, `Linux`, `macOS`, `iOS`, `Android`
 - **Short Description**:
   "Start from One. Not from Zero." Production-grade sovereign tri-platform foundation unifying Rails 8 API, React 19 Web, and Flutter Mobile with enterprise IAM, billing, self-hosted Garage S3, WebSockets, and built-in Ultimate Transparency (Client Errors, Pulse Performance, Solid Queue/Cache/Cable dashboards).

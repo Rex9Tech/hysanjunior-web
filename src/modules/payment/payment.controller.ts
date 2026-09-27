@@ -5,8 +5,8 @@ import {
   IAccess,
   ICouponValidationResult,
   IProduct,
+  IPurchase,
   ISubscription,
-  ITransaction,
 } from "./types";
 import { IApiPagination } from "../../models";
 
@@ -166,28 +166,28 @@ class PaymentController {
     };
   }
 
-  // ===== TRANSACTIONS =====
-  async getTransactions(params?: { page?: number; limit?: number }): Promise<{
+  // ===== PURCHASES =====
+  async getPurchases(params?: { page?: number; limit?: number }): Promise<{
     success: boolean;
-    transactions: ITransaction[];
+    purchases: IPurchase[];
     pagination: IApiPagination | null;
     error?: string;
   }> {
-    const response = await PaymentService.getTransactions(params);
+    const response = await PaymentService.getPurchases(params);
     const { status } = response.data || {};
 
     if (status?.success) {
-      const { records, pagination } = parsePagyList<ITransaction>(response);
-      return { success: true, transactions: records, pagination };
+      const { records, pagination } = parsePagyList<IPurchase>(response);
+      return { success: true, purchases: records, pagination };
     }
 
     return {
       success: false,
-      transactions: [],
+      purchases: [],
       pagination: null,
       error: getApiError(
         response,
-        translate(AppLocales.Payment.Errors.LoadTransactions),
+        translate(AppLocales.Payment.Errors.LoadPurchases),
       ),
     };
   }

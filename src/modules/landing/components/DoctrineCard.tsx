@@ -126,6 +126,83 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
           </div>
         )}
 
+        {/* The 9-Month Plumbing Delusion vs Day-One Velocity */}
+        <div className="pt-6 border-t border-glass-border/60">
+          <div className="rounded-2xl border border-primary/30 bg-black/40 backdrop-blur-xl p-5 sm:p-7 text-left relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-4 border-b border-glass-border/40">
+              <div>
+                <span className="text-xs uppercase tracking-widest font-bold text-primary block mb-0.5">
+                  The Unvarnished Timeline Truth
+                </span>
+                <h4 className="text-base sm:text-xl font-bold text-white tracking-wide">
+                  The 9-Month Plumbing Delusion vs. Day-One Velocity
+                </h4>
+              </div>
+              <span className="self-start sm:self-auto px-3 py-1 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/40 whitespace-nowrap shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.25)]">
+                ⚡ 9 Months Eradicated
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              {/* The 9-Month Scratch Trap */}
+              <div className="p-4 sm:p-5 rounded-xl border border-red-500/30 bg-red-950/15 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2 text-red-400 font-bold text-sm">
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                    Starting from Zero (8 – 12 Months Burn)
+                  </div>
+                  <p className="text-xs text-base-content/80 leading-relaxed mb-3">
+                    Teams burn $150k–$300k reinventing generic plumbing: auth flows, Stripe webhook race conditions, CRUD admin panels, Redis broker bills, and broken cross-platform JSON payloads.
+                  </p>
+                </div>
+                <div className="text-[11px] text-red-300/90 font-mono space-y-1.5 bg-black/50 p-3 rounded-lg border border-red-500/20">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-red-400">✗</span> Month 1–3: Auth, IAM, Postgres & S3 uploads
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-red-400">✗</span> Month 4–6: Stripe billing, webhooks & coupons
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-red-400">✗</span> Month 7–9: Admin dashboard & mobile sync
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-red-400">✗</span> Month 10+: Refactoring paralysis (0 tests)
+                  </div>
+                </div>
+              </div>
+
+              {/* The RexOne Day-One Reality */}
+              <div className="p-4 sm:p-5 rounded-xl border border-primary/40 bg-primary/10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    Starting from RexOne (1 – 3 Weeks to Launch)
+                  </div>
+                  <p className="text-xs text-base-content/80 leading-relaxed mb-3">
+                    Every foundation problem solved on Day One: Rails 8 core, React 19 SPA, Flutter 3 native mobile, self-hosted Garage S3, and Solid Queue—governed under Constitutional Law.
+                  </p>
+                </div>
+                <div className="text-[11px] text-primary-light font-mono space-y-1.5 bg-black/50 p-3 rounded-lg border border-primary/25">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-primary">✓</span> 1,690+ automated tests across all 3 platforms
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-primary">✓</span> Idempotent Stripe billing (subscriptions & purchases)
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-primary">✓</span> Full Admin Portal & glass-box APM telemetry
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-primary">✓</span> 100% Free, open-source & sovereign (0 SaaS tax)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Foundation Fundamentals Grid (Never Rebuild from Scratch) */}
         <div className="pt-6 border-t border-glass-border/60">
           <h3 className="text-xs uppercase tracking-widest font-bold text-primary mb-4">

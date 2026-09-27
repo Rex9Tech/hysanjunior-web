@@ -64,7 +64,7 @@ export const ADMIN_RESOURCES = {
   PAYMENT_PRODUCTS: "payment_products",
   PAYMENT_PAYMENTS: "payment_payments",
   PAYMENT_SUBSCRIPTIONS: "payment_subscriptions",
-  PAYMENT_TRANSACTIONS: "payment_transactions",
+  PAYMENT_PURCHASES: "payment_purchases",
   PAYMENT_COUPONS: "payment_coupons",
   PAYMENT_USER_COUPONS: "payment_user_coupons",
 
@@ -80,7 +80,7 @@ export const ADMIN_RESOURCES = {
   PRODUCTS: "payment_products",
   PAYMENTS: "payment_payments",
   SUBSCRIPTIONS: "payment_subscriptions",
-  TRANSACTIONS: "payment_transactions",
+  PURCHASES: "payment_purchases",
   COUPONS: "payment_coupons",
   USER_COUPONS: "payment_user_coupons",
 } as const;
@@ -130,7 +130,7 @@ export const ADMIN_NAV_LABELS = {
   CHAT_ROOMS: "Chat Rooms",
   NOTIFICATIONS: "Notifications",
   PRODUCTS: "Products",
-  TRANSACTIONS: "Transactions",
+  PURCHASES: "Purchases",
   SUBSCRIPTIONS: "Subscriptions",
   COUPONS: "Coupons",
   USER_COUPONS: "Redemptions",

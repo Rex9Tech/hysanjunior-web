@@ -67,8 +67,8 @@ import {
   AdminProductDetailPage,
   AdminDiscardedProductsPage,
   AdminProductsPage,
-  AdminTransactionsPage,
-  AdminTransactionDetailPage,
+  AdminPurchasesPage,
+  AdminPurchaseDetailPage,
   AdminSubscriptionsPage,
   AdminSubscriptionDetailPage,
   AdminCouponsPage,
@@ -627,17 +627,17 @@ const router = createBrowserRouter(
             element={
               <AdminRootRoute
                 action={ADMIN_ACTIONS.READ}
-                resource={ADMIN_RESOURCES.TRANSACTIONS}
+                resource={ADMIN_RESOURCES.PURCHASES}
               />
             }
           >
             <Route
-              path={AppRoutes.client.protected.admin.TRANSACTIONS}
-              element={<AdminTransactionsPage />}
+              path={AppRoutes.client.protected.admin.PURCHASES}
+              element={<AdminPurchasesPage />}
             />
             <Route
-              path={AppRoutes.client.protected.admin.TRANSACTION_DETAIL}
-              element={<AdminTransactionDetailPage />}
+              path={AppRoutes.client.protected.admin.PURCHASE_DETAIL}
+              element={<AdminPurchaseDetailPage />}
             />
           </Route>
           <Route

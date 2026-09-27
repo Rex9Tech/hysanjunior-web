@@ -97,7 +97,7 @@
   "payment": {
     "title": "Billing & Subscriptions",
     "subscriptions": "Subscriptions",
-    "transactions": "Transactions",
+    "purchases": "Purchases",
     "upgrade_plan": "Upgrade Plan",
     "active": "Active",
     "canceled": "Canceled",
@@ -114,7 +114,7 @@
       "load_subscriptions": "Failed to fetch subscriptions",
       "cancel_subscription": "Failed to cancel subscription",
       "resume_subscription": "Failed to resume subscription",
-      "load_transactions": "Failed to fetch transactions",
+      "load_purchases": "Failed to fetch purchases",
       "create_checkout": "Failed to create checkout session"
     },
     "checkout_dialog": {
@@ -339,7 +339,7 @@
       "items": {
         "analytics": "Analytics",
         "products": "Products",
-        "transactions": "Transactions",
+        "purchases": "Purchases",
         "subscriptions": "Subscriptions",
         "coupons": "Coupons",
         "accesses": "Access",
@@ -610,8 +610,8 @@
         "delete": "Failed to delete role"
       }
     },
-    "transactions": {
-      "title": "Transactions",
+    "purchases": {
+      "title": "Purchases",
       "description": "Review one-time purchases, payment outcomes, and Stripe payment records.",
       "search": "Search user, product, payment intent, or charge...",
       "filters": { "all": "All statuses" },
@@ -622,7 +622,7 @@
         "method": "Payment method"
       },
       "detail": {
-        "title": "Transaction Details",
+        "title": "Purchase Details",
         "description": "Purchase, customer, payment method, and Stripe identifiers.",
         "purchase": "Purchase summary",
         "payment": "Payment details",
@@ -634,7 +634,7 @@
         "payment_intent": "Payment intent",
         "charge": "Charge"
       },
-      "errors": { "load": "Failed to load transactions" }
+      "errors": { "load": "Failed to load purchases" }
     },
     "subscriptions": {
       "title": "Subscriptions",
@@ -790,19 +790,19 @@
       "title": "Redemption Ledger",
       "description": "Global audit log of coupon redemptions and applied discounts across all customers",
       "search_placeholder": "Search by email, coupon code, or product name...",
-      "filter_all": "All Purchase Types",
-      "filter_trx": "One-Time Purchase (trx)",
-      "filter_sbs": "Subscription (sbs)",
+      "filter_all": "All Payment Types",
+      "filter_purchase": "One-Time Purchase",
+      "filter_subscription": "Subscription",
       "free": "FREE",
       "types": {
-        "transaction": "TRANSACTION",
+        "purchase": "PURCHASE",
         "subscription": "SUBSCRIPTION"
       },
       "table": {
         "code": "Coupon Code",
         "user": "Customer",
         "product": "Product",
-        "type": "Purchase Type",
+        "type": "Payment Type",
         "discount": "Discount Given",
         "final": "Final Paid",
         "date": "Redeemed At"

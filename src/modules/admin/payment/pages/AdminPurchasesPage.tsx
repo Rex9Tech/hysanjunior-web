@@ -31,9 +31,9 @@ import {
   type IAdminTableColumn,
 } from "../../components";
 import PaymentController from "../payment.controller";
-import { ADMIN_TRANSACTION_SORT_KEYS } from "../constants";
-import type { IAdminTransaction } from "../types";
-import { TRANSACTION_STATUS } from "../../../payment/constants";
+import { ADMIN_PURCHASE_SORT_KEYS } from "../constants";
+import type { IAdminPurchase } from "../types";
+import { PURCHASE_STATUS } from "../../../payment/constants";
 
 const money = (amount: number, currency: string) =>
   new Intl.NumberFormat(undefined, {
@@ -41,21 +41,21 @@ const money = (amount: number, currency: string) =>
     currency: currency.toUpperCase(),
   }).format(amount / 100);
 
-export const AdminTransactionsPage: React.FC = () => {
+export const AdminPurchasesPage: React.FC = () => {
   const t = useTranslate();
-  useDocumentTitle(`${t(AppLocales.Admin.Transactions.Title)} | Admin`);
+  useDocumentTitle(`${t(AppLocales.Admin.Purchases.Title)} | Admin`);
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const page = Number(params.get("page") || 1);
   const status = params.get("status") || "";
   const search = params.get("search") || "";
   const [searchInput, setSearchInput] = useState(search);
-  const [records, setRecords] = useState<IAdminTransaction[]>([]);
+  const [records, setRecords] = useState<IAdminPurchase[]>([]);
   const [pagination, setPagination] = useState<IApiPagination | null>(null);
   const [error, setError] = useState("");
   const { can, isLoading } = usePermissions();
   const { sortBy, sortOrder, handleSort } = useSort({
-    defaultSortBy: ADMIN_TRANSACTION_SORT_KEYS.CREATED_AT,
+    defaultSortBy: ADMIN_PURCHASE_SORT_KEYS.CREATED_AT,
     defaultSortOrder: SORT_ORDERS.DESC,
   });
 
@@ -88,9 +88,9 @@ export const AdminTransactionsPage: React.FC = () => {
   }, [search, searchInput, update]);
 
   useEffect(() => {
-    if (isLoading || !can(ADMIN_ACTIONS.READ, ADMIN_RESOURCES.TRANSACTIONS))
+    if (isLoading || !can(ADMIN_ACTIONS.READ, ADMIN_RESOURCES.PURCHASES))
       return;
-    void PaymentController.getTransactions({
+    void PaymentController.getPurchases({
       page,
       limit: ADMIN_PAGE_SIZE,
       status: status || undefined,
@@ -98,20 +98,20 @@ export const AdminTransactionsPage: React.FC = () => {
       sort_by: sortBy,
       sort_order: sortOrder,
     }).then((result) => {
-      setRecords(result.transactions);
+      setRecords(result.purchases);
       setPagination(result.pagination);
       setError(
         result.success
           ? ""
-          : result.error || t(AppLocales.Admin.Transactions.Errors.Load),
+          : result.error || t(AppLocales.Admin.Purchases.Errors.Load),
       );
     });
   }, [can, isLoading, page, search, sortBy, sortOrder, status, t]);
 
-  const columns: IAdminTableColumn<IAdminTransaction>[] = [
+  const columns: IAdminTableColumn<IAdminPurchase>[] = [
     {
       key: "purchase",
-      header: t(AppLocales.Admin.Transactions.Table.Purchase),
+      header: t(AppLocales.Admin.Purchases.Table.Purchase),
       render: (record) => (
         <div>
           <div className="font-semibold">{record.product_name || "—"}</div>
@@ -123,7 +123,7 @@ export const AdminTransactionsPage: React.FC = () => {
     },
     {
       key: "user",
-      header: t(AppLocales.Admin.Transactions.Table.User),
+      header: t(AppLocales.Admin.Purchases.Table.User),
       render: (record) => (
         <div>
           <div className="font-medium">
@@ -135,8 +135,8 @@ export const AdminTransactionsPage: React.FC = () => {
     },
     {
       key: "amount",
-      header: t(AppLocales.Admin.Transactions.Table.Amount),
-      sortKey: ADMIN_TRANSACTION_SORT_KEYS.UNIT_AMOUNT,
+      header: t(AppLocales.Admin.Purchases.Table.Amount),
+      sortKey: ADMIN_PURCHASE_SORT_KEYS.UNIT_AMOUNT,
       render: (record) => (
         <span className="font-semibold">
           {money(record.unit_amount, record.currency)}
@@ -146,18 +146,18 @@ export const AdminTransactionsPage: React.FC = () => {
     {
       key: "status",
       header: t(AppLocales.Admin.Common.Detail.Status),
-      sortKey: ADMIN_TRANSACTION_SORT_KEYS.STATUS,
+      sortKey: ADMIN_PURCHASE_SORT_KEYS.STATUS,
       render: (record) => <StatusBadge status={record.status} />,
     },
     {
       key: "method",
-      header: t(AppLocales.Admin.Transactions.Table.Method),
+      header: t(AppLocales.Admin.Purchases.Table.Method),
       render: (record) => record.payment_method_display || "—",
     },
     {
       key: "created",
       header: t(AppLocales.Admin.Common.Detail.Created),
-      sortKey: ADMIN_TRANSACTION_SORT_KEYS.CREATED_AT,
+      sortKey: ADMIN_PURCHASE_SORT_KEYS.CREATED_AT,
       render: (record) => (
         <DateTime
           value={record.paid_at || record.created_at}
@@ -170,8 +170,8 @@ export const AdminTransactionsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t(AppLocales.Admin.Transactions.Title)}
-        description={t(AppLocales.Admin.Transactions.Description)}
+        title={t(AppLocales.Admin.Purchases.Title)}
+        description={t(AppLocales.Admin.Purchases.Description)}
       />
       <div className="flex flex-col sm:flex-row gap-4 items-center bg-base-100 p-4 rounded-xl border border-base-200">
         <div className="w-full sm:w-64">
@@ -179,12 +179,12 @@ export const AdminTransactionsPage: React.FC = () => {
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
             onClear={() => setSearchInput("")}
-            placeholder={t(AppLocales.Admin.Transactions.Search)}
+            placeholder={t(AppLocales.Admin.Purchases.Search)}
             searchableKeys={[
-              t(AppLocales.Admin.Transactions.Table.User),
-              t(AppLocales.Admin.Transactions.Detail.Product),
-              t(AppLocales.Admin.Transactions.Detail.PaymentIntent),
-              t(AppLocales.Admin.Transactions.Detail.Charge),
+              t(AppLocales.Admin.Purchases.Table.User),
+              t(AppLocales.Admin.Purchases.Detail.Product),
+              t(AppLocales.Admin.Purchases.Detail.PaymentIntent),
+              t(AppLocales.Admin.Purchases.Detail.Charge),
             ]}
           />
         </div>
@@ -194,8 +194,8 @@ export const AdminTransactionsPage: React.FC = () => {
             value={status}
             onValueChange={(value) => update({ status: value, page: 1 })}
             options={[
-              { value: "", label: t(AppLocales.Admin.Transactions.Filters.All) },
-              ...Object.values(TRANSACTION_STATUS).map((value) => ({
+              { value: "", label: t(AppLocales.Admin.Purchases.Filters.All) },
+              ...Object.values(PURCHASE_STATUS).map((value) => ({
                 value,
                 label: value.replace(/_/g, " "),
               })),
@@ -227,7 +227,7 @@ export const AdminTransactionsPage: React.FC = () => {
             onRowClick={(record) =>
               navigate(
                 AppRoutes.withId(
-                  AppRoutes.client.protected.admin.TRANSACTION_DETAIL,
+                  AppRoutes.client.protected.admin.PURCHASE_DETAIL,
                   record.id,
                 ),
               )
@@ -242,3 +242,4 @@ export const AdminTransactionsPage: React.FC = () => {
     </div>
   );
 };
+export default AdminPurchasesPage;

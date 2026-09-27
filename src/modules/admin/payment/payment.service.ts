@@ -8,33 +8,33 @@ import { api } from "../../../services/api.service";
 import type { ICoupon, IUserCoupon } from "../../payment/types";
 import type {
   IAdminCouponFilters,
+  IAdminPurchase,
+  IAdminPurchaseFilters,
   IAdminSubscription,
   IAdminSubscriptionFilters,
-  IAdminTransaction,
-  IAdminTransactionFilters,
   IAdminUserCouponFilters,
   IBatchCreateCouponPayload,
   ICreateCouponPayload,
 } from "./types";
 
 class PaymentService {
-  getTransactions(
-    params?: IAdminTransactionFilters,
+  getPurchases(
+    params?: IAdminPurchaseFilters,
   ): Promise<
-    IApiResponse<IApiEnvelope<IJsonApiResource<IAdminTransaction>[]>>
+    IApiResponse<IApiEnvelope<IJsonApiResource<IAdminPurchase>[]>>
   > {
     return api.get(
-      AppRoutes.server.protected.admin.PAYMENT_TRANSACTIONS,
+      AppRoutes.server.protected.admin.PAYMENT_PURCHASES,
       params as Record<string, unknown>,
     );
   }
 
-  getTransaction(
+  getPurchase(
     id: string,
-  ): Promise<IApiResponse<IApiEnvelope<IJsonApiResource<IAdminTransaction>>>> {
+  ): Promise<IApiResponse<IApiEnvelope<IJsonApiResource<IAdminPurchase>>>> {
     return api.get(
       AppRoutes.withId(
-        AppRoutes.server.protected.admin.PAYMENT_TRANSACTION_DETAIL,
+        AppRoutes.server.protected.admin.PAYMENT_PURCHASE_DETAIL,
         id,
       ),
     );

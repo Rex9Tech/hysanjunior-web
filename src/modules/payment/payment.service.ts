@@ -6,8 +6,8 @@ import {
   ICheckoutResponse,
   ICouponValidationResult,
   IProduct,
+  IPurchase,
   ISubscription,
-  ITransaction,
 } from "./types";
 
 class PaymentService {
@@ -57,12 +57,12 @@ class PaymentService {
     return response;
   }
 
-  // ===== TRANSACTIONS =====
-  async getTransactions(params?: { page?: number; limit?: number }): Promise<
-    IApiResponse<IApiEnvelope<IJsonApiResource<ITransaction>[]>>
+  // ===== PURCHASES =====
+  async getPurchases(params?: { page?: number; limit?: number }): Promise<
+    IApiResponse<IApiEnvelope<IJsonApiResource<IPurchase>[]>>
   > {
-    const response = await api.get<IJsonApiResource<ITransaction>[]>(
-      AppRoutes.server.protected.PAYMENT_TRANSACTIONS,
+    const response = await api.get<IJsonApiResource<IPurchase>[]>(
+      AppRoutes.server.protected.PAYMENT_PURCHASES,
       params,
     );
     return response;

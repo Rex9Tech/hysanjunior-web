@@ -1,4 +1,4 @@
-export const ADMIN_TRANSACTION_SORT_KEYS = {
+export const ADMIN_PURCHASE_SORT_KEYS = {
   CREATED_AT: "created_at",
   PAID_AT: "paid_at",
   UNIT_AMOUNT: "unit_amount",
@@ -28,7 +28,7 @@ export const ADMIN_USER_COUPON_SORT_KEYS = {
   CREATED_AT: "created_at",
   DISCOUNT_AMOUNT: "discount_amount",
   FINAL_AMOUNT: "final_amount",
-  PURCHASE_TYPE: "purchase_type",
+  PAYMENT_TYPE: "payment_type",
   USER_EMAIL: "user_email",
   PRODUCT_NAME: "product_name",
   COUPON_CODE: "coupon_code",

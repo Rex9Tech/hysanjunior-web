@@ -14,7 +14,7 @@ export const SUBSCRIPTION_STATUS = {
 export type TSubscriptionStatus =
   (typeof SUBSCRIPTION_STATUS)[keyof typeof SUBSCRIPTION_STATUS];
 
-export const TRANSACTION_STATUS = {
+export const PURCHASE_STATUS = {
   SUCCEEDED: "succeeded",
   PROCESSING: "processing",
   REQUIRES_ACTION: "requires_action",
@@ -24,8 +24,16 @@ export const TRANSACTION_STATUS = {
   CANCELED: "canceled",
 } as const;
 
-export type TTransactionStatus =
-  (typeof TRANSACTION_STATUS)[keyof typeof TRANSACTION_STATUS];
+export type TPurchaseStatus =
+  (typeof PURCHASE_STATUS)[keyof typeof PURCHASE_STATUS];
+
+export const PAYMENT_TYPES = {
+  PURCHASE: "purchase",
+  SUBSCRIPTION: "subscription",
+} as const;
+
+export type TPaymentType =
+  (typeof PAYMENT_TYPES)[keyof typeof PAYMENT_TYPES];
 
 export const PAYMENT_MODES = {
   SUBSCRIPTION: "subscription",

@@ -8,5 +8,6 @@ export { ProjectCard } from "./ProjectCard";
 export { TestimonialCard } from "./TestimonialCard";
 export { ContactForm } from "./ContactForm";
 export { SponsorCard } from "./SponsorCard";
+export { CandleQuoteCard } from "./CandleQuoteCard";
 export { DoctrineCard } from "./DoctrineCard";
 export { LegalLayout } from "./LegalLayout";

@@ -99,7 +99,7 @@ export const AdminSubscriptionDetailPage: React.FC = () => {
                 className="sm:col-span-2"
               />
               <DetailField
-                label={t(AppLocales.Admin.Transactions.Detail.User)}
+                label={t(AppLocales.Admin.Purchases.Detail.User)}
                 value={record.user_name || record.username}
               />
               <DetailField
