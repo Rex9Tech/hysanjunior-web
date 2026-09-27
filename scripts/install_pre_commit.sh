@@ -28,6 +28,29 @@ cat << 'EOF' > "${PRE_COMMIT_HOOK}"
 #!/usr/bin/env bash
 set -e
 
+# Ensure developer toolchains (Node.js, npm, nvm, homebrew) are discoverable in GUI environments (VS Code, Fork, SourceTree)
+if ! command -v node &>/dev/null; then
+  for p in \
+    "/opt/homebrew/bin" \
+    "/usr/local/bin" \
+    "$HOME/.volta/bin" \
+    "$HOME/.asdf/shims" \
+    "$HOME/.fnm/current/bin"
+  do
+    if [ -x "$p/node" ]; then
+      export PATH="$p:$PATH"
+      break
+    fi
+  done
+fi
+
+if ! command -v node &>/dev/null && [ -d "$HOME/.nvm/versions/node" ]; then
+  LATEST_NVM=$(ls -1d "$HOME/.nvm/versions/node"/* 2>/dev/null | tail -n 1)
+  if [ -n "$LATEST_NVM" ] && [ -x "$LATEST_NVM/bin/node" ]; then
+    export PATH="$LATEST_NVM/bin:$PATH"
+  fi
+fi
+
 CYAN='\033[0;36m'
 GREEN='\033[0;32m'
 NC='\033[0m'
