@@ -93,10 +93,14 @@ export const AdminSubscriptionDetailPage: React.FC = () => {
               />
               <DetailField
                 label={t(AppLocales.Admin.Subscriptions.Detail.SubscriptionId)}
-                value={record.stripe_subscription_id}
+                value={record.provider_subscription_id}
                 copyable
                 mono
                 className="sm:col-span-2"
+              />
+              <DetailField
+                label={t(AppLocales.Admin.Common.Detail.Provider)}
+                value={<span className="badge badge-outline uppercase font-mono">{record.provider}</span>}
               />
               <DetailField
                 label={t(AppLocales.Admin.Purchases.Detail.User)}

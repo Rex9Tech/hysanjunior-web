@@ -19,8 +19,12 @@ export interface IAdminProduct {
   recurring: boolean;
   free: boolean;
   active: boolean;
-  stripe_product_id: string;
-  stripe_price_id: string;
+  stripe_product_id?: string | null;
+  stripe_price_id?: string | null;
+  google_play_product_id?: string | null;
+  app_store_product_id?: string | null;
+  in_app?: boolean;
+  supported_providers?: string[];
   thumbnail_url?: string | null;
   thumbnail_asset_id?: string | null;
   created_at?: Date;
@@ -37,6 +41,10 @@ export interface IAdminProductFormValues {
   currency: string;
   interval?: AdminProductInterval;
   active: boolean;
+  stripe_product_id?: string | null;
+  stripe_price_id?: string | null;
+  google_play_product_id?: string | null;
+  app_store_product_id?: string | null;
   thumbnail_asset_id?: string | null;
 }
 

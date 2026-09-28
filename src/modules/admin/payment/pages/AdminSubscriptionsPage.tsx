@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppRoutes from "../../../../AppRoutes";
 import { iconsLib } from "../../../../assets";
@@ -33,7 +33,10 @@ import {
   ADMIN_PAGE_SIZE,
   ADMIN_RESOURCES,
 } from "../../constants";
-import { ADMIN_SUBSCRIPTION_SORT_KEYS } from "../constants";
+import {
+  ADMIN_SUBSCRIPTION_SORT_KEYS,
+  ADMIN_SUBSCRIPTION_TABLE_KEYS,
+} from "../constants";
 import PaymentController from "../payment.controller";
 import type { IAdminSubscription } from "../types";
 
@@ -109,68 +112,72 @@ export const AdminSubscriptionsPage: React.FC = () => {
     });
   }, [can, interval, isLoading, page, search, sortBy, sortOrder, status, t]);
 
-  const columns: IAdminTableColumn<IAdminSubscription>[] = [
-    {
-      key: "subscription",
-      header: t(AppLocales.Admin.Subscriptions.Table.Subscription),
-      render: (record) => (
-        <div>
-          <div className="font-semibold">{record.product_name || "—"}</div>
-          <div className="font-mono text-xs opacity-60">
-            {record.stripe_subscription_id}
+  const columns: IAdminTableColumn<IAdminSubscription>[] = useMemo(
+    () => [
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.SUBSCRIPTION,
+        header: t(AppLocales.Admin.Subscriptions.Table.Subscription),
+        render: (record) => (
+          <div>
+            <div className="font-semibold">{record.product_name || "—"}</div>
+            <div className="font-mono text-xs opacity-60 flex items-center gap-1">
+              <span className="badge badge-xs badge-outline uppercase">{record.provider}</span>
+              <span>{record.provider_subscription_id}</span>
+            </div>
           </div>
-        </div>
-      ),
-    },
-    {
-      key: "user",
-      header: t(AppLocales.Admin.Subscriptions.Table.User),
-      render: (record) => (
-        <div>
-          <div className="font-medium">
-            {record.user_name || record.username || "—"}
+        ),
+      },
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.USER,
+        header: t(AppLocales.Admin.Subscriptions.Table.User),
+        render: (record) => (
+          <div>
+            <div className="font-medium">
+              {record.user_name || record.username || "—"}
+            </div>
+            <div className="text-xs opacity-60">{record.user_email}</div>
           </div>
-          <div className="text-xs opacity-60">{record.user_email}</div>
-        </div>
-      ),
-    },
-    {
-      key: "amount",
-      header: t(AppLocales.Admin.Subscriptions.Table.Amount),
-      sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.UNIT_AMOUNT,
-      render: (record) => (
-        <div className="font-semibold">
-          {money(record.unit_amount, record.currency)}
-          <span className="font-normal opacity-60"> / {record.interval}</span>
-        </div>
-      ),
-    },
-    {
-      key: "status",
-      header: t(AppLocales.Admin.Common.Detail.Status),
-      sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.STATUS,
-      render: (record) => <StatusBadge status={record.status} />,
-    },
-    {
-      key: "period",
-      header: t(AppLocales.Admin.Subscriptions.Table.PeriodEnd),
-      sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.CURRENT_PERIOD_END,
-      render: (record) => (
-        <DateTime
-          value={record.current_period_end}
-          format={DateTimeFormats.ADMIN}
-        />
-      ),
-    },
-    {
-      key: "canceling",
-      header: t(AppLocales.Admin.Subscriptions.Table.Cancellation),
-      render: (record) =>
-        record.cancel_at_period_end
-          ? t(AppLocales.Admin.Subscriptions.Scheduled)
-          : "—",
-    },
-  ];
+        ),
+      },
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.AMOUNT,
+        header: t(AppLocales.Admin.Subscriptions.Table.Amount),
+        sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.UNIT_AMOUNT,
+        render: (record) => (
+          <div className="font-semibold">
+            {money(record.unit_amount, record.currency)}
+            <span className="font-normal opacity-60"> / {record.interval}</span>
+          </div>
+        ),
+      },
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.STATUS,
+        header: t(AppLocales.Admin.Common.Detail.Status),
+        sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.STATUS,
+        render: (record) => <StatusBadge status={record.status} />,
+      },
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.PERIOD,
+        header: t(AppLocales.Admin.Subscriptions.Table.PeriodEnd),
+        sortKey: ADMIN_SUBSCRIPTION_SORT_KEYS.CURRENT_PERIOD_END,
+        render: (record) => (
+          <DateTime
+            value={record.current_period_end}
+            format={DateTimeFormats.ADMIN}
+          />
+        ),
+      },
+      {
+        key: ADMIN_SUBSCRIPTION_TABLE_KEYS.CANCELING,
+        header: t(AppLocales.Admin.Subscriptions.Table.Cancellation),
+        render: (record) =>
+          record.cancel_at_period_end
+            ? t(AppLocales.Admin.Subscriptions.Scheduled)
+            : "—",
+      },
+    ],
+    [t],
+  );
 
   return (
     <div className="space-y-6">

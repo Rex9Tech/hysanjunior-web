@@ -373,7 +373,8 @@
         "source": "Source",
         "format": "Format",
         "size": "Size",
-        "metadata": "Metadata"
+        "metadata": "Metadata",
+        "provider": "Provider"
       },
       "actions": {
         "create": "Create",
@@ -632,7 +633,9 @@
         "user": "Customer",
         "payment_method": "Payment method",
         "payment_intent": "Payment intent",
-        "charge": "Charge"
+        "charge": "Charge",
+        "transaction_id": "Transaction ID",
+        "order_id": "Order ID"
       },
       "errors": { "load": "Failed to load purchases" }
     },

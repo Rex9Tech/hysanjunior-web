@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AppRoutes from "../../../../AppRoutes";
@@ -11,15 +11,8 @@ import {
   Dropdown,
   SearchInput,
 } from "../../../../design";
-import {
-  BadgeVariants,
-  ComponentSizes,
-} from "../../../../design/constants";
-import {
-  SORT_ORDERS,
-  usePermissions,
-  useSort,
-} from "../../../../hooks";
+import { BadgeVariants, ComponentSizes } from "../../../../design/constants";
+import { SORT_ORDERS, usePermissions, useSort } from "../../../../hooks";
 import { AppLocales } from "../../../../locales/app_locales";
 import {
   AdminPagination,
@@ -32,7 +25,10 @@ import {
   ADMIN_PAGE_SIZE,
   ADMIN_RESOURCES,
 } from "../../constants";
-import { ADMIN_USER_COUPON_SORT_KEYS } from "../constants";
+import {
+  ADMIN_USER_COUPON_SORT_KEYS,
+  ADMIN_USER_COUPON_TABLE_KEYS,
+} from "../constants";
 import PaymentController from "../payment.controller";
 import type { IUserCoupon } from "../../../payment/types";
 import type { IApiPagination } from "../../../../models";
@@ -154,123 +150,126 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
     void loadRedemptions();
   }, [loadRedemptions]);
 
-  const columns: IAdminTableColumn<IUserCoupon>[] = [
-    ...(!hideCouponColumn
-      ? [
-          {
-            key: "coupon_code",
-            header: t(AppLocales.Admin.UserCoupons.Table.Code),
-            sortKey: ADMIN_USER_COUPON_SORT_KEYS.COUPON_CODE,
-            render: (item: IUserCoupon) => (
-              <div>
-                <Badge
-                  variant={BadgeVariants.PRIMARY}
-                  size={ComponentSizes.MD}
-                  className="font-mono font-bold tracking-wider cursor-pointer"
-                  onClick={() =>
-                    navigate(
-                      AppRoutes.withId(
-                        AppRoutes.client.protected.admin.COUPON_DETAIL,
-                        item.coupon_id,
-                      ),
-                    )
-                  }
-                >
-                  {item.coupon_code || "—"}
-                </Badge>
-                {item.coupon_title && (
-                  <span className="text-xs text-base-content/60 block mt-1">
-                    {item.coupon_title}
-                  </span>
-                )}
-              </div>
-            ),
-          },
-        ]
-      : []),
-    {
-      key: "user_email",
-      header: t(AppLocales.Admin.UserCoupons.Table.User),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.USER_EMAIL,
-      render: (item) => (
-        <div>
-          <span className="font-medium text-sm block">
-            {item.user_email || "—"}
-          </span>
-          {item.user_name && item.user_name !== item.user_email && (
-            <span className="text-xs text-base-content/60 block">
-              {item.user_name}
+  const columns: IAdminTableColumn<IUserCoupon>[] = useMemo(
+    () => [
+      ...(!hideCouponColumn
+        ? [
+            {
+              key: ADMIN_USER_COUPON_TABLE_KEYS.COUPON_CODE,
+              header: t(AppLocales.Admin.UserCoupons.Table.Code),
+              sortKey: ADMIN_USER_COUPON_SORT_KEYS.COUPON_CODE,
+              render: (item: IUserCoupon) => (
+                <div>
+                  <Badge
+                    variant={BadgeVariants.PRIMARY}
+                    size={ComponentSizes.MD}
+                    className="font-mono font-bold tracking-wider cursor-pointer"
+                    onClick={() =>
+                      navigate(
+                        AppRoutes.withId(
+                          AppRoutes.client.protected.admin.COUPON_DETAIL,
+                          item.coupon_id,
+                        ),
+                      )
+                    }
+                  >
+                    {item.coupon_code || "—"}
+                  </Badge>
+                  {item.coupon_title && (
+                    <span className="text-xs text-base-content/60 block mt-1">
+                      {item.coupon_title}
+                    </span>
+                  )}
+                </div>
+              ),
+            },
+          ]
+        : []),
+      {
+        key: ADMIN_USER_COUPON_TABLE_KEYS.USER_EMAIL,
+        header: t(AppLocales.Admin.UserCoupons.Table.User),
+        sortKey: ADMIN_USER_COUPON_SORT_KEYS.USER_EMAIL,
+        render: (item) => (
+          <div>
+            <span className="font-medium text-sm block">
+              {item.user_email || "—"}
             </span>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: "product_name",
-      header: t(AppLocales.Admin.UserCoupons.Table.Product),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.PRODUCT_NAME,
-      render: (item) => (
-        <div>
-          <span className="font-medium text-sm block">
-            {item.product_name || "—"}
-          </span>
-        </div>
-      ),
-    },
-    {
-      key: "payment_type",
-      header: t(AppLocales.Admin.UserCoupons.Table.Type),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.PAYMENT_TYPE,
-      render: (item) => (
-        <Badge
-          variant={
-            item.payment_type === "subscription"
-              ? BadgeVariants.INFO
-              : BadgeVariants.DEFAULT
-          }
-          size={ComponentSizes.SM}
-        >
-          {item.payment_type === "subscription"
-            ? t(AppLocales.Admin.UserCoupons.Types.Subscription)
-            : t(AppLocales.Admin.UserCoupons.Types.Purchase)}
-        </Badge>
-      ),
-    },
-    {
-      key: "discount",
-      header: t(AppLocales.Admin.UserCoupons.Table.Discount),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.DISCOUNT_AMOUNT,
-      render: (item) => (
-        <div>
-          <div className="flex items-center gap-1.5 text-xs">
-            <span className="line-through text-base-content/50">
-              {money(item.original_amount, item.currency)}
-            </span>
-            <span className="text-success font-semibold">
-              -{money(item.discount_amount, item.currency)}
+            {item.user_name && item.user_name !== item.user_email && (
+              <span className="text-xs text-base-content/60 block">
+                {item.user_name}
+              </span>
+            )}
+          </div>
+        ),
+      },
+      {
+        key: ADMIN_USER_COUPON_TABLE_KEYS.PRODUCT_NAME,
+        header: t(AppLocales.Admin.UserCoupons.Table.Product),
+        sortKey: ADMIN_USER_COUPON_SORT_KEYS.PRODUCT_NAME,
+        render: (item) => (
+          <div>
+            <span className="font-medium text-sm block">
+              {item.product_name || "—"}
             </span>
           </div>
-          <span className="font-bold text-sm text-base-content">
-            {item.final_amount === 0
-              ? t(AppLocales.Admin.UserCoupons.Free)
-              : money(item.final_amount, item.currency)}
-          </span>
-        </div>
-      ),
-    },
-    {
-      key: "created_at",
-      header: t(AppLocales.Admin.UserCoupons.Table.Date),
-      sortKey: ADMIN_USER_COUPON_SORT_KEYS.CREATED_AT,
-      render: (item) => (
-        <DateTime
-          value={item.created_at}
-          format={DateTimeFormats.DATE_TIME}
-          fallback="—"
-        />
-      ),
-    },
-  ];
+        ),
+      },
+      {
+        key: ADMIN_USER_COUPON_TABLE_KEYS.PAYMENT_TYPE,
+        header: t(AppLocales.Admin.UserCoupons.Table.Type),
+        sortKey: ADMIN_USER_COUPON_SORT_KEYS.PAYMENT_TYPE,
+        render: (item) => (
+          <Badge
+            variant={
+              item.payment_type === "subscription"
+                ? BadgeVariants.INFO
+                : BadgeVariants.DEFAULT
+            }
+            size={ComponentSizes.SM}
+          >
+            {item.payment_type === "subscription"
+              ? t(AppLocales.Admin.UserCoupons.Types.Subscription)
+              : t(AppLocales.Admin.UserCoupons.Types.Purchase)}
+          </Badge>
+        ),
+      },
+      {
+        key: ADMIN_USER_COUPON_TABLE_KEYS.DISCOUNT,
+        header: t(AppLocales.Admin.UserCoupons.Table.Discount),
+        sortKey: ADMIN_USER_COUPON_SORT_KEYS.DISCOUNT_AMOUNT,
+        render: (item) => (
+          <div>
+            <div className="flex items-center gap-1.5 text-xs">
+              <span className="line-through text-base-content/50">
+                {money(item.original_amount, item.currency)}
+              </span>
+              <span className="text-success font-semibold">
+                -{money(item.discount_amount, item.currency)}
+              </span>
+            </div>
+            <span className="font-bold text-sm text-base-content">
+              {item.final_amount === 0
+                ? t(AppLocales.Admin.UserCoupons.Free)
+                : money(item.final_amount, item.currency)}
+            </span>
+          </div>
+        ),
+      },
+      {
+        key: ADMIN_USER_COUPON_TABLE_KEYS.CREATED_AT,
+        header: t(AppLocales.Admin.UserCoupons.Table.Date),
+        sortKey: ADMIN_USER_COUPON_SORT_KEYS.CREATED_AT,
+        render: (item) => (
+          <DateTime
+            value={item.created_at}
+            format={DateTimeFormats.DATE_TIME}
+            fallback="—"
+          />
+        ),
+      },
+    ],
+    [hideCouponColumn, navigate, t],
+  );
 
   return (
     <div className="space-y-4">
@@ -292,8 +291,14 @@ export const AdminRedemptionsTable: React.FC<IAdminRedemptionsTableProps> = ({
             placeholder={t(AppLocales.Admin.UserCoupons.FilterAll)}
             options={[
               { value: "", label: t(AppLocales.Admin.UserCoupons.FilterAll) },
-              { value: "purchase", label: t(AppLocales.Admin.UserCoupons.FilterPurchase) },
-              { value: "subscription", label: t(AppLocales.Admin.UserCoupons.FilterSubscription) },
+              {
+                value: "purchase",
+                label: t(AppLocales.Admin.UserCoupons.FilterPurchase),
+              },
+              {
+                value: "subscription",
+                label: t(AppLocales.Admin.UserCoupons.FilterSubscription),
+              },
             ]}
           />
         </div>

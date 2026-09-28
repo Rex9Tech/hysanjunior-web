@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppRoutes from "../../../../AppRoutes";
 import { iconsLib } from "../../../../assets";
@@ -31,7 +31,10 @@ import {
   type IAdminTableColumn,
 } from "../../components";
 import PaymentController from "../payment.controller";
-import { ADMIN_PURCHASE_SORT_KEYS } from "../constants";
+import {
+  ADMIN_PURCHASE_SORT_KEYS,
+  ADMIN_PURCHASE_TABLE_KEYS,
+} from "../constants";
 import type { IAdminPurchase } from "../types";
 import { PURCHASE_STATUS } from "../../../payment/constants";
 
@@ -108,64 +111,68 @@ export const AdminPurchasesPage: React.FC = () => {
     });
   }, [can, isLoading, page, search, sortBy, sortOrder, status, t]);
 
-  const columns: IAdminTableColumn<IAdminPurchase>[] = [
-    {
-      key: "purchase",
-      header: t(AppLocales.Admin.Purchases.Table.Purchase),
-      render: (record) => (
-        <div>
-          <div className="font-semibold">{record.product_name || "—"}</div>
-          <div className="font-mono text-xs opacity-60">
-            {record.stripe_payment_intent_id}
+  const columns: IAdminTableColumn<IAdminPurchase>[] = useMemo(
+    () => [
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.PURCHASE,
+        header: t(AppLocales.Admin.Purchases.Table.Purchase),
+        render: (record) => (
+          <div>
+            <div className="font-semibold">{record.product_name || "—"}</div>
+            <div className="font-mono text-xs opacity-60 flex items-center gap-1">
+              <span className="badge badge-xs badge-outline uppercase">{record.provider}</span>
+              <span>{record.provider_payment_id}</span>
+            </div>
           </div>
-        </div>
-      ),
-    },
-    {
-      key: "user",
-      header: t(AppLocales.Admin.Purchases.Table.User),
-      render: (record) => (
-        <div>
-          <div className="font-medium">
-            {record.user_name || record.username || "—"}
+        ),
+      },
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.USER,
+        header: t(AppLocales.Admin.Purchases.Table.User),
+        render: (record) => (
+          <div>
+            <div className="font-medium">
+              {record.user_name || record.username || "—"}
+            </div>
+            <div className="text-xs opacity-60">{record.user_email}</div>
           </div>
-          <div className="text-xs opacity-60">{record.user_email}</div>
-        </div>
-      ),
-    },
-    {
-      key: "amount",
-      header: t(AppLocales.Admin.Purchases.Table.Amount),
-      sortKey: ADMIN_PURCHASE_SORT_KEYS.UNIT_AMOUNT,
-      render: (record) => (
-        <span className="font-semibold">
-          {money(record.unit_amount, record.currency)}
-        </span>
-      ),
-    },
-    {
-      key: "status",
-      header: t(AppLocales.Admin.Common.Detail.Status),
-      sortKey: ADMIN_PURCHASE_SORT_KEYS.STATUS,
-      render: (record) => <StatusBadge status={record.status} />,
-    },
-    {
-      key: "method",
-      header: t(AppLocales.Admin.Purchases.Table.Method),
-      render: (record) => record.payment_method_display || "—",
-    },
-    {
-      key: "created",
-      header: t(AppLocales.Admin.Common.Detail.Created),
-      sortKey: ADMIN_PURCHASE_SORT_KEYS.CREATED_AT,
-      render: (record) => (
-        <DateTime
-          value={record.paid_at || record.created_at}
-          format={DateTimeFormats.ADMIN}
-        />
-      ),
-    },
-  ];
+        ),
+      },
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.AMOUNT,
+        header: t(AppLocales.Admin.Purchases.Table.Amount),
+        sortKey: ADMIN_PURCHASE_SORT_KEYS.UNIT_AMOUNT,
+        render: (record) => (
+          <span className="font-semibold">
+            {money(record.unit_amount, record.currency)}
+          </span>
+        ),
+      },
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.STATUS,
+        header: t(AppLocales.Admin.Common.Detail.Status),
+        sortKey: ADMIN_PURCHASE_SORT_KEYS.STATUS,
+        render: (record) => <StatusBadge status={record.status} />,
+      },
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.METHOD,
+        header: t(AppLocales.Admin.Purchases.Table.Method),
+        render: (record) => record.payment_method_display || "—",
+      },
+      {
+        key: ADMIN_PURCHASE_TABLE_KEYS.CREATED,
+        header: t(AppLocales.Admin.Common.Detail.Created),
+        sortKey: ADMIN_PURCHASE_SORT_KEYS.CREATED_AT,
+        render: (record) => (
+          <DateTime
+            value={record.paid_at || record.created_at}
+            format={DateTimeFormats.ADMIN}
+          />
+        ),
+      },
+    ],
+    [t],
+  );
 
   return (
     <div className="space-y-6">

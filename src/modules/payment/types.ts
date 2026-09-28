@@ -19,16 +19,23 @@ export interface IProduct {
   recurring: boolean;
   active: boolean;
   free?: boolean;
+  stripe_product_id?: string | null;
+  stripe_price_id?: string | null;
+  google_play_product_id?: string | null;
+  app_store_product_id?: string | null;
+  in_app?: boolean;
+  supported_providers?: string[];
 }
 
 export interface ISubscription {
   id: string;
-  stripe_subscription_id: string;
-  stripe_customer_id: string | null;
+  provider: string;
+  provider_subscription_id: string;
+  provider_subscription_item_id?: string | null;
+  provider_customer_id?: string | null;
+  provider_price_id: string;
 
   status: TSubscriptionStatus;
-  stripe_subscription_item_id: string;
-  stripe_price_id: string;
   currency: string;
   unit_amount: number;
   quantity: number;
@@ -96,9 +103,10 @@ export interface IPurchaseCoupon {
 export interface IPurchase {
   id: string;
 
-  stripe_payment_intent_id: string;
-  stripe_charge_id: string | null;
-  stripe_customer_id: string | null;
+  provider: string;
+  provider_payment_id: string;
+  provider_charge_id?: string | null;
+  provider_customer_id?: string | null;
 
   status: TPurchaseStatus;
 

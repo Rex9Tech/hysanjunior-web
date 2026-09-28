@@ -89,9 +89,9 @@ RexOne is governed by strict architectural laws that forbid "vibe coding", loose
 | `users` | Identity, authentication, Devise JWT, Stripe customer linking | `id`, `email`, `jti`, `confirmed_at`, `stripe_customer_id`, `role` |
 | `iam_roles` | System and custom roles | `id`, `name`, `description`, `system` |
 | `iam_permissions` | Atomic permissions across 23 resources | `id`, `name`, `resource`, `action` |
-| `payment_products` | Subscribable tiers and purchasable items | `id`, `name`, `code`, `amount`, `currency`, `billing_interval`, `stripe_price_id` |
-| `payment_subscriptions` | User subscription lifecycle | `id`, `user_id`, `product_id`, `status`, `current_period_end`, `stripe_subscription_id` |
-| `payment_transactions` | Individual charge and invoice records | `id`, `user_id`, `product_id`, `amount`, `currency`, `status`, `stripe_payment_intent_id` |
+| `payment_products` | Subscribable tiers and purchasable items | `id`, `name`, `code`, `amount`, `currency`, `billing_interval`, `provider`, `provider_product_id`, `provider_price_id` |
+| `payment_subscriptions` | User subscription lifecycle | `id`, `user_id`, `product_id`, `status`, `current_period_end`, `provider`, `provider_subscription_id`, `provider_price_id` |
+| `payment_purchases` | Individual one-time purchase records | `id`, `user_id`, `product_id`, `amount`, `currency`, `status`, `provider`, `provider_payment_id` |
 | `coupons` | Promo codes & referral discounts | `id`, `code`, `coupon_type`, `amount`, `currency`, `max_usage`, `used_count`, `metadata` |
 | `assets` | Polymorphic media storage | `id`, `assetable_type`, `assetable_id`, `storage_key`, `file_type`, `file_size`, `metadata` |
 | `notifications` | Central notification template registry | `id`, `event`, `category`, `link`, `cta_text`, `clients`, `metadata`, `in_app_title`, `push_title`, `email_subject` |

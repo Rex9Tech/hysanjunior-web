@@ -372,7 +372,8 @@
         "source": "ရင်းမြစ်",
         "format": "ဖော်မတ်",
         "size": "အရွယ်အစား",
-        "metadata": "မက်တာဒေတာ"
+        "metadata": "မက်တာဒေတာ",
+        "provider": "ဝန်ဆောင်မှုပေးသူ"
       },
       "actions": {
         "create": "ဖန်တီးမည်",
@@ -631,7 +632,9 @@
         "user": "ဝယ်ယူသူ",
         "payment_method": "ငွေပေးချေနည်း",
         "payment_intent": "Payment intent",
-        "charge": "Charge"
+        "charge": "Charge",
+        "transaction_id": "လုပ်ငန်းဆောင်ရွက်မှု အမှတ်",
+        "order_id": "အော်ဒါ အမှတ်"
       },
       "errors": { "load": "ဝယ်ယူမှုများကို မတင်နိုင်ပါ" }
     },

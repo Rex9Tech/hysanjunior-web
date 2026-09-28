@@ -34,6 +34,18 @@ export const AdminPurchaseDetailPage: React.FC = () => {
   const t = useTranslate();
   const { record, error } = useAdminDetail<IAdminPurchase>(id, load);
   const list = AppRoutes.client.protected.admin.PURCHASES;
+
+  const paymentIdentifierLabel = (provider?: string) => {
+    switch (provider) {
+      case "app_store":
+        return t(AppLocales.Admin.Purchases.Detail.TransactionId);
+      case "google_play":
+        return t(AppLocales.Admin.Purchases.Detail.OrderId);
+      default:
+        return t(AppLocales.Admin.Purchases.Detail.PaymentIntent);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <DetailHeader
@@ -135,13 +147,23 @@ export const AdminPurchaseDetailPage: React.FC = () => {
                 value={record.payment_method_display}
               />
               <DetailField
-                label={t(AppLocales.Admin.Purchases.Detail.PaymentIntent)}
-                value={record.stripe_payment_intent_id}
+                label={paymentIdentifierLabel(record.provider)}
+                value={record.provider_payment_id}
+                copyable
+                mono
                 className="sm:col-span-2"
               />
+              {record.provider_charge_id && (
+                <DetailField
+                  label={t(AppLocales.Admin.Purchases.Detail.Charge)}
+                  value={record.provider_charge_id}
+                  copyable
+                  mono
+                />
+              )}
               <DetailField
-                label={t(AppLocales.Admin.Purchases.Detail.Charge)}
-                value={record.stripe_charge_id}
+                label={t(AppLocales.Admin.Common.Detail.Provider)}
+                value={<span className="badge badge-outline uppercase font-mono">{record.provider}</span>}
               />
             </DetailGrid>
           </DetailSection>
