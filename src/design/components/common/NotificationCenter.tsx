@@ -13,7 +13,6 @@ import {
   type NotificationFilter,
   NOTIFICATION_FILTERS,
   NOTIFICATION_CLIENTS,
-  NOTIFICATION_SOCKET_TYPES,
   isExternalNotificationLink,
   resolveNotificationRoute,
 } from "../../../modules/notification";
@@ -28,8 +27,6 @@ import { cn } from "../../helpers";
 import { getUtcNowIso } from "../../../helpers/date.helper";
 import { DateTime } from "./DateTime";
 import type { IApiPagination } from "../../../models";
-import { useAuth } from "../../../contexts";
-import AppRoutes from "../../../AppRoutes";
 import { AnalyticsService } from "../../../services";
 
 export interface INotificationCenterProps {
@@ -40,7 +37,6 @@ export const NotificationCenter: React.FC<INotificationCenterProps> = ({
   className,
 }) => {
   const navigate = useNavigate();
-  const { refreshCurrentUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState<IUserNotification[]>([]);
@@ -256,19 +252,6 @@ export const NotificationCenter: React.FC<INotificationCenterProps> = ({
       } catch (err) {
         console.error("Failed to mark as read:", err);
       }
-    }
-
-    if (item.metadata?.type === NOTIFICATION_SOCKET_TYPES.IAM_UPDATED) {
-      const refreshedUser = await refreshCurrentUser();
-      setIsOpen(false);
-
-      if (refreshedUser && !refreshedUser.iam?.is_admin) {
-        navigate(AppRoutes.client.protected.HOME, { replace: true });
-        return;
-      }
-
-      window.location.reload();
-      return;
     }
 
     // If message has overflow/is long, show detail modal instead of directly navigating

@@ -198,9 +198,6 @@ class AppRoutes {
       NOTIFICATIONS_READ_ALL: AppRoutes.api("/notifications/read_all"), // PUT
       NOTIFICATION_DELETE: AppRoutes.api("/notifications/:id"), // DELETE
 
-      IAM_USER_ROLES: AppRoutes.api("/iam/users/:user_id/roles"), // POST
-      IAM_USER_ROLE: AppRoutes.api("/iam/users/:user_id/roles/:role_id"), // DELETE
-
       // API for Client Admin Dashboard
       admin: {
         USERS: AppRoutes.adminApi("/users"), // GET, POST
@@ -215,6 +212,10 @@ class AppRoutes {
         IAM_PERMISSIONS: AppRoutes.adminApi("/iam/permissions"), // GET, POST
         IAM_PERMISSION_DETAIL: AppRoutes.adminApi("/iam/permissions/:id"), // GET, PUT, DELETE
         IAM_ROLE_PERMISSIONS: AppRoutes.adminApi("/iam/permissions"), // GET
+        IAM_USER_ROLES: AppRoutes.adminApi("/iam/users/:user_id/roles"), // GET, POST
+        IAM_USER_ROLE: AppRoutes.adminApi("/iam/users/:user_id/roles/:role_id"), // DELETE
+        IAM_ROLE_USERS: AppRoutes.adminApi("/iam/roles/:role_id/users"), // GET, POST
+        IAM_ROLE_USER: AppRoutes.adminApi("/iam/roles/:role_id/users/:user_id"), // DELETE
         NOTIFICATIONS: AppRoutes.adminApi("/notifications"), // GET, POST
         NOTIFICATION_DETAIL: AppRoutes.adminApi("/notifications/:id"), // GET, PUT, DELETE
         NOTIFICATION_UNDISCARD: AppRoutes.adminApi(
@@ -254,9 +255,7 @@ class AppRoutes {
           "/payment/products/:id/undiscard",
         ), // POST
         PAYMENT_PURCHASES: AppRoutes.adminApi("/payment/purchases"), // GET
-        PAYMENT_PURCHASE_DETAIL: AppRoutes.adminApi(
-          "/payment/purchases/:id",
-        ), // GET
+        PAYMENT_PURCHASE_DETAIL: AppRoutes.adminApi("/payment/purchases/:id"), // GET
         PAYMENT_SUBSCRIPTIONS: AppRoutes.adminApi("/payment/subscriptions"), // GET
         PAYMENT_SUBSCRIPTION_DETAIL: AppRoutes.adminApi(
           "/payment/subscriptions/:id",

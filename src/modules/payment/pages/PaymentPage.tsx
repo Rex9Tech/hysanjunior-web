@@ -171,26 +171,32 @@ export const PaymentPage: React.FC = () => {
               </Badge>
             </div>
             <Button
-              variant={ButtonVariants.SECONDARY}
+              variant={ButtonVariants.PRIMARY}
               fullWidth
               size={ComponentSizes.MD}
-              disabled
+              onClick={() =>
+                success(
+                  `useAccess verified: Active entitlement confirmed for ${product.name}`,
+                )
+              }
             >
-              Claimed
+              Access Unlocked 🎉
             </Button>
           </div>
         );
       }
 
       return (
-        <Button
-          variant={ButtonVariants.PRIMARY}
-          fullWidth
-          size={ComponentSizes.MD}
-          onClick={() => handleCheckout(product.id)}
-        >
-          Claim Now
-        </Button>
+        <div className="space-y-2">
+          <Button
+            variant={ButtonVariants.PRIMARY}
+            fullWidth
+            size={ComponentSizes.MD}
+            onClick={() => handleCheckout(product.id)}
+          >
+            Claim Now
+          </Button>
+        </div>
       );
     }
 
@@ -211,6 +217,18 @@ export const PaymentPage: React.FC = () => {
               ✅ Active Subscription
             </Badge>
           </div>
+          <Button
+            variant={ButtonVariants.PRIMARY}
+            fullWidth
+            size={ComponentSizes.MD}
+            onClick={() =>
+              success(
+                `useAccess verified: Active subscription entitlement confirmed for ${product.name}`,
+              )
+            }
+          >
+            Access Unlocked 🎉
+          </Button>
           <p className="text-xs text-base-content/60">
             Next billing: {activeUntil}
           </p>
@@ -243,6 +261,18 @@ export const PaymentPage: React.FC = () => {
               ⏳ Canceled (active until {activeUntil})
             </Badge>
           </div>
+          <Button
+            variant={ButtonVariants.PRIMARY}
+            fullWidth
+            size={ComponentSizes.MD}
+            onClick={() =>
+              success(
+                `useAccess verified: Active entitlement confirmed for ${product.name}`,
+              )
+            }
+          >
+            Access Unlocked 🎉
+          </Button>
           <Button
             variant={ButtonVariants.SECONDARY}
             fullWidth
@@ -289,6 +319,18 @@ export const PaymentPage: React.FC = () => {
             variant={ButtonVariants.PRIMARY}
             fullWidth
             size={ComponentSizes.MD}
+            onClick={() =>
+              success(
+                `useAccess verified: Lifetime entitlement confirmed for ${product.name}`,
+              )
+            }
+          >
+            Access Unlocked 🎉
+          </Button>
+          <Button
+            variant={ButtonVariants.SECONDARY}
+            fullWidth
+            size={ComponentSizes.SM}
             onClick={() => setCheckoutProduct(product)}
           >
             Buy Again
@@ -323,14 +365,16 @@ export const PaymentPage: React.FC = () => {
 
     // Available for purchase
     return (
-      <Button
-        variant={ButtonVariants.PRIMARY}
-        fullWidth
-        size={ComponentSizes.MD}
-        onClick={() => setCheckoutProduct(product)}
-      >
-        {product.recurring ? t(AppLocales.Payment.SubscribeNow) : "Buy Now"}
-      </Button>
+      <div className="space-y-2">
+        <Button
+          variant={ButtonVariants.PRIMARY}
+          fullWidth
+          size={ComponentSizes.MD}
+          onClick={() => setCheckoutProduct(product)}
+        >
+          {product.recurring ? t(AppLocales.Payment.SubscribeNow) : "Buy Now"}
+        </Button>
+      </div>
     );
   };
 
@@ -358,6 +402,34 @@ export const PaymentPage: React.FC = () => {
               <p className="text-body-s text-base-content/70 mt-1">
                 {product.description}
               </p>
+
+              {/* Active Entitlement Banner (useAccess verification) */}
+              {hasActiveAccess(product.id) && (
+                <div className="mt-4 p-3 rounded-xl bg-success/10 border border-success/30 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-success text-base">✓</span>
+                    <div>
+                      <div className="text-xs font-bold text-success">
+                        Access Unlocked
+                      </div>
+                      <div className="text-[11px] text-base-content/60">
+                        Entitlement active via useAccess
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      success(
+                        `useAccess verified: Entitlement active for ${product.name}`,
+                      )
+                    }
+                    className="text-xs font-bold text-success hover:underline px-2.5 py-1 rounded bg-success/15 hover:bg-success/25 transition-colors cursor-pointer"
+                  >
+                    Verify
+                  </button>
+                </div>
+              )}
 
               <div className="mt-4 mb-6">
                 <span className="text-3xl font-extrabold text-base-content">

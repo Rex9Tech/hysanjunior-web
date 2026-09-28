@@ -15,7 +15,7 @@ export interface INotification {
 }
 
 export const useSocket = () => {
-  const { token, isAuthenticated, refreshCurrentUser } = useAuth();
+  const { token, isAuthenticated, refreshCurrentUser, signout } = useAuth();
   const { success, error, info, warning } = useToast();
   const [notifications, setNotifications] = useState<INotification[]>([]);
 
@@ -28,14 +28,25 @@ export const useSocket = () => {
 
     const handleNotification = (data: ISocketMessage) => {
       const payloadType = (data.data?.type as string) || data.type;
+
+      // When IAM roles or access entitlements are revoked or changed, sign out so the user re-authenticates fresh
+      if (
+        payloadType === NOTIFICATION_SOCKET_TYPES.IAM_UPDATED ||
+        payloadType === NOTIFICATION_SOCKET_TYPES.ACCESS_REVOKED ||
+        payloadType === NOTIFICATION_SOCKET_TYPES.ACCESS_UPDATED ||
+        payloadType === NOTIFICATION_SOCKET_TYPES.SESSION_EXPIRED ||
+        payloadType === NOTIFICATION_SOCKET_TYPES.SESSION_INVALIDATED
+      ) {
+        signout();
+        warning(data.message || "Your access has changed. Please sign in again.");
+        return;
+      }
+
       const isEntitlementEvent =
         payloadType === NOTIFICATION_SOCKET_TYPES.PAYMENT_SUCCESS ||
         payloadType === NOTIFICATION_SOCKET_TYPES.SUBSCRIPTION_CREATED ||
         payloadType === NOTIFICATION_SOCKET_TYPES.SUBSCRIPTION_RESUMED ||
-        payloadType === NOTIFICATION_SOCKET_TYPES.SUBSCRIPTION_CANCELED ||
-        payloadType === "access_granted" ||
-        payloadType === "access_revoked" ||
-        payloadType === "payment_intent_succeeded";
+        payloadType === NOTIFICATION_SOCKET_TYPES.SUBSCRIPTION_CANCELED;
 
       if (isEntitlementEvent) {
         void refreshCurrentUser();

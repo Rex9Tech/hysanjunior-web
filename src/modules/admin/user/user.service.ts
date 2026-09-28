@@ -98,7 +98,7 @@ class UserService {
     userId: string,
     roleId: string,
   ): Promise<IApiResponse<IApiEnvelope<unknown>>> {
-    const path = AppRoutes.server.protected.IAM_USER_ROLES.replace(
+    const path = AppRoutes.server.protected.admin.IAM_USER_ROLES.replace(
       ":user_id",
       userId,
     );
@@ -109,7 +109,7 @@ class UserService {
     userId: string,
     roleId: string,
   ): Promise<IApiResponse<IApiEnvelope<unknown>>> {
-    const path = AppRoutes.server.protected.IAM_USER_ROLE.replace(
+    const path = AppRoutes.server.protected.admin.IAM_USER_ROLE.replace(
       ":user_id",
       userId,
     ).replace(":role_id", roleId);

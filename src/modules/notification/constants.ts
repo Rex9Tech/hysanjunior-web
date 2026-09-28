@@ -57,4 +57,8 @@ export const NOTIFICATION_SOCKET_TYPES = {
   ASSET_THUMBNAIL_GENERATED: "asset_thumbnail_generated",
   ASSET_THUMBNAIL_FAILED: "asset_thumbnail_failed",
   IAM_UPDATED: "iam_updated",
+  ACCESS_UPDATED: "access_updated",
+  ACCESS_REVOKED: "access_revoked",
+  SESSION_EXPIRED: "session_expired",
+  SESSION_INVALIDATED: "session_invalidated",
 } as const;
