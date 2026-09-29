@@ -17,3 +17,15 @@ export const FormVariants = {
 } as const;
 
 export type FormVariant = (typeof FormVariants)[keyof typeof FormVariants];
+
+export const InputTypes = {
+  TEXT: "text",
+  EMAIL: "email",
+  PASSWORD: "password",
+  NUMBER: "number",
+  TEL: "tel",
+  URL: "url",
+  SEARCH: "search",
+} as const;
+
+export type InputType = (typeof InputTypes)[keyof typeof InputTypes];

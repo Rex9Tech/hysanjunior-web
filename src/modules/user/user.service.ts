@@ -43,6 +43,12 @@ class UserService {
     });
   }
 
+  async discardCurrentUser(): Promise<
+    IApiResponse<IApiEnvelope<IJsonApiResource<IUser>>>
+  > {
+    return api.delete(AppRoutes.server.protected.CURRENT_USER);
+  }
+
   async uploadImage(
     file: File,
     options?: IAssetUploadOptions,

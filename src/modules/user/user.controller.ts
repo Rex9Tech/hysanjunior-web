@@ -71,6 +71,30 @@ class UserController {
     };
   }
 
+  async discardCurrentUser(): Promise<{
+    success: boolean;
+    message?: string;
+    error?: string;
+  }> {
+    const response = await UserService.discardCurrentUser();
+    const { status } = response.data || {};
+
+    if (status?.success) {
+      return {
+        success: true,
+        message: status.message,
+      };
+    }
+
+    return {
+      success: false,
+      error: getApiError(
+        response,
+        translate(AppLocales.User.Errors.Delete),
+      ),
+    };
+  }
+
   async uploadImage(
     file: File,
     options?: IAssetUploadOptions,

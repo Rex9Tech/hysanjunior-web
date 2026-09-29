@@ -1769,12 +1769,19 @@ export const AppLocales = {
     AvatarHint: "user.avatar_hint",
     EmailLabel: "user.email.label",
     EmailHelper: "user.email.helper",
+    DangerZone: "user.danger_zone",
+    DeleteAccount: "user.delete_account",
+    DeleteAccountDesc: "user.delete_account_desc",
+    DeleteConfirmTitle: "user.delete_confirm_title",
+    DeleteConfirmMessage: "user.delete_confirm_message",
     Errors: {
       Update: "user.errors.update",
       UploadAvatar: "user.errors.upload_avatar",
+      Delete: "user.errors.delete",
     },
     Toasts: {
       UpdateSuccess: "user.toasts.update_success",
+      DeleteSuccess: "user.toasts.delete_success",
     },
   },
   Feedback: {

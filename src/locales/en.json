@@ -28,12 +28,19 @@
       "label": "Email",
       "helper": "Email cannot be changed."
     },
+    "danger_zone": "Danger Zone",
+    "delete_account": "Delete Account",
+    "delete_account_desc": "Permanently soft-delete your account and revoke active sessions.",
+    "delete_confirm_title": "Delete Account",
+    "delete_confirm_message": "Are you sure you want to delete your account? You cannot create a new account with the same email again. If you need assistance or wish to restore your account, contact {{support_email}}.",
     "errors": {
       "update": "Failed to update profile",
-      "upload_avatar": "Failed to upload profile photo"
+      "upload_avatar": "Failed to upload profile photo",
+      "delete": "Failed to delete account"
     },
     "toasts": {
-      "update_success": "Profile updated successfully"
+      "update_success": "Profile updated successfully",
+      "delete_success": "Account deleted successfully"
     }
   },
 

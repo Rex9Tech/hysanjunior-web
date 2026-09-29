@@ -1,9 +1,9 @@
-// src/modules/user/pages/UserPage.tsx
 import React, { useEffect, useState } from "react";
 import { iconsLib } from "../../../assets";
 import {
   AlertDialog,
   Button,
+  ConfirmDialog,
   FileInput,
   FormContainer,
   ProfileAvatar,
@@ -13,15 +13,17 @@ import {
   ButtonTypes,
   ButtonVariants,
   ComponentSizes,
+  InputTypes,
 } from "../../../design/constants";
 import { useAuth, useLoading, useToast } from "../../../contexts";
 import { AppLocales, useTranslate } from "../../../locales";
+import AppConfig from "../../../AppConfig";
 import UserController from "../user.controller";
 
 const USERNAME_PATTERN = /^[a-z0-9_]+$/;
 
 export const UserPage: React.FC = () => {
-  const { currentUser, setCurrentUser } = useAuth();
+  const { currentUser, setCurrentUser, signout } = useAuth();
   const { isLoading, setLoading } = useLoading();
   const toast = useToast();
   const t = useTranslate();
@@ -33,6 +35,7 @@ export const UserPage: React.FC = () => {
     currentUser?.avatar_url ?? null,
   );
   const [alertMessage, setAlertMessage] = useState("");
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
     setName(currentUser?.name ?? "");
@@ -117,6 +120,25 @@ export const UserPage: React.FC = () => {
     );
   };
 
+  const handleDiscardAccount = async () => {
+    setIsDeleteDialogOpen(false);
+    setLoading(true, { overlay: true });
+    try {
+      const result = await UserController.discardCurrentUser();
+      if (!result.success) {
+        setAlertMessage(result.error || t(AppLocales.User.Errors.Delete));
+        return;
+      }
+
+      toast.success(result.message || t(AppLocales.User.Toasts.DeleteSuccess));
+      signout();
+    } catch {
+      setAlertMessage(t(AppLocales.User.Errors.Delete));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <AlertDialog
@@ -177,7 +199,7 @@ export const UserPage: React.FC = () => {
           <TextInput
             id="profile-name"
             label={t(AppLocales.Auth.SignUpInfo.FullNameLabel)}
-            type="text"
+            type={InputTypes.TEXT}
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder={t(AppLocales.Auth.SignUpInfo.FullNamePlaceholder)}
@@ -189,7 +211,7 @@ export const UserPage: React.FC = () => {
           <TextInput
             id="profile-username"
             label={t(AppLocales.Auth.SignUpInfo.UsernameLabel)}
-            type="text"
+            type={InputTypes.TEXT}
             value={username}
             onChange={(event) => handleUsernameChange(event.target.value)}
             placeholder={t(AppLocales.Auth.SignUpInfo.UsernamePlaceholder)}
@@ -201,7 +223,7 @@ export const UserPage: React.FC = () => {
           <TextInput
             id="profile-email"
             label={t(AppLocales.User.EmailLabel)}
-            type="email"
+            type={InputTypes.EMAIL}
             value={currentUser?.email ?? ""}
             helperText={t(AppLocales.User.EmailHelper)}
             disabled
@@ -218,6 +240,45 @@ export const UserPage: React.FC = () => {
           </Button>
         </FormContainer>
       </div>
+
+      {/* Danger Zone */}
+      <div className="mt-8 space-y-4 rounded-2xl border border-error/30 bg-error/5 p-6 shadow-xl backdrop-blur-md">
+        <div>
+          <h2 className="font-primary text-lg font-bold text-error">
+            {t(AppLocales.User.DangerZone)}
+          </h2>
+          <p className="text-body-s text-base-content/70 mt-1">
+            {t(AppLocales.User.DeleteAccountDesc)}
+          </p>
+        </div>
+        <div className="flex justify-start">
+          <Button
+            type={ButtonTypes.BUTTON}
+            variant={ButtonVariants.PRIMARY}
+            size={ComponentSizes.MD}
+            className="bg-error! text-primary-content! hover:bg-error/90!"
+            onClick={() => setIsDeleteDialogOpen(true)}
+            disabled={isLoading}
+          >
+            {t(AppLocales.User.DeleteAccount)}
+          </Button>
+        </div>
+      </div>
+
+      <ConfirmDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDiscardAccount}
+        title={t(AppLocales.User.DeleteConfirmTitle)}
+        message={t(AppLocales.User.DeleteConfirmMessage, {
+          support_email: AppConfig.FROM_EMAIL,
+          supportEmail: AppConfig.FROM_EMAIL,
+        })}
+        confirmLabel={t(AppLocales.User.DeleteAccount)}
+        cancelLabel={t(AppLocales.Common.Cancel)}
+        isDestructive
+        isLoading={isLoading}
+      />
     </div>
   );
 };

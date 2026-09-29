@@ -95,7 +95,7 @@ RexOne Web is built for React teams, founder-engineers, and agencies creating au
 
 It is a particularly good fit when a web product needs several of these concerns to behave consistently:
 
-- Complete identity, confirmation, recovery, Google sign-in, and session-expiry flows.
+- Complete identity, confirmation, recovery, Google sign-in, user self-account deletion, and session-expiry flows.
 - User and administrator experiences backed by the same IAM contract.
 - Stripe checkout, subscriptions, purchases, and entitlement-aware interfaces.
 - Queued AI, media, and notification workflows that update through real-time events.
@@ -128,7 +128,7 @@ It is to provide a **clear client foundation**—strong enough to carry ambitiou
 
 | Foundation    | What is ready                                                                                                                                         | Details                                                                                 |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Identity      | Email/passcode flows, confirmation, recovery, Google sign-in, session expiry                                                                          | [Authentication & security](#authentication--security)                                  |
+| Identity      | Email/passcode flows, confirmation, recovery, Google sign-in, user self-account deletion, session expiry                                      | [Authentication & security](#authentication--security)                                  |
 | Navigation    | Public and protected routes with centralized route definitions                                                                                        | [Routing & access](#routing--access)                                                    |
 | Design        | Reusable inputs (including DateTimePicker, NumberInput), buttons, dialogs, overlays, media, themes, and typography                                    | [Design system](docs/DESIGN_SYSTEM.md)                                                  |
 | State         | React contexts, Jotai atoms, and deliberate browser persistence                                                                                       | [State & application flow](#state--application-flow)                                    |
@@ -196,6 +196,7 @@ The UI does not need to know how Axios is configured, and transport code does no
 - Central handling for expired or replaced sessions, with a localized sign-in message.
 - Protected and public route boundaries.
 - Google logout coordination for Google-backed accounts.
+- User self-account deletion: Dedicated Danger Zone in Profile/User settings prompting a destructive confirmation dialog with non-recoverable email warnings and configurable support email contact, followed by session eviction.
 
 Authentication delegates identity rules and token authority to RexOne Core while keeping browser behavior, navigation, and feedback cohesive.
 

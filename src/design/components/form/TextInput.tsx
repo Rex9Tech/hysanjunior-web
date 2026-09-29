@@ -7,9 +7,11 @@
 import React, { useId } from "react";
 import { iconsLib } from "../../../assets";
 import { cn } from "../../helpers";
-import { InputVariant, InputVariants } from "../../constants";
+import { InputType, InputVariant, InputVariants } from "../../constants";
 
-export interface ITextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface ITextInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  type?: InputType | (string & {});
   label?: string;
   labelClassName?: string;
   helperText?: string;
