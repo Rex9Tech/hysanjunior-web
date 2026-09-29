@@ -246,10 +246,21 @@ git clone https://github.com/rex-9/rexone-web.git
 cd rexone-web && git switch dev
 cp .env.example .env
 ./scripts/install_pre_commit.sh
+
+# 1. Local Development (connects to local Core API at http://localhost:3000)
 ./scripts/dev.sh
+# (or via npm:) npm run dev
+
+# 2. Remote UAT Staging (connects to https://uat.api.rexone.me)
+./scripts/uat.sh
+# (or via npm:) npm run uat
+
+# 3. Remote Production (connects to https://api.rexone.me)
+./scripts/prod.sh
+# (or via npm:) npm run prod
 ```
 
-By default, the client is immediately available at **[http://localhost:4000](http://localhost:4000)** (both in Docker and when running native Vite via `npm run dev`).
+By default, the client is immediately available at **[http://localhost:4000](http://localhost:4000)**.
 
 ---
 
@@ -258,7 +269,7 @@ By default, the client is immediately available at **[http://localhost:4000](htt
 RexOne Web enforces high engineering discipline with strict compile-time checks and dual-layer automated testing:
 
 ```bash
-# 1. Run all unit tests (Vitest) - 43 suites, 370 tests
+# 1. Run all unit tests (Vitest) - 43 suites, 371 tests
 npm test
 
 # 2. Run Playwright End-to-End user journeys (headless)
@@ -286,7 +297,7 @@ To maintain high architectural discipline without cluttering the primary showcas
 
 ---
 
-## 🚀 Production Deployment
+## 🚀 Production Deployment & Smoke Testing
 
 Execute an optimized production build:
 
@@ -294,7 +305,26 @@ Execute an optimized production build:
 npm run build
 ```
 
-Production bundles are emitted to `dist/`. The output can be deployed via Coolify, static CDN, or containerized via the included `Dockerfile` with standard SPA fallback routing. For the complete deployment guide, see **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**.
+Production bundles are emitted to `dist/`. The output can be deployed via Coolify, static CDN, or containerized via the included `Dockerfile` with standard SPA fallback routing.
+
+### Test Production Container Locally
+
+To test the exact production multi-stage Docker image and Nginx configuration (SPA routing, health checks, gzip) locally on your Mac:
+
+```bash
+# 1. Full production Docker + Nginx container test on http://localhost:8080:
+./scripts/test_prod.sh
+# (or via npm:)
+npm run test:prod
+
+# 2. Or test on a custom port:
+./scripts/test_prod.sh -p 8081
+
+# 3. Lightweight Vite preview without Docker:
+./scripts/test_prod.sh --preview
+```
+
+For the complete Coolify deployment guide, see **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**.
 
 ## Other Repos in RexOne Ecosystem
 

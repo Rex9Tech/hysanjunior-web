@@ -3,6 +3,7 @@
 > **Target Platform:** Coolify + Nginx on Contabo VPS
 > **Container:** Multi-stage Dockerfile (`node:22-alpine` build + `nginx:alpine` runtime)
 > **Port:** 80 (Internal) / 443 (Traefik SSL edge)
+> **Master Infrastructure Guide:** For complete VPS hardening, `/etc/docker/daemon.json` build cache protection, and automated maintenance cron, see **[RexOne Core: Production Deployment Guide](https://github.com/rex-9/rexone-core/blob/dev/docs/DEPLOYMENT.md)**.
 
 ---
 
@@ -51,3 +52,29 @@ Coolify also supports deploying `rexone-web` directly as a **Static Application*
 - Build Command: `npm run build`
 - Publish Directory: `dist`
 - SPA Mode: Enable SPA checkbox in Coolify settings.
+
+---
+
+## 4. Local Production Smoke Testing
+
+Before deploying to Coolify or creating release tags, verify the exact production Docker image and Nginx configuration locally:
+
+```bash
+# Full production multi-stage build + Nginx container test (port 8080):
+./scripts/test_prod.sh
+# (or via npm:)
+npm run test:prod
+
+# Custom port:
+./scripts/test_prod.sh -p 8081
+
+# Lightweight Vite preview without Docker:
+./scripts/test_prod.sh --preview
+```
+
+This verifies:
+1. **TypeScript & Bundling**: Strict type check (`tsc -b`) and asset minification pass without errors.
+2. **Nginx SPA Fallback**: Deep links (e.g. `http://localhost:8080/privacy`) resolve to `index.html` without returning 404s.
+3. **Container Healthcheck**: `http://localhost:8080/health` responds with HTTP 200.
+4. **Headers & Compression**: Gzip compression and security headers are active.
+

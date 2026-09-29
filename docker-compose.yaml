@@ -1,6 +1,12 @@
 # rexone-web/docker-compose.yaml
 # Production Docker Compose for Coolify
 
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "${DOCKER_LOG_MAX_SIZE:-10m}"
+    max-file: "${DOCKER_LOG_MAX_FILE:-3}"
+
 services:
   web:
     container_name: ${WEB_CONTAINER_NAME:-prod-rexone-web}
@@ -29,6 +35,7 @@ services:
       interval: 15s
       timeout: 3s
       retries: 3
+    logging: *default-logging
     networks:
       - rexone-network
 

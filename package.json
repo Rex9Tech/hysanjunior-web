@@ -9,6 +9,8 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "uat": "./scripts/uat.sh",
+    "prod": "./scripts/prod.sh",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "check:architecture": "./scripts/check_architecture.sh",
@@ -16,6 +18,7 @@
     "check": "./scripts/ci.sh",
     "ci": "./scripts/ci.sh",
     "preview": "vite preview",
+    "test:prod": "./scripts/test_prod.sh",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "./scripts/test_unit.sh",

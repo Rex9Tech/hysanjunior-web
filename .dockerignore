@@ -1,6 +1,16 @@
 node_modules
 npm-debug.log
+dist
 build
 .git
-*.md
 .gitignore
+.env*
+!/.env*.erb
+coverage
+*.md
+.DS_Store
+.vscode
+.idea
+.gemini
+.cursor
+scratch
