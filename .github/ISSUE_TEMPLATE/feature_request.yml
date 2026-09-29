@@ -1,0 +1,51 @@
+name: "💡 Feature or UI/UX Proposal"
+description: "Propose a new Web capability, UX refinement, or design system component."
+title: "[FEATURE]: "
+labels: ["enhancement", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing an enhancement to RexOne Web! Please ensure your proposal adheres to **Discipline-Driven Development (DDD)** and the constitutional laws defined in [`LAW.md`](../../LAW.md).
+  - type: dropdown
+    id: targeted_module
+    attributes:
+      label: "Targeted Module or Domain"
+      options:
+        - "Design System & UI Components (Tailwind CSS / DaisyUI)"
+        - "Authentication, Profile & Settings"
+        - "Admin Dashboard & User Management"
+        - "Audio / Video Media Player & HLS Streaming"
+        - "Real-Time WebSocket & Chat Engine"
+        - "Accessibility (a11y) & Responsiveness"
+        - "Developer Tooling & Testing"
+    validations:
+      required: true
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: "Problem Statement"
+      description: "What user need, limitation, or improvement does this feature address?"
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "Proposed Solution & Design"
+      description: "Describe how this should work, UI wireframes or references, and state management flow."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives_considered
+    attributes:
+      label: "Alternatives Considered"
+      description: "What other approaches or components did you explore, and why did you choose this solution?"
+  - type: checkboxes
+    id: constitutional_alignment
+    attributes:
+      label: "Constitutional Alignment"
+      options:
+        - label: "I have reviewed `LAW.md` and confirmed this proposal maintains clean parameter contracts and zero loose code."
+          required: true
+        - label: "I am willing to submit a pull request implementing this feature if approved."
+          required: false
