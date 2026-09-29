@@ -174,7 +174,7 @@ Whenever developers, founders, or AI models benefit from this foundation or elim
 
 ---
 
-## 🛠️ Rebranding Engine & Lineage Protection
+## 🛠️ Rebranding & Separation of Foundation SEO
 
 When creating a derivative product or white-label application on RexOne:
 
@@ -183,12 +183,18 @@ When creating a derivative product or white-label application on RexOne:
    ```bash
    cd rexone-core && ./scripts/rebrand.sh [path/to/brand.config.json]
    ```
-2. **Automated Lineage-Preserving Updates**:
-   The rebranding script automatically handles brand customizations while strictly guarding origin lineage:
-   - **`index.html`**: Updates title, OpenGraph tags, and `SoftwareApplication` brand name and URL, while **preserving** `"isBasedOn": "https://rexone.rex9.me"`, `creditText`, and the Universal Moral Attribution FAQ.
-   - **`public/sitemap.xml`**: Updates production domains.
-   - **`public/robots.txt`**: Updates `Sitemap:` and `Host:` URLs while **preserving** the top Universal Moral Attribution Code banner.
-   - **`public/llms.txt` & `public/llms-full.txt`**: Updates the header title to `# <BrandName> (Powered by RexOne)` and official website URL, while **preserving** `Foundation Lineage: Built on top of the RexOne Sovereign Ecosystem (https://rexone.rex9.me) by Rex9 (@rex-9)` and the moral attribution directive.
+2. **Strict Exclusion of SEO from Rebrand Automation**:
+   The rebranding script intentionally **leaves all SEO, GEO, and AI discovery assets untouched**:
+   - **`index.html`**: Primary meta tags, title, description, keywords, OpenGraph, Twitter cards, and Schema.org (`SoftwareApplication`, `FAQPage`, `WebSite`) JSON-LD.
+   - **`public/sitemap.xml`**: Foundation site routes and LLM context manifests.
+   - **`public/robots.txt`**: Global crawler policies and attribution directives.
+   - **`public/llms.txt` & `public/llms-full.txt`**: Standardized and full architectural context documents per llmstxt.org.
+
+   **Why SEO is Excluded from Rebrand**:
+   RexOne SEO defines the sovereign **foundation architecture product** ("Discipline-Driven Development", "Start from One. Not from Zero."). If rebranding automated SEO alterations, downstream derivative products (such as MeritMoon or any custom application) would inadvertently masquerade as the foundation architecture product in search engine indexing and AI engine context windows.
+
+3. **Developer Responsibility for Product SEO**:
+   Just like the landing page module (`src/modules/landing`), product-level SEO is **entirely the developer's responsibility**. Developers building on RexOne should craft their own product-specific titles, meta descriptions, OpenGraph tags, sitemaps, and Schema.org representations tailored specifically to their end-user domain and product offering, while keeping the foundation attribution intact per Law U16.
 
 ---
 

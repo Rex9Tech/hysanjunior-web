@@ -343,6 +343,9 @@ cd ../rexone-core && ./scripts/rebrand.sh
 VITE_APP_NAME="My New App Name"
 ```
 
+> [!NOTE]
+> The rebranding script intentionally leaves the **landing module** (`src/modules/landing`) and **SEO / AI discovery assets** (`index.html` metadata/Schema.org, `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`) completely untouched. RexOne SEO belongs to the foundation architecture; product-specific landing and SEO design are 100% the developer's responsibility.
+
 ---
 
 ## 🏛️ Ecosystem Lineage & Attribution
