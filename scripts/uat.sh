@@ -15,8 +15,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/.."
 
 # Target UAT endpoints
-export VITE_REACT_APP_SERVER_BASE_URL="${VITE_REACT_APP_SERVER_BASE_URL:-https://uat.api.rexone.me}"
-export VITE_REACT_APP_SERVER_WS_BASE_URL="${VITE_REACT_APP_SERVER_WS_BASE_URL:-wss://uat.api.rexone.me}"
+export VITE_REACT_APP_SERVER_BASE_URL="${VITE_REACT_APP_SERVER_BASE_URL:-https://uat.api.rexone.com}"
+export VITE_REACT_APP_SERVER_WS_BASE_URL="${VITE_REACT_APP_SERVER_WS_BASE_URL:-wss://uat.api.rexone.com}"
 
 echo "===================================================================="
 echo "🌐 RexOne Web — Running against UAT STAGING Server"

@@ -6,6 +6,7 @@ import { useTranslate, AppLocales } from "../../../../locales";
 import type { IAdminNotificationTemplate } from "../types";
 import { NOTIFICATION_CHANNELS, type TNotificationChannel } from "../constants";
 import { getTemplateConfiguredChannels } from "../helpers";
+import AppConfig from "../../../../AppConfig";
 
 export interface IAdminNotificationPreviewProps {
   template?: IAdminNotificationTemplate | null;
@@ -160,10 +161,10 @@ export const AdminNotificationPreview: React.FC<
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <div className="w-4 h-4 rounded bg-primary text-primary-content flex items-center justify-center text-[9px] font-black">
-                  R
+                  {AppConfig.APP_NAME.charAt(0).toUpperCase()}
                 </div>
                 <span className="text-[10px] font-bold tracking-widest uppercase font-mono text-base-content/80">
-                  RexOne
+                  {AppConfig.APP_NAME}
                 </span>
               </div>
               <span className="text-[10px] text-base-content/50 font-mono">
@@ -236,9 +237,9 @@ export const AdminNotificationPreview: React.FC<
                   {t(AppLocales.Admin.Notifications.Preview.EmailFrom)}:
                 </span>
                 <span className="text-xs font-semibold text-base-content">
-                  RexOne{" "}
+                  {AppConfig.APP_NAME}{" "}
                   <span className="font-normal text-base-content/60">
-                    &lt;support@rexone.rex9.me&gt;
+                    &lt;{AppConfig.FROM_EMAIL}&gt;
                   </span>
                 </span>
               </div>
@@ -274,7 +275,7 @@ export const AdminNotificationPreview: React.FC<
               {(template.cta_text || template.link) && (
                 <div className="pt-1.5 pb-0.5">
                   <div className="inline-block px-3 py-1 rounded-md bg-primary text-primary-content font-semibold text-xs shadow-xs text-center">
-                    {template.cta_text || "Open in RexOne"}
+                    {template.cta_text || `Open in ${AppConfig.APP_NAME}`}
                   </div>
                 </div>
               )}
