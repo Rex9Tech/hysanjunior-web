@@ -225,6 +225,19 @@ curl -s https://rexone.rex9.me/sitemap.xml | grep "llms"
 
 ---
 
-## 🌍 Global Registration & Webmaster Consoles
+## ⚡ Real-Time Indexing & Trust Protocols
 
-For full instructions on registering and verifying RexOne with **Google Search Console**, **Bing Webmaster Tools**, **Yandex**, **Naver**, **IndexNow**, and major developer catalogs, see the **[Worldwide Webmaster Registration & Verification Guide](WORLDWIDE_REGISTRATION.md)**.
+### 1. Instant Crawling via IndexNow Protocol
+RexOne ships pre-configured with the **IndexNow protocol**, which notifies search engines (Microsoft Bing, Yandex, Naver, Seznam) within seconds whenever URLs are updated or published:
+- **Verification Key**: Located at [`public/9f8b2c4e1a7d3e5b6c8e9a0d2b4c6e8a.txt`](file:///Users/rex/Desktop/Dev/rexone/rexone-web/public/9f8b2c4e1a7d3e5b6c8e9a0d2b4c6e8a.txt).
+- **Trigger Script**: Run `./scripts/submit_indexnow.sh` after production deployments to immediately alert participating search engines.
+
+### 2. RFC 9116 `security.txt` & Web Manifest
+- **Security Policy**: Standardized security researcher disclosure policy located at [`public/.well-known/security.txt`](file:///Users/rex/Desktop/Dev/rexone/rexone-web/public/.well-known/security.txt) (`https://rexone.rex9.me/.well-known/security.txt`).
+- **PWA Manifest**: Standardized web app manifest at [`public/site.webmanifest`](file:///Users/rex/Desktop/Dev/rexone/rexone-web/public/site.webmanifest) (`https://rexone.rex9.me/site.webmanifest`).
+
+---
+
+## 🌐 Public Distribution & Directories
+
+For the complete index of curated software directories (AlternativeTo, Awesome-Rails, Awesome-React, Awesome-Flutter, Awesome-Selfhosted, Awesome-SaaS-Boilerplates), developer launchpads (Product Hunt, Hacker News), and community channels, see the **[Public Distribution Index](https://github.com/rex-9/rexone-core/blob/dev/docs/DISTRIBUTION.md)**.
