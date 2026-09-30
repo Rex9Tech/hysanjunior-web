@@ -12,7 +12,7 @@ This directory serves as the technical documentation manual for **RexOne Web** (
 | **🌐 AI Discovery & GEO** | Generative Engine Optimization, crawler allowlists, llms.txt, and JSON-LD | **[`docs/SEO_GEO.md`](SEO_GEO.md)** |
 | **🚀 Production Deployment** | Vite production builds, Coolify Docker deployment, and Nginx reverse proxy | **[`docs/DEPLOYMENT.md`](DEPLOYMENT.md)** |
 | **🛡️ Architecture Invariant Checks** | Automated AST lint rules enforcing LAW.md (centralized keys, no raw cookies) | **[`docs/ARCHITECTURE_CHECKS.md`](ARCHITECTURE_CHECKS.md)** |
-| **🌍 Worldwide Webmaster Guide** | Google Search Console, Bing, Yandex, Naver, IndexNow, and registry submissions | **[`docs/WORLDWIDE_REGISTRATION.md`](WORLDWIDE_REGISTRATION.md)** |
+| **🌐 Public Distribution Index** | Curated software directories, Awesome-lists, and community launch indexes | **[`docs/DISTRIBUTION.md`](https://github.com/rex-9/rexone-core/blob/dev/docs/DISTRIBUTION.md)** |
 
 ---
 

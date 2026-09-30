@@ -21,7 +21,7 @@ Built under the same creed as RexOne Core: **Start from One. Not from Zero. Clea
 
 **Typed · Modular · Localized · Observable · API-driven · Fully Tested**
 
-[Live Demo ↗](https://rexone.rex9.me) · [Explore the client](#feature-map) · [Who it is for](#who-rexone-web-is-for) · [Ecosystem Architecture](ECOSYSTEM.md) · [Development Law](LAW.md) · [Agent Governance](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md) · [Design System](docs/DESIGN_SYSTEM.md) · [AI Discovery & GEO](docs/SEO_GEO.md) · [Global Webmaster Registration](docs/WORLDWIDE_REGISTRATION.md) · [Production Deployment](docs/DEPLOYMENT.md) · [Run it locally](#getting-started) · [Meet the architecture](#architecture) · [Connect the API](#configuration)
+[Live Demo ↗](https://rexone.rex9.me) · [Explore the client](#feature-map) · [Who it is for](#who-rexone-web-is-for) · [Ecosystem Architecture](ECOSYSTEM.md) · [Development Law](LAW.md) · [Agent Governance](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md) · [Design System](docs/DESIGN_SYSTEM.md) · [AI Discovery & GEO](docs/SEO_GEO.md) · [Public Distribution](https://github.com/rex-9/rexone-core/blob/dev/docs/DISTRIBUTION.md) · [Production Deployment](docs/DEPLOYMENT.md) · [Run it locally](#getting-started) · [Meet the architecture](#architecture) · [Connect the API](#configuration)
 
 </div>
 
@@ -35,7 +35,7 @@ Built under the same creed as RexOne Core: **Start from One. Not from Zero. Clea
 | **📜 Constitutional Law**           | Non-negotiable architecture, design system, and state laws: **[LAW.md](LAW.md)** _(Zero exceptions)_                                                                                                                                                                                                                   |
 | **🤖 Operational Agent Governance** | Autonomous agent rules, secret isolation, and documentation synchronization: **[AGENTS.md](https://github.com/rex-9/rexone-core/blob/dev/AGENTS.md)**                                                                                                                                                                  |
 | **🌐 AI Discovery & GEO**           | Generative Engine Optimization, crawler allowlists, and LLM context files: **[AI Discovery & GEO Guide](docs/SEO_GEO.md)**                                                                                                                                                                                             |
-| **🌍 Global Webmaster & Registry**  | Google Search Console, Bing, Yandex, Naver, IndexNow, and developer catalogs: **[Worldwide Registration Guide](docs/WORLDWIDE_REGISTRATION.md)**                                                                                                                                                                       |
+| **🌐 Public Distribution Index**    | Curated software directories, Awesome-lists, and community launch indexes: **[docs/DISTRIBUTION.md](https://github.com/rex-9/rexone-core/blob/dev/docs/DISTRIBUTION.md)** |
 
 ---
 
@@ -80,6 +80,7 @@ RexOne Web pioneers **Discipline-Driven Development (DDD)** for client-side appl
 RexOne Web stops architectural decay before it starts:
 
 - **Server Frameworks on the Frontend Suck**: Clumsy server-rendered view hacks cannot match the fluid, state-aware responsiveness demanded by modern users. React 19 + TypeScript provides complete type safety, component modularity, and rich interactive control.
+- **Zero-Lag Developer Experience (Vite HMR)**: No waiting 3–5 seconds on every file save. Native ESM and esbuild deliver sub-50ms Hot Module Replacement (HMR) and instantaneous cold starts. Production builds yield pure static assets deployable on any Nginx container or CDN edge with zero Node runtime memory footprint.
 - **Client-First Responsibility**: Routes, contexts, controllers, services, models, modules, and design primitives have strict, distinct responsibilities.
 - **The Foundation Bends Around the Product**: RexOne Web provides the customer-facing application shell and a complete operational Admin Portal (RBAC, users, products, coupons, feedback, client logs) backed by the same versioned API contracts.
 
@@ -294,7 +295,7 @@ To maintain high architectural discipline without cluttering the primary showcas
 | **🌐 AI Discovery & GEO Guide**      | Generative Engine Optimization, crawler allowlists, and JSON-LD: **[`docs/SEO_GEO.md`](docs/SEO_GEO.md)**                           |
 | **🚀 Production Deployment**         | Vite production builds, Coolify Docker deployment, and Nginx proxy: **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)**                  |
 | **🛡️ Architecture Invariant Checks** | AST linter enforcing LAW.md (centralized keys, no raw cookies): **[`docs/ARCHITECTURE_CHECKS.md`](docs/ARCHITECTURE_CHECKS.md)**    |
-| **🌍 Worldwide Webmaster Registry**  | Search Console, Bing, Yandex, Naver, IndexNow, and catalogs: **[`docs/WORLDWIDE_REGISTRATION.md`](docs/WORLDWIDE_REGISTRATION.md)** |
+| **🌐 Public Distribution Index**    | Curated software directories, Awesome-lists, and catalogs: **[`docs/DISTRIBUTION.md`](https://github.com/rex-9/rexone-core/blob/dev/docs/DISTRIBUTION.md)** |
 
 ---
 
