@@ -73,7 +73,7 @@ const AUDIO_ASSET_TYPE = "audio";
 
 function findMessageAudioAsset(message: IMessage): IAsset | undefined {
   return message.assets?.find(
-    (item) => item.type === AUDIO_ASSET_TYPE && item.url.trim() !== "",
+    (item) => item.format === AUDIO_ASSET_TYPE && item.url.trim() !== "",
   );
 }
 
