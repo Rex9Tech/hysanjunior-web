@@ -10,4 +10,5 @@ export { ContactForm } from "./ContactForm";
 export { SponsorCard } from "./SponsorCard";
 export { CandleQuoteCard } from "./CandleQuoteCard";
 export { DoctrineCard } from "./DoctrineCard";
+export { FeatureShowcase } from "./FeatureShowcase";
 export { LegalLayout } from "./LegalLayout";

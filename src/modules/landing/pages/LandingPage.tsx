@@ -13,6 +13,7 @@ import {
   SponsorCard,
   CandleQuoteCard,
   DoctrineCard,
+  FeatureShowcase,
 } from "../components";
 import { Button } from "../../../design/components/button";
 import { TextLink } from "../../../design/components/common/TextLink";
@@ -83,6 +84,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
       const sections = [
         "Greetings",
         "Skills",
+        "Features",
         "Projects",
         "Testimonials",
         "Sponsor",
@@ -238,7 +240,10 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
           </div>
         </section>
 
-        {/* 5. Projects Section */}
+        {/* 5. Features Section (8 Sovereign Pillars + Master Feature Matrix) */}
+        <FeatureShowcase id="Features" />
+
+        {/* 6. Projects Section */}
         <section id="Projects" className="py-12 scroll-mt-20">
           <div className="text-center mb-8">
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">

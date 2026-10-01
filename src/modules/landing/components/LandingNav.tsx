@@ -35,6 +35,7 @@ export const LandingNav: React.FC<ILandingNavProps> = ({
   const navItems = [
     { label: "Greetings", href: "#Greetings" },
     { label: "Skills", href: "#Skills" },
+    { label: "Features", href: "#Features" },
     { label: "Projects", href: "#Projects" },
     { label: "Testimonials", href: "#Testimonials" },
     { label: "Sponsor", href: "#Sponsor" },
