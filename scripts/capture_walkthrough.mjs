@@ -344,7 +344,7 @@ async function run() {
   await captureOps('/admin/queue', 'operations/o04-solid-queue.png');
   await captureOps('/admin/cache', 'operations/o05-solid-cache.png');
   await captureOps('/admin/cable', 'operations/o06-solid-cable.png');
-  await captureOps('/api-docs', 'operations/o07-swagger.png');
+  await captureOps('/admin/api-docs', 'operations/o07-swagger.png');
 
   await opsContext.close();
   await browser.close();
