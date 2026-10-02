@@ -23,7 +23,7 @@ export const ProductHuntBadge: React.FC<IProductHuntBadgeProps> = ({
       />
 
       <a
-        href="https://www.producthunt.com/products/rexone-ecosystem/reviews/new?utm_source=badge-product_review&utm_medium=badge&utm_source=badge-rexone-ecosystem"
+        href="https://www.producthunt.com/products/rexone/reviews/new?utm_source=badge-product_review&utm_medium=badge&utm_source=badge-rexone"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Review RexOne on Product Hunt"
