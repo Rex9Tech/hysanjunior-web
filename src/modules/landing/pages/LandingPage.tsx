@@ -14,6 +14,7 @@ import {
   CandleQuoteCard,
   DoctrineCard,
   FeatureShowcase,
+  ProductHuntBadge,
 } from "../components";
 import { Button } from "../../../design/components/button";
 import { TextLink } from "../../../design/components/common/TextLink";
@@ -204,6 +205,11 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             No journey is walked alone. Let&apos;s conquer greatness &amp;
             stillness together. 🏹
           </p>
+
+          {/* Product Hunt Review Badge */}
+          <div className="pt-2 flex justify-center">
+            <ProductHuntBadge />
+          </div>
         </section>
 
         {/* Social Profiles Row */}
@@ -418,6 +424,14 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 }`}
               />
             ))}
+          </div>
+
+          {/* Product Hunt Community Review Callout */}
+          <div className="mt-8 flex flex-col items-center justify-center gap-2.5">
+            <p className="text-xs sm:text-sm text-base-content/70 tracking-wide font-medium">
+              Experienced RexOne? Share your review with the community on Product Hunt:
+            </p>
+            <ProductHuntBadge />
           </div>
         </section>
 

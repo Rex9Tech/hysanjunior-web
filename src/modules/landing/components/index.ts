@@ -12,3 +12,4 @@ export { CandleQuoteCard } from "./CandleQuoteCard";
 export { DoctrineCard } from "./DoctrineCard";
 export { FeatureShowcase } from "./FeatureShowcase";
 export { LegalLayout } from "./LegalLayout";
+export { ProductHuntBadge } from "./ProductHuntBadge";
