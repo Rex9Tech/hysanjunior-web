@@ -104,7 +104,6 @@ export const AdminAssetsPage: React.FC<IAdminAssetsPageProps> = ({
   const { isLoading, setLoading } = useLoading();
   const toast = useToast();
 
-  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const [assets, setAssets] = useState<IAdminAsset[]>([]);
   const [pagination, setPagination] = useState<IApiPagination | null>(null);
 
@@ -145,7 +144,7 @@ export const AdminAssetsPage: React.FC<IAdminAssetsPageProps> = ({
   const fetchAssets = useCallback(
     async (options?: { silent?: boolean }) => {
       const silent = Boolean(options?.silent);
-      if (!silent) setLoading(true, { overlay: true });
+      if (!silent) setLoading(true);
       try {
         const params: Record<string, string | number> = {
           page,
@@ -173,8 +172,7 @@ export const AdminAssetsPage: React.FC<IAdminAssetsPageProps> = ({
           );
         }
       } finally {
-        if (!silent) setLoading(false, { overlay: true });
-        setHasLoadedOnce(true);
+        if (!silent) setLoading(false);
       }
     },
     [
@@ -896,68 +894,62 @@ export const AdminAssetsPage: React.FC<IAdminAssetsPageProps> = ({
         />
       )}
 
-      <div className="bg-base-100 rounded-xl border border-base-200 overflow-hidden">
-        {assets.length > 0 ? (
-          <>
-            <AdminTable
-              columns={columns}
-              records={assets}
-              getRowKey={(asset) => asset.id}
-              sortBy={sortBy}
-              sortOrder={sortOrder}
-              onSort={handleSort}
-              onRowClick={(asset) =>
-                navigate(
-                  AppRoutes.withId(
-                    AppRoutes.client.protected.admin.ASSET_DETAIL,
-                    asset.id,
-                  ),
-                )
-              }
-              selectable={canDelete}
-              selectedRowKeys={selectedIds}
-              onSelectRow={(id, selected) => {
-                setSelectedIds((prev) =>
-                  selected ? [...prev, id] : prev.filter((item) => item !== id),
-                );
-              }}
-              onSelectAll={(selected) => {
-                setSelectedIds(selected ? assets.map((a) => a.id) : []);
-              }}
-            />
-            {pagination && (
-              <AdminPagination
-                pagination={pagination}
-                onPageChange={handlePageChange}
-              />
-            )}
-          </>
-        ) : hasLoadedOnce && !isLoading ? (
-          <AdminState
-            title={
-              isActive
-                ? t(AppLocales.Admin.Assets.State.EmptyTitle)
-                : t(AppLocales.Admin.Assets.State.RecycleEmptyTitle)
-            }
-            message={
-              isActive
-                ? t(AppLocales.Admin.Assets.State.EmptyDesc)
-                : t(AppLocales.Admin.Assets.State.RecycleEmptyDesc)
-            }
-            icon={
-              isActive ? (
-                <iconsLib.photo className="w-12 h-12" />
-              ) : (
-                <iconsLib.trash className="w-12 h-12" />
+      {!isLoading && assets.length === 0 ? (
+        <AdminState
+          title={
+            isActive
+              ? t(AppLocales.Admin.Assets.State.EmptyTitle)
+              : t(AppLocales.Admin.Assets.State.RecycleEmptyTitle)
+          }
+          message={
+            isActive
+              ? t(AppLocales.Admin.Assets.State.EmptyDesc)
+              : t(AppLocales.Admin.Assets.State.RecycleEmptyDesc)
+          }
+          icon={
+            isActive ? (
+              <iconsLib.photo className="w-12 h-12" />
+            ) : (
+              <iconsLib.trash className="w-12 h-12" />
+            )
+          }
+        />
+      ) : (
+        <>
+          <AdminTable
+            columns={columns}
+            records={assets}
+            getRowKey={(asset) => asset.id}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSort={handleSort}
+            onRowClick={(asset) =>
+              navigate(
+                AppRoutes.withId(
+                  AppRoutes.client.protected.admin.ASSET_DETAIL,
+                  asset.id,
+                ),
               )
             }
+            selectable={canDelete}
+            selectedRowKeys={selectedIds}
+            onSelectRow={(id, selected) => {
+              setSelectedIds((prev) =>
+                selected ? [...prev, id] : prev.filter((item) => item !== id),
+              );
+            }}
+            onSelectAll={(selected) => {
+              setSelectedIds(selected ? assets.map((a) => a.id) : []);
+            }}
           />
-        ) : (
-          <div className="py-16 flex items-center justify-center text-base-content/40">
-            <span className="loading loading-spinner loading-lg text-primary" />
-          </div>
-        )}
-      </div>
+          {pagination && (
+            <AdminPagination
+              pagination={pagination}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </>
+      )}
 
       {/* Active view dialogs */}
       {isActive && (

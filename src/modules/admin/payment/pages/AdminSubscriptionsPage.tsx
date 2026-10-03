@@ -15,6 +15,7 @@ import {
   usePermissions,
   useSort,
 } from "../../../../hooks";
+import { useLoading } from "../../../../contexts";
 import type { IApiPagination } from "../../../../models";
 import { AppLocales, useTranslate } from "../../../../locales";
 import {
@@ -59,7 +60,8 @@ export const AdminSubscriptionsPage: React.FC = () => {
   const [records, setRecords] = useState<IAdminSubscription[]>([]);
   const [pagination, setPagination] = useState<IApiPagination | null>(null);
   const [error, setError] = useState("");
-  const { can, isLoading } = usePermissions();
+  const { isLoading, setLoading } = useLoading();
+  const { can, isLoading: permissionsLoading } = usePermissions();
   const { sortBy, sortOrder, handleSort } = useSort({
     defaultSortBy: ADMIN_SUBSCRIPTION_SORT_KEYS.CREATED_AT,
     defaultSortOrder: SORT_ORDERS.DESC,
@@ -90,27 +92,55 @@ export const AdminSubscriptionsPage: React.FC = () => {
     );
     return () => window.clearTimeout(timer);
   }, [search, searchInput, update]);
-  useEffect(() => {
-    if (isLoading || !can(ADMIN_ACTIONS.READ, ADMIN_RESOURCES.SUBSCRIPTIONS))
+
+  const loadSubscriptions = useCallback(async () => {
+    if (
+      permissionsLoading ||
+      !can(ADMIN_ACTIONS.READ, ADMIN_RESOURCES.SUBSCRIPTIONS)
+    )
       return;
-    void PaymentController.getSubscriptions({
-      page,
-      limit: ADMIN_PAGE_SIZE,
-      status: status || undefined,
-      interval: interval || undefined,
-      search: search || undefined,
-      sort_by: sortBy,
-      sort_order: sortOrder,
-    }).then((result) => {
-      setRecords(result.subscriptions);
-      setPagination(result.pagination);
-      setError(
-        result.success
-          ? ""
-          : result.error || t(AppLocales.Admin.Subscriptions.Errors.Load),
-      );
-    });
-  }, [can, interval, isLoading, page, search, sortBy, sortOrder, status, t]);
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await PaymentController.getSubscriptions({
+        page,
+        limit: ADMIN_PAGE_SIZE,
+        status: status || undefined,
+        interval: interval || undefined,
+        search: search || undefined,
+        sort_by: sortBy,
+        sort_order: sortOrder,
+      });
+
+      if (result.success) {
+        setRecords(result.subscriptions);
+        setPagination(result.pagination);
+      } else {
+        setError(
+          result.error || t(AppLocales.Admin.Subscriptions.Errors.Load),
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [
+    can,
+    interval,
+    page,
+    permissionsLoading,
+    search,
+    setLoading,
+    sortBy,
+    sortOrder,
+    status,
+    t,
+  ]);
+
+  useEffect(() => {
+    void loadSubscriptions();
+  }, [loadSubscriptions]);
 
   const columns: IAdminTableColumn<IAdminSubscription>[] = useMemo(
     () => [
@@ -238,7 +268,7 @@ export const AdminSubscriptionsPage: React.FC = () => {
           title={t(AppLocales.Admin.Common.State.ErrorTitle)}
           message={error}
         />
-      ) : records.length === 0 ? (
+      ) : !isLoading && records.length === 0 ? (
         <AdminState
           icon={iconsLib.banknotes}
           title={t(AppLocales.Admin.Common.State.EmptyTitle)}

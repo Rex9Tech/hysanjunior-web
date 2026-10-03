@@ -15,7 +15,6 @@ import {
   ProgressBarVariants,
 } from "../../../../design/constants";
 import { AppLocales, useTranslate } from "../../../../locales";
-import { useLoading } from "../../../../contexts/LoadingContext";
 import { formatAssetFileSize, STORAGE_PARTITION_VALUES } from "../constants";
 import type { IStorageStats } from "../types";
 import { Admin } from "../..";
@@ -28,12 +27,12 @@ export const AdminAssetStorageStats: React.FC<IAdminAssetStorageStatsProps> = ({
   className = "",
 }) => {
   const t = useTranslate();
-  const { isLoading, setLoading } = useLoading();
+  const [isLoading, setIsLoading] = useState(false);
   const [stats, setStats] = useState<IStorageStats | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchStats = useCallback(async (isManualRefresh = false) => {
-    setLoading(true, { overlay: isManualRefresh });
+  const fetchStats = useCallback(async () => {
+    setIsLoading(true);
     setError(null);
 
     const result = await Admin.AssetController.getStorageStats();
@@ -43,8 +42,8 @@ export const AdminAssetStorageStats: React.FC<IAdminAssetStorageStatsProps> = ({
       setError(result.error || "Failed to load storage statistics");
     }
 
-    setLoading(false, { overlay: isManualRefresh });
-  }, [setLoading]);
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     // Initial remote synchronization intentionally drives this component's loading state.
@@ -83,7 +82,7 @@ export const AdminAssetStorageStats: React.FC<IAdminAssetStorageStatsProps> = ({
         <Button
           size={ButtonSizes.SM}
           variant={ButtonVariants.TERTIARY}
-          onClick={() => fetchStats(true)}
+          onClick={() => fetchStats()}
         >
           <iconsLib.arrowPath className="w-4 h-4 mr-1" />
           {t(AppLocales.Common.Submit)}
@@ -139,7 +138,7 @@ export const AdminAssetStorageStats: React.FC<IAdminAssetStorageStatsProps> = ({
         <Button
           size={ButtonSizes.SM}
           variant={ButtonVariants.TERTIARY}
-          onClick={() => fetchStats(true)}
+          onClick={() => fetchStats()}
           disabled={isLoading}
           className="text-xs text-base-content/70 hover:text-base-content"
           title={t(AppLocales.Admin.Assets.StorageStats.Refresh)}
