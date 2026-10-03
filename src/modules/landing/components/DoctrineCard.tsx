@@ -186,7 +186,7 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
                 </div>
                 <div className="text-[11px] text-primary-light font-mono space-y-1.5 bg-black/50 p-3 rounded-lg border border-primary/25">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-primary">✓</span> 1,690+ automated tests across all 3 platforms
+                    <span className="text-primary">✓</span> 1,785+ automated tests across all 3 platforms
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-primary">✓</span> Idempotent Stripe billing (subscriptions & purchases)

@@ -272,7 +272,7 @@ By default, the client is immediately available at **[http://localhost:4000](htt
 RexOne Web enforces high engineering discipline with strict compile-time checks and dual-layer automated testing:
 
 ```bash
-# 1. Run all unit tests (Vitest) - 43 suites, 371 tests
+# 1. Run all unit tests (Vitest) - 45 suites, 372 tests
 npm test
 
 # 2. Run Playwright End-to-End user journeys (headless)

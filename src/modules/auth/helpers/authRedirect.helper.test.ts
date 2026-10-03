@@ -65,7 +65,7 @@ describe("authRedirect.helper", () => {
     });
   });
 
-  describe("navigateAfterAuth", () => {
+  describe("navigateContinueURL", () => {
     it("redirects to stored continue URL when present", () => {
       AtomService.set(StorageKeys.CONTINUE_URL, AppRoutes.client.protected.AI);
       const mockNavigate = vi.fn();

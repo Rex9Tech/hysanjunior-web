@@ -118,10 +118,10 @@ const PILLARS: IFeaturePillar[] = [
     id: "clients",
     icon: "devicePhoneMobile",
     title: "Native Tri-Platform",
-    badge: "1,690+ Tests",
+    badge: "1,785+ Tests",
     capabilities: [
       "Rails 8.1 API + React 19 SPA + pure Flutter 3 60fps native client",
-      "Exact contract synchronization verified across 1,690+ automated tests",
+      "Exact contract synchronization verified across 1,785+ automated tests",
       "Full localization parity in English (en), Spanish (es), and Burmese (my)",
       "Offline-first SQLite database (Drift) with AES-GCM encrypted media",
       "Synchronized X-Platform, X-Locale, and Bearer JWT transport headers",
@@ -155,7 +155,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Passwordless and passcode registration with instant 6-digit confirmation codes.",
+    description:
+      "Passwordless and passcode registration with instant 6-digit confirmation codes.",
   },
   {
     id: "auth-google-sso",
@@ -164,7 +165,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Native Google Sign-In with backend token exchange and automated account linking.",
+    description:
+      "Native Google Sign-In with backend token exchange and automated account linking.",
   },
   {
     id: "auth-jwt-revocation",
@@ -173,7 +175,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Atomic revocation lists via Devise-JWT JTI database column; zero loose tokens.",
+    description:
+      "Atomic revocation lists via Devise-JWT JTI database column; zero loose tokens.",
   },
   {
     id: "auth-single-session",
@@ -182,7 +185,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Detects and invalidates obsolete sessions per platform automatically on new sign-ins.",
+    description:
+      "Detects and invalidates obsolete sessions per platform automatically on new sign-ins.",
   },
   {
     id: "auth-brute-force",
@@ -191,7 +195,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Rack::Attack defense with escalating cooldown delays on repeated failed password attempts.",
+    description:
+      "Rack::Attack defense with escalating cooldown delays on repeated failed password attempts.",
   },
   {
     id: "auth-password-reset",
@@ -200,7 +205,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Timed 10-minute PIN reset lifecycle sent securely via email with token verification.",
+    description:
+      "Timed 10-minute PIN reset lifecycle sent securely via email with token verification.",
   },
   {
     id: "auth-account-deletion",
@@ -209,7 +215,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Full GDPR & Apple Store guideline compliance; wipes user records, tokens, and storage assets.",
+    description:
+      "Full GDPR & Apple Store guideline compliance; wipes user records, tokens, and storage assets.",
   },
 
   // 🛡️ Access Control & IAM
@@ -220,7 +227,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Fine-grained permissions mapped across 23 canonical system resources with custom action grants.",
+    description:
+      "Fine-grained permissions mapped across 23 canonical system resources with custom action grants.",
   },
   {
     id: "iam-declarative-can",
@@ -229,7 +237,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Consistent permission checking in controllers, models, and domain service boundaries.",
+    description:
+      "Consistent permission checking in controllers, models, and domain service boundaries.",
   },
   {
     id: "iam-ui-gates",
@@ -238,7 +247,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: false,
     web: true,
     mobile: true,
-    description: "<AccessGate> (React) and AppAccessGate (Flutter) conditionally rendering protected UI components.",
+    description:
+      "<AccessGate> (React) and AppAccessGate (Flutter) conditionally rendering protected UI components.",
   },
   {
     id: "iam-admin-manager",
@@ -247,7 +257,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: false,
-    description: "Interactive web dashboard to create roles, assign permissions, and audit user privilege grants.",
+    description:
+      "Interactive web dashboard to create roles, assign permissions, and audit user privilege grants.",
   },
 
   // 💳 Commerce & Billing
@@ -258,7 +269,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Hosted redirect (Web) and seamless in-app WebView (Flutter) with multi-currency handling.",
+    description:
+      "Hosted redirect (Web) and seamless in-app WebView (Flutter) with multi-currency handling.",
   },
   {
     id: "commerce-subscriptions",
@@ -267,7 +279,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Tier upgrades, downgrades, cancellations, and resumptions with webhook reconciliation.",
+    description:
+      "Tier upgrades, downgrades, cancellations, and resumptions with webhook reconciliation.",
   },
   {
     id: "commerce-lifetime",
@@ -276,7 +289,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Lifetime product licenses and consumable digital credits with permanent entitlement grants.",
+    description:
+      "Lifetime product licenses and consumable digital credits with permanent entitlement grants.",
   },
   {
     id: "commerce-iap",
@@ -285,7 +299,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: true,
-    description: "Unified entitlement contracts matching Google Play Billing and Apple StoreKit standards.",
+    description:
+      "Unified entitlement contracts matching Google Play Billing and Apple StoreKit standards.",
   },
   {
     id: "commerce-coupons",
@@ -294,7 +309,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Percentage and fixed-amount discounts with usage limits, date windows, and targeting restrictions.",
+    description:
+      "Percentage and fixed-amount discounts with usage limits, date windows, and targeting restrictions.",
   },
   {
     id: "commerce-referrals",
@@ -303,7 +319,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Automatic coupon generation on signup; rewards referring users upon friend purchase.",
+    description:
+      "Automatic coupon generation on signup; rewards referring users upon friend purchase.",
   },
   {
     id: "commerce-entitlements",
@@ -312,7 +329,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Access records grant and expire feature access independently of payment vendor state machines.",
+    description:
+      "Access records grant and expire feature access independently of payment vendor state machines.",
   },
   {
     id: "commerce-webhooks",
@@ -321,7 +339,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Cryptographically verified Stripe webhooks stored in Payment::WebhookEvent with replay protection.",
+    description:
+      "Cryptographically verified Stripe webhooks stored in Payment::WebhookEvent with replay protection.",
   },
 
   // ⚡ Queues & Concurrency
@@ -332,7 +351,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "50 concurrent Fibers (I/O) + 2 OS Threads (media/cron) backed strictly by PostgreSQL 18.",
+    description:
+      "50 concurrent Fibers (I/O) + 2 OS Threads (media/cron) backed strictly by PostgreSQL 18.",
   },
   {
     id: "queue-zero-redis",
@@ -341,7 +361,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Eliminates Redis daemons entirely; reduces RAM footprint and cloud bills to $0.",
+    description:
+      "Eliminates Redis daemons entirely; reduces RAM footprint and cloud bills to $0.",
   },
   {
     id: "queue-media-worker",
@@ -350,7 +371,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Dedicated container for CPU-bound libvips & FFmpeg; never starves I/O payment webhooks.",
+    description:
+      "Dedicated container for CPU-bound libvips & FFmpeg; never starves I/O payment webhooks.",
   },
   {
     id: "queue-elastic-balance",
@@ -359,7 +381,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Fibers instantly pivot to whichever queue (payments, ai, notifications, default) surges.",
+    description:
+      "Fibers instantly pivot to whichever queue (payments, ai, notifications, default) surges.",
   },
   {
     id: "queue-recurring-cron",
@@ -368,7 +391,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Automated cron schedules (config/recurring.yml) clean expired cache, rotate logs, and sync tables.",
+    description:
+      "Automated cron schedules (config/recurring.yml) clean expired cache, rotate logs, and sync tables.",
   },
 
   // 📦 Media & S3
@@ -379,7 +403,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "High-throughput self-hosted S3 storage on port 3100 API / 3101 Admin with zero egress costs.",
+    description:
+      "High-throughput self-hosted S3 storage on port 3100 API / 3101 Admin with zero egress costs.",
   },
   {
     id: "media-universal-keys",
@@ -388,7 +413,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Deterministic storage paths (user/{id}/... and admin/...) replacing vendor-specific IDs.",
+    description:
+      "Deterministic storage paths (user/{id}/... and admin/...) replacing vendor-specific IDs.",
   },
   {
     id: "media-image-libvips",
@@ -397,7 +423,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Background WebP conversion, auto-rotation, and responsive thumbnail variant generation.",
+    description:
+      "Background WebP conversion, auto-rotation, and responsive thumbnail variant generation.",
   },
   {
     id: "media-video-ffmpeg",
@@ -406,7 +433,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Multi-pass H.264/AAC compression, CRF tuning, and automated video poster extraction via FFmpeg.",
+    description:
+      "Multi-pass H.264/AAC compression, CRF tuning, and automated video poster extraction via FFmpeg.",
   },
   {
     id: "media-subtitles-srt",
@@ -415,7 +443,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: true,
-    description: "Automatic subtitle parsing and child asset linking (parent_asset_id) for synchronized lyrics.",
+    description:
+      "Automatic subtitle parsing and child asset linking (parent_asset_id) for synchronized lyrics.",
   },
   {
     id: "media-signed-playback",
@@ -424,7 +453,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Secure signed playback URLs (/playback) with expiration TTL preventing unauthorized downloads.",
+    description:
+      "Secure signed playback URLs (/playback) with expiration TTL preventing unauthorized downloads.",
   },
   {
     id: "media-offline-drift",
@@ -433,7 +463,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: false,
     web: false,
     mobile: true,
-    description: "AES-GCM encrypted media downloads saved to local Drift SQLite database on native mobile.",
+    description:
+      "AES-GCM encrypted media downloads saved to local Drift SQLite database on native mobile.",
   },
 
   // 🤖 AI & Speech
@@ -444,7 +475,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Seamless gateway switching between DeepSeek (V3/V4) and Google Gemini (2.5 Flash).",
+    description:
+      "Seamless gateway switching between DeepSeek (V3/V4) and Google Gemini (2.5 Flash).",
   },
   {
     id: "ai-toon-serialization",
@@ -453,7 +485,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Token-Oriented Object Notation saves 30–60% tokens; models never parse or emit raw JSON.",
+    description:
+      "Token-Oriented Object Notation saves 30–60% tokens; models never parse or emit raw JSON.",
   },
   {
     id: "ai-queued-execution",
@@ -462,7 +495,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Completions run in background Solid Queue; user receives response even if app disconnects.",
+    description:
+      "Completions run in background Solid Queue; user receives response even if app disconnects.",
   },
   {
     id: "ai-telegram-chunking",
@@ -471,7 +505,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Intelligent 2,000-character boundary splitting with split_id and sequential indexing.",
+    description:
+      "Intelligent 2,000-character boundary splitting with split_id and sequential indexing.",
   },
   {
     id: "ai-telemetry-cost",
@@ -480,7 +515,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: false,
-    description: "Ai::Run records prompt/completion tokens, latency, model parameters, and financial costs.",
+    description:
+      "Ai::Run records prompt/completion tokens, latency, model parameters, and financial costs.",
   },
   {
     id: "ai-speech-tts",
@@ -489,7 +525,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "High-fidelity binary MP3 synthesis via Azure Speech / Nova with full SSML markup support.",
+    description:
+      "High-fidelity binary MP3 synthesis via Azure Speech / Nova with full SSML markup support.",
   },
   {
     id: "ai-speech-stt-live",
@@ -498,7 +535,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Bidirectional real-time microphone audio streaming over persistent Action Cable WebSocket.",
+    description:
+      "Bidirectional real-time microphone audio streaming over persistent Action Cable WebSocket.",
   },
 
   // 🔔 Notifications
@@ -509,7 +547,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Dispatches notifications across In-App, Mobile Push, and Transactional Email in one call.",
+    description:
+      "Dispatches notifications across In-App, Mobile Push, and Transactional Email in one call.",
   },
   {
     id: "notify-onesignal-push",
@@ -518,7 +557,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: true,
-    description: "Device-tagged push notifications with custom sound alerts and localized notification payloads.",
+    description:
+      "Device-tagged push notifications with custom sound alerts and localized notification payloads.",
   },
   {
     id: "notify-brevo-email",
@@ -527,7 +567,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Responsive HTML email templates with master shell layout and dynamic client URL normalization.",
+    description:
+      "Responsive HTML email templates with master shell layout and dynamic client URL normalization.",
   },
   {
     id: "notify-in-app-inbox",
@@ -536,7 +577,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "User notification inbox with Pagy pagination, read/unread states, and soft-delete capabilities.",
+    description:
+      "User notification inbox with Pagy pagination, read/unread states, and soft-delete capabilities.",
   },
   {
     id: "notify-action-cable",
@@ -545,7 +587,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Instant visual toast banners delivered through user-scoped Action Cable WebSocket channels.",
+    description:
+      "Instant visual toast banners delivered through user-scoped Action Cable WebSocket channels.",
   },
 
   // 📱 Client Experience
@@ -556,7 +599,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: false,
     web: true,
     mobile: true,
-    description: "Synchronized Tailwind CSS v4 (Web) and Material 3 (Flutter) with Dark and Light modes.",
+    description:
+      "Synchronized Tailwind CSS v4 (Web) and Material 3 (Flutter) with Dark and Light modes.",
   },
   {
     id: "client-localization",
@@ -565,7 +609,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "100% translated in English, Spanish, and Burmese with automatic X-Locale header injection.",
+    description:
+      "100% translated in English, Spanish, and Burmese with automatic X-Locale header injection.",
   },
   {
     id: "client-error-logging",
@@ -574,7 +619,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Automatic capture of unhandled client exceptions (/v1/client/logs) with full stack traces.",
+    description:
+      "Automatic capture of unhandled client exceptions (/v1/client/logs) with full stack traces.",
   },
   {
     id: "client-feedback-system",
@@ -583,7 +629,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "1–10 star ratings with automated category triage (bug, feature request, improvement).",
+    description:
+      "1–10 star ratings with automated category triage (bug, feature request, improvement).",
   },
   {
     id: "client-version-upgrader",
@@ -592,7 +639,18 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Semantic version verification against Client::Version; enforces mandatory splash updates.",
+    description:
+      "Semantic version verification against Client::Version; enforces mandatory splash updates.",
+  },
+  {
+    id: "client-deep-linking",
+    category: "Client Experience",
+    name: "Universal Deep Linking & Continue URLs",
+    core: false,
+    web: true,
+    mobile: true,
+    description:
+      "Universal URI scheme (rexone://) and safe continue URL auth routing with backstack preservation.",
   },
 
   // 📊 Ops, Observability & Admin
@@ -603,7 +661,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Live real-time APM tracking request durations, slow SQL queries, and queue wait times.",
+    description:
+      "Live real-time APM tracking request durations, slow SQL queries, and queue wait times.",
   },
   {
     id: "ops-rails-error-dashboard",
@@ -612,7 +671,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "In-app exception monitoring with stack traces, environment parameters, and resolution flags.",
+    description:
+      "In-app exception monitoring with stack traces, environment parameters, and resolution flags.",
   },
   {
     id: "ops-administrate",
@@ -621,7 +681,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Secure server-rendered operations back-office mounted at /admin for core maintenance.",
+    description:
+      "Secure server-rendered operations back-office mounted at /admin for core maintenance.",
   },
   {
     id: "ops-client-admin",
@@ -630,7 +691,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: false,
-    description: "Headless administrative web interface for users, IAM roles, products, assets, and telemetry.",
+    description:
+      "Headless administrative web interface for users, IAM roles, products, assets, and telemetry.",
   },
   {
     id: "ops-docker-compose",
@@ -639,7 +701,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Orchestrated composition (api, waka, media, db, garage) with automated /up healthchecks.",
+    description:
+      "Orchestrated composition (api, waka, media, db, garage) with automated /up healthchecks.",
   },
 
   // 🛡️ Quality, Security & Law
@@ -650,7 +713,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Law U14 (zero dead shims/dead code) & Law U15 (human-readable plain English) strictly enforced.",
+    description:
+      "Law U14 (zero dead shims/dead code) & Law U15 (human-readable plain English) strictly enforced.",
   },
   {
     id: "law-agent-rules",
@@ -659,16 +723,18 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Strict isolation rules: AI agents forbidden from reading .env, destructive git, or dirty docs.",
+    description:
+      "Strict isolation rules: AI agents forbidden from reading .env, destructive git, or dirty docs.",
   },
   {
     id: "quality-tests",
     category: "Quality & Security",
-    name: "1,690+ Automated Test Suite",
+    name: "1,785+ Automated Test Suite",
     core: true,
     web: true,
     mobile: true,
-    description: "1,020 RSpec specs + 371 Vitest frontend tests + 304 Flutter tests guaranteeing integrity.",
+    description:
+      "1,071 RSpec specs + 372 Vitest frontend tests + 342 Flutter tests guaranteeing integrity.",
   },
   {
     id: "security-boot-guard",
@@ -677,7 +743,8 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: false,
     mobile: false,
-    description: "Refuses to boot if critical production keys match placeholders or fail high-entropy checks.",
+    description:
+      "Refuses to boot if critical production keys match placeholders or fail high-entropy checks.",
   },
   {
     id: "law-strict-utc",
@@ -686,11 +753,14 @@ const MASTER_FEATURES: IMasterFeature[] = [
     core: true,
     web: true,
     mobile: true,
-    description: "Database and API strictly communicate in UTC ISO 8601; clients handle local presentation.",
+    description:
+      "Database and API strictly communicate in UTC ISO 8601; clients handle local presentation.",
   },
 ];
 
-export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) => {
+export const FeatureShowcase: React.FC<{ id?: string }> = ({
+  id = "Features",
+}) => {
   const [activeTab, setActiveTab] = useState<"pillars" | "matrix">("pillars");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -816,7 +886,9 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                       <ul className="space-y-2 mb-5 text-xs text-base-content/80">
                         {pillar.capabilities.map((cap, idx) => (
                           <li key={idx} className="flex items-start gap-2">
-                            <span className="text-primary mt-0.5 shrink-0">✓</span>
+                            <span className="text-primary mt-0.5 shrink-0">
+                              ✓
+                            </span>
                             <span className="leading-relaxed">{cap}</span>
                           </li>
                         ))}
@@ -842,7 +914,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div>
                   <div className="font-display text-2xl sm:text-3xl font-bold text-primary drop-shadow-[0_0_8px_var(--color-primary)]">
-                    1,690+
+                    1,785+
                   </div>
                   <div className="text-xs text-base-content/70 mt-0.5 font-medium">
                     Passing Automated Tests
@@ -901,7 +973,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
               </div>
 
               {/* Real-Time Search Box */}
-              <div className="relative min-w-[240px]">
+              <div className="relative min-w-60">
                 <iconsLib.search className="w-4 h-4 text-base-content/50 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -925,8 +997,11 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
             {/* Feature Counter */}
             <div className="flex items-center justify-between text-xs text-base-content/70">
               <span>
-                Showing <strong className="text-primary font-bold">{filteredFeatures.length}</strong> of{" "}
-                {MASTER_FEATURES.length} architectural features
+                Showing{" "}
+                <strong className="text-primary font-bold">
+                  {filteredFeatures.length}
+                </strong>{" "}
+                of {MASTER_FEATURES.length} architectural features
               </span>
               <span className="hidden sm:inline italic">
                 Scroll horizontally on mobile to inspect platform availability
@@ -939,17 +1014,30 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                 <thead>
                   <tr className="border-b border-glass-border bg-black/50 text-base-content/90 font-bold uppercase tracking-wider text-[11px]">
                     <th className="py-3.5 px-4 font-semibold">Category</th>
-                    <th className="py-3.5 px-4 font-semibold min-w-[200px]">Feature &amp; Capability</th>
-                    <th className="py-3.5 px-3 font-semibold text-center w-24">Core (Rails)</th>
-                    <th className="py-3.5 px-3 font-semibold text-center w-24">Web (React)</th>
-                    <th className="py-3.5 px-3 font-semibold text-center w-24">Mobile (Flutter)</th>
-                    <th className="py-3.5 px-4 font-semibold min-w-[280px]">Production Reality</th>
+                    <th className="py-3.5 px-4 font-semibold min-w-50">
+                      Feature &amp; Capability
+                    </th>
+                    <th className="py-3.5 px-3 font-semibold text-center w-24">
+                      Core (Rails)
+                    </th>
+                    <th className="py-3.5 px-3 font-semibold text-center w-24">
+                      Web (React)
+                    </th>
+                    <th className="py-3.5 px-3 font-semibold text-center w-24">
+                      Mobile (Flutter)
+                    </th>
+                    <th className="py-3.5 px-4 font-semibold min-w-70">
+                      Production Reality
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-glass-border/40">
                   {filteredFeatures.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-10 text-center text-base-content/60 text-sm">
+                      <td
+                        colSpan={6}
+                        className="py-10 text-center text-base-content/60 text-sm"
+                      >
                         No features found matching &ldquo;{searchQuery}&rdquo;.
                       </td>
                     </tr>
@@ -958,7 +1046,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                       <tr
                         key={feature.id}
                         className={`transition-colors duration-150 hover:bg-primary/5 ${
-                          idx % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"
+                          idx % 2 === 0 ? "bg-transparent" : "bg-white/1.5"
                         }`}
                       >
                         {/* Category */}
@@ -980,7 +1068,9 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                               ✓
                             </span>
                           ) : (
-                            <span className="text-base-content/30 font-bold">—</span>
+                            <span className="text-base-content/30 font-bold">
+                              —
+                            </span>
                           )}
                         </td>
 
@@ -991,7 +1081,9 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                               ✓
                             </span>
                           ) : (
-                            <span className="text-base-content/30 font-bold">—</span>
+                            <span className="text-base-content/30 font-bold">
+                              —
+                            </span>
                           )}
                         </td>
 
@@ -1002,7 +1094,9 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({ id = "Features" }) 
                               ✓
                             </span>
                           ) : (
-                            <span className="text-base-content/30 font-bold">—</span>
+                            <span className="text-base-content/30 font-bold">
+                              —
+                            </span>
                           )}
                         </td>
 
