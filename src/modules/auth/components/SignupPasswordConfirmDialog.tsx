@@ -18,6 +18,7 @@ import { AppLocales, useTranslate } from "../../../locales";
 import { ButtonVariants } from "../../../design";
 import { AnalyticsService } from "../../../services";
 import { ANALYTICS_AUTH_METHODS } from "../../../constants";
+import { navigateContinueURL } from "../helpers";
 
 interface ISignupPasswordConfirmDialogProps {
   email: string;
@@ -116,7 +117,7 @@ export const SignupPasswordConfirmDialog: React.FC<
             t(AppLocales.Auth.SignUpPasscodeConfirm.GoogleSignInComplete),
           );
           setGoogleChallengeToken(null);
-          navigate(AppRoutes.client.protected.HOME, { replace: true });
+          navigateContinueURL(navigate);
         } else {
           setConfirmPassword("");
           setError(

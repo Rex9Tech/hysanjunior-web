@@ -4,9 +4,33 @@ import { atomWithStorage } from "jotai/utils";
 
 class AtomService {
   private atoms: Record<string, WritableAtom<unknown, [unknown], void>> = {};
+  private memoryStorage: Record<string, string> = {};
 
   constructor() {
     this.loadAtomsFromStorage();
+  }
+
+  private getStorageItem(key: string): string | null {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      return localStorage.getItem(key);
+    }
+    return this.memoryStorage[key] ?? null;
+  }
+
+  private setStorageItem(key: string, value: string): void {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      localStorage.setItem(key, value);
+    } else {
+      this.memoryStorage[key] = value;
+    }
+  }
+
+  private removeStorageItem(key: string): void {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      localStorage.removeItem(key);
+    } else {
+      delete this.memoryStorage[key];
+    }
   }
 
   /**
@@ -30,20 +54,16 @@ class AtomService {
   }
 
   /**
-   * Safely parse a localStorage value. Returns undefined if invalid.
+   * Safely parse a storage value. Returns undefined if invalid.
    * If invalid, removes the entry and logs a warning.
    */
   private safeParse(key: string): unknown | undefined {
-    if (typeof window === "undefined" || typeof localStorage === "undefined") {
-      return undefined;
-    }
-
     try {
-      const raw = localStorage.getItem(key);
+      const raw = this.getStorageItem(key);
       return raw !== null ? JSON.parse(raw) : undefined;
     } catch {
-      console.warn(`[AtomService] Removed invalid localStorage key: "${key}"`);
-      localStorage.removeItem(key);
+      console.warn(`[AtomService] Removed invalid storage key: "${key}"`);
+      this.removeStorageItem(key);
       return undefined;
     }
   }
@@ -63,15 +83,31 @@ class AtomService {
   }
 
   /**
-   * Remove an atom and its localStorage entry.
+   * Set a value directly in storage.
    */
-  removeAtom(key: string): void {
+  set<T>(key: string, value: T): void {
+    try {
+      this.setStorageItem(key, JSON.stringify(value));
+    } catch (e) {
+      console.error(`[AtomService] Failed to set storage key "${key}":`, e);
+    }
+  }
+
+  /**
+   * Get a parsed value directly from storage.
+   */
+  get<T>(key: string): T | undefined {
+    return this.safeParse(key) as T | undefined;
+  }
+
+  /**
+   * Remove an atom and its storage entry.
+   */
+  remove(key: string): void {
     if (this.atoms[key]) {
-      if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-        localStorage.removeItem(key);
-      }
       delete this.atoms[key];
     }
+    this.removeStorageItem(key);
   }
 
   /**

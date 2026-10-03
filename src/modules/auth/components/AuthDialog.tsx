@@ -13,6 +13,8 @@ import {
 } from ".";
 import { DialogParams, DialogAuthSteps, TAuthStep } from "..";
 import { useAuth } from "../../../contexts";
+import { AtomService } from "../../../services";
+import { StorageKeys } from "../../../constants";
 
 const SENSITIVE_AUTH_QUERY_KEYS = [
   "password",
@@ -88,6 +90,7 @@ export const AuthDialog: React.FC = () => {
   }, [isAuthenticated, searchParams, setSearchParams]);
 
   const handleClose = () => {
+    AtomService.remove(StorageKeys.CONTINUE_URL);
     const params = new URLSearchParams(searchParams);
     AUTH_QUERY_KEYS.forEach((key) => params.delete(key));
     setSearchParams(params, { replace: true });

@@ -17,6 +17,10 @@ class Atoms {
   // ===== AUTH =====
   tokenAtom = AtomService.getAtom<string | null>(StorageKeys.TOKEN, null);
   currentUserAtom = AtomService.getAtom<IUser | null>(StorageKeys.USER, null);
+  continueUrlAtom = AtomService.getAtom<string | null>(
+    StorageKeys.CONTINUE_URL,
+    null,
+  );
 
   // ===== ANAPANA MODULE =====
   markersAtom = AtomService.getAtom<IMarker[]>(StorageKeys.MARKERS, []);

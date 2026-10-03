@@ -11,13 +11,13 @@ import {
   Dialog,
   FormContainer,
 } from "../../../design/components";
-import AppRoutes from "../../../AppRoutes";
 import { DialogAuthSteps, TAuthStep } from "..";
 import { AuthController } from "..";
 import { UserController, USER_PEEK_STATUS } from "../../user";
 import { AppLocales, useTranslate } from "../../../locales";
 import { AnalyticsService } from "../../../services";
 import { ANALYTICS_AUTH_METHODS } from "../../../constants";
+import { navigateContinueURL } from "../helpers";
 
 interface IInitialDialogProps {
   email: string;
@@ -46,9 +46,7 @@ export const InitialDialog: React.FC<IInitialDialogProps> = ({
 
   // Read session message from URL params
   const message = searchParams.get("message");
-  const [dismissedMessage, setDismissedMessage] = useState<string | null>(
-    null,
-  );
+  const [dismissedMessage, setDismissedMessage] = useState<string | null>(null);
   const displayMessage = dismissedMessage === message ? "" : message || "";
 
   // Clear message param when dialog closes or user interacts
@@ -142,7 +140,7 @@ export const InitialDialog: React.FC<IInitialDialogProps> = ({
           void AnalyticsService.logSignIn(ANALYTICS_AUTH_METHODS.GOOGLE);
           success(t(AppLocales.Auth.Initial.GoogleSignInSuccess));
           onClose();
-          navigate(AppRoutes.client.protected.HOME);
+          navigateContinueURL(navigate);
         } else if (result.passwordRequired && result.challengeToken) {
           // New user - show password setup
           setGoogleChallengeToken(result.challengeToken);

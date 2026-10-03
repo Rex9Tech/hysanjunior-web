@@ -9,6 +9,7 @@ import { AppLocales, useTranslate } from "../../../locales";
 import { DialogAuthSteps } from "..";
 import { AnalyticsService } from "../../../services";
 import { ANALYTICS_AUTH_METHODS } from "../../../constants";
+import { navigateContinueURL } from "../helpers";
 
 export const ConfirmEmailPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export const ConfirmEmailPage: React.FC = () => {
             ANALYTICS_AUTH_METHODS.EMAIL,
           );
           success(t(AppLocales.Auth.ConfirmEmail.LinkConfirmed));
-          navigate(AppRoutes.client.protected.HOME, { replace: true });
+          navigateContinueURL(navigate);
         } else {
           console.error("error", `Confirmation failed: ${result.error}`);
           const url = AppRoutes.client.public.SIGN_IN;
