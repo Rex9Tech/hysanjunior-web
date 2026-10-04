@@ -121,6 +121,7 @@ const PILLARS: IFeaturePillar[] = [
     badge: "1,785+ Tests",
     capabilities: [
       "Rails 8.1 API + React 19 SPA + pure Flutter 3 60fps native client",
+      "Dual-app store architecture: side-by-side Prod & UAT with automated CI/CD",
       "Exact contract synchronization verified across 1,785+ automated tests",
       "Full localization parity in English (en), Spanish (es), and Burmese (my)",
       "Offline-first SQLite database (Drift) with AES-GCM encrypted media",
@@ -651,6 +652,26 @@ const MASTER_FEATURES: IMasterFeature[] = [
     mobile: true,
     description:
       "Universal URI scheme (rexone://) and safe continue URL auth routing with backstack preservation.",
+  },
+  {
+    id: "client-dual-app-architecture",
+    category: "Client Experience",
+    name: "Dual-App Store Architecture (Prod vs UAT)",
+    core: false,
+    web: false,
+    mobile: true,
+    description:
+      "Separate application IDs and schemes enabling side-by-side Prod and UAT installation on the same physical device.",
+  },
+  {
+    id: "client-mobile-cicd-pipeline",
+    category: "Client Experience",
+    name: "Automated Android CI/CD & Play Store Rollout",
+    core: false,
+    web: false,
+    mobile: true,
+    description:
+      "GitHub Actions pipeline with dynamic build numbering and automated delivery to Google Play Internal testing tracks.",
   },
 
   // 📊 Ops, Observability & Admin
