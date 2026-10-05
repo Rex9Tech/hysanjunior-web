@@ -1,11 +1,15 @@
 // src/design/elements/colors.ts
 
+/**
+ * Hysan Junior colors — synced with mobile AppColors.
+ */
+
 export const colors = {
-  // Brand (Rex9 Neon Scarlet Red Palette - More Red, Less Pink)
-  primary: "#FF2238",
+  // Brand (synced with mobile)
+  primary: "#ea2a33",
   primaryLight: "#FF5263",
   primaryDark: "#CC1125",
-  secondary: "#FF4D2E",
+  secondary: "#ffce30",
   accent: "#FF0D2D",
 
   // Neon Glow Colors
@@ -17,9 +21,9 @@ export const colors = {
     blackXs: "rgba(0, 0, 0, 0.08)",
     blackSm: "rgba(0, 0, 0, 0.08)",
     blackMd: "rgba(0, 0, 0, 0.10)",
-    glow: "rgba(255, 34, 56, 0.4)",
-    glassCard: "rgba(255, 34, 56, 0.35)",
-    glassHover: "rgba(255, 34, 56, 0.45)",
+    glow: "rgba(234, 42, 51, 0.4)",
+    glassCard: "rgba(234, 42, 51, 0.35)",
+    glassHover: "rgba(234, 42, 51, 0.45)",
     textDark: "rgba(0, 0, 0, 0.9)",
   },
 
@@ -31,61 +35,63 @@ export const colors = {
     info: "#38BDF8",
   },
 
-  // Centralized Text Tokens (Single Source of Truth)
+  // Text tokens — synced with mobile AppDayColors / AppNightColors
   text: {
     day: {
       primary: "#000000",
       primaryRgb: "0, 0, 0",
-      secondary: "#000000",
-      muted: "#111827",
+      secondary: "#FFFFFF",
+      muted: "#9CA3AF",
     },
     night: {
       primary: "#FFFFFF",
       primaryRgb: "255, 255, 255",
-      secondary: "#FFFFFF",
-      muted: "#F8FAFC",
+      secondary: "#000000",
+      muted: "#A39298",
     },
   },
 
-  // Day Theme (White / Light Mode - Red & Black, Industrial Standard High Contrast)
+  // Day Theme (cream canvas — synced with mobile)
   day: {
-    primary: "#FF2238",
-    primaryRgb: "255, 34, 56",
+    primary: "#ea2a33",
+    primaryRgb: "234, 42, 51",
     primaryLight: "#FF5263",
     primaryDark: "#CC1125",
-    background: "#FFFFFF",
-    surface: "#FFFFFF",
-    card: "#F8F8FA",
-    border: "#E5E7EB",
+    background: "#FAFAF8",
+    backgroundGradient: "linear-gradient(to bottom right, #FFF6D2, #FFF4CF)",
+    surface: "#FFFDF8",
+    card: "#FFFDF8",
+    border: "#ea2a33",
     divider: "#F3F4F6",
     textPrimary: "#000000",
-    textSecondary: "#000000",
-    textMuted: "#111827",
+    textSecondary: "#FFFFFF",
+    textMuted: "#9CA3AF",
     glowWhite: "#FFF2F4",
     glowOuter: "#5C0916",
     glowOuterRgb: "92, 9, 22",
   },
 
-  // Night Theme (Dark Mode - Rex9 Scarlet Red & Pure White, High Contrast)
+  // Night Theme (synced surfaces with mobile)
   night: {
-    primary: "#FF2238",
-    primaryRgb: "255, 34, 56",
+    primary: "#ea2a33",
+    primaryRgb: "234, 42, 51",
     primaryLight: "#FF5263",
     primaryDark: "#CC1125",
     background: "#160b11",
+    backgroundGradient: "none",
     surface: "#1f1018",
     card: "#26131e",
     border: "#3d1b28",
     divider: "#2c111c",
     textPrimary: "#FFFFFF",
-    textSecondary: "#FFFFFF",
-    textMuted: "#F8FAFC",
+    textSecondary: "#000000",
+    textMuted: "#A39298",
     glowWhite: "#FFF2F4",
     glowOuter: "#5C0916",
     glowOuterRgb: "92, 9, 22",
   },
 
-  // Rex9 Glassmorphism Tokens
+  // Glassmorphism (primary-tinted with HJ red)
   glass: {
     nav: "rgba(22, 7, 13, 0.75)",
     card: "rgba(35, 12, 20, 0.38)",
@@ -93,11 +99,11 @@ export const colors = {
     form: "rgba(28, 8, 16, 0.65)",
     project: "rgba(18, 6, 12, 0.55)",
     projectHover: "rgba(22, 7, 15, 0.75)",
-    border: "rgba(255, 34, 56, 0.22)",
-    borderHover: "rgba(255, 34, 56, 0.55)",
-    tag: "rgba(255, 34, 56, 0.65)",
-    tagBg: "rgba(255, 34, 56, 0.08)",
-    tagBgHover: "rgba(255, 34, 56, 0.28)",
+    border: "rgba(234, 42, 51, 0.22)",
+    borderHover: "rgba(234, 42, 51, 0.55)",
+    tag: "rgba(234, 42, 51, 0.65)",
+    tagBg: "rgba(234, 42, 51, 0.08)",
+    tagBgHover: "rgba(234, 42, 51, 0.28)",
   },
 
   // Centralized Glow & Text Shadow Effects

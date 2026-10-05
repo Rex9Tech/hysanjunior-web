@@ -16,7 +16,6 @@
     overflow-x: hidden;
     font-family: var(--font-primary);
     color: var(--color-base-content);
-    background-color: var(--color-base-100);
   }
 
   /* Sleek Thin Scrollbar matching Rex9 */
@@ -84,22 +83,21 @@
 }
 
 /* ==========================================================================
-   Rexone High-Contrast Design System Theme Engine
-   - White / Light Theme (Day): Red & Black (Rex9 Scarlet Red & Pure Black)
-   - Dark Theme (Night): Red & White (Rex9 Scarlet Red & Pure White)
-   - Centralized: Eliminates all washed-out grey text globally across components
+   Hysan Junior Design System Theme Engine
+   Backgrounds from colors.ts:
+     --color-base-100            ← day.background / night.background
+     --color-background-gradient ← day.backgroundGradient / night.backgroundGradient
    ========================================================================== */
 
-/* Universal text and background inheritance for any active or future theme */
 :root,
-[data-theme] {
-  color: var(--color-base-content);
-  background-color: var(--color-base-100);
-}
-
+[data-theme],
 [data-theme] body {
   color: var(--color-base-content);
   background-color: var(--color-base-100);
+  background-image: var(--color-background-gradient);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Ensure all base-content text variations render crisp at high-contrast, never washed-out grey */

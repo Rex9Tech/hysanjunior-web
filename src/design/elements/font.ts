@@ -1,18 +1,15 @@
 // src/design/elements/font.ts
 
 /**
- * RexOne Design System - Typography Tokens
- *
- * Primary UI: Quicksand
- * Display: Clip
- * Handwritten: Storytime
+ * Hysan Junior typography — families synced with mobile AppFontFamilies.
+ * Scale stays web parent 12–56 (displayXL → caption).
  */
 
 export const font = {
   fontFamily: {
-    primary: '"Quicksand", sans-serif',
-    display: '"Clip", cursive, sans-serif',
-    handwritten: '"Storytime", cursive',
+    primary: '"Fredoka", sans-serif',
+    display: '"KGSecondChances", cursive, sans-serif',
+    handwritten: '"Fredoka", sans-serif',
     mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
   },
 

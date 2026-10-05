@@ -13,7 +13,7 @@ import {
 } from "../../../../hooks";
 import type { IApiPagination } from "../../../../models";
 import { iconsLib } from "../../../../assets";
-import { Button, SearchInput, StatusBadge } from "../../../../design";
+import { Button, ButtonVariants, SearchInput, StatusBadge } from "../../../../design";
 import type { IAdminProduct } from "../types";
 import ProductController from "../product.controller";
 import {
@@ -328,11 +328,12 @@ export const AdminProductsPage: React.FC<IAdminProductsPageProps> = ({
         action={
           view === ADMIN_VIEW_MODES.ACTIVE && canCreate ? (
             <Button
+              
               onClick={() =>
                 navigate(AppRoutes.client.protected.admin.PRODUCT_CREATE)
               }
             >
-              <iconsLib.plus className="mr-2 h-4 w-4" />
+              <iconsLib.plus className="mr-2 h-4 w-4 text-secondary-content" />
               {t(AppLocales.Admin.Products.Form.CreateProduct)}
             </Button>
           ) : null

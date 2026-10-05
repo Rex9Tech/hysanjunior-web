@@ -31,10 +31,12 @@ import { AnalyticsService } from "../../../services";
 
 export interface INotificationCenterProps {
   className?: string;
+  triggerClassName?: string;
 }
 
 export const NotificationCenter: React.FC<INotificationCenterProps> = ({
   className,
+  triggerClassName,
 }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -346,16 +348,24 @@ export const NotificationCenter: React.FC<INotificationCenterProps> = ({
         type={ButtonTypes.BUTTON}
         variant={ButtonVariants.TERTIARY}
         size={ComponentSizes.SM}
-        className="relative h-10 w-10 p-0 inline-flex items-center justify-center cursor-pointer"
+        className={cn(
+          "relative h-10 w-10 p-0 inline-flex items-center justify-center cursor-pointer",
+          triggerClassName,
+        )}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={translate(AppLocales.Notifications.Title)}
         title={translate(AppLocales.Notifications.Title)}
       >
-        <iconsLib.bell className="h-5 w-5 text-base-content/80 hover:text-base-content transition-colors" />
+        <iconsLib.bell
+          className={cn(
+            "h-5 w-5 transition-colors",
+            !triggerClassName && "text-base-content/80 hover:text-base-content",
+          )}
+        />
 
         {/* Unread Count Badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-error px-1 text-[11px] font-bold text-primary-content shadow-sm ring-2 ring-base-100 animate-pulse">
+          <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-error px-1 text-[11px] font-bold text-glow-white [-webkit-text-fill-color:var(--color-glow-white)] shadow-sm ring-2 ring-glow-white animate-pulse">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}

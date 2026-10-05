@@ -19,6 +19,14 @@ export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   rel?: string;
 }
 
+/**
+ * Button variants synced with mobile AppButton
+ * (_InteractivePrimaryButton / _InteractiveNeonButton / _InteractiveSecondaryButton).
+ *
+ * Labels use font-primary (Fredoka): KGSecondChances (font-display) does not color
+ * reliably for all Latin/Myanmar runs on web, which made Sign Out / Save look black
+ * on day pages while auth (night inheritance) still looked fine.
+ */
 export const Button: React.FC<IButtonProps> = ({
   variant = ButtonVariants.PRIMARY,
   size = ComponentSizes.MD,
@@ -36,27 +44,30 @@ export const Button: React.FC<IButtonProps> = ({
   const isNeon = variant === ButtonVariants.NEON && !disabled && !isLoading;
 
   const variants: Record<ButtonVariant, string> = {
-    // Primary: Normal state has border with coral text -> Hover turns solid coral with bright neon box shadow (Pic 1)
+    // Primary — solid fill; label always white on brand red
     [ButtonVariants.PRIMARY]:
-      "border border-glass-border bg-glass-tag-bg text-primary font-bold tracking-wider hover:bg-primary hover:text-primary-content hover:border-primary hover:shadow-neon-lg active:scale-95 transition-all duration-300",
+      "bg-primary text-secondary-content [-webkit-text-fill-color:var(--color-secondary-content)] font-primary font-bold tracking-[1.2px] hover:bg-primary/90 active:scale-[0.97] active:bg-primary/90 active:shadow-neon transition-all duration-200",
 
-    // Neon: Normal state has frosted glass + running animated laser borders + glowing text (Pic 2) -> Hover turns solid coral with large neon aura (Pic 3)
+    // Neon — glass idle + glowWhite label; solid primary + neon shadow on press
     [ButtonVariants.NEON]:
-      "relative overflow-hidden border border-glass-border bg-glass-card backdrop-blur-md text-glow-white font-bold tracking-wider [text-shadow:0_0_6px_var(--color-glow-white),0_0_12px_var(--color-primary),0_0_20px_var(--color-primary-dark)] hover:bg-primary hover:text-primary-content hover:border-primary hover:shadow-neon-lg hover:[text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary)] active:scale-95 transition-all duration-400",
+      "border border-glass-border bg-glass-card backdrop-blur-md text-glow-white [-webkit-text-fill-color:var(--color-glow-white)] font-primary font-bold tracking-[1.2px] hover:bg-primary hover:border-primary hover:text-primary-content hover:[-webkit-text-fill-color:var(--color-primary-content)] active:scale-[0.97] active:bg-primary active:border-primary active:shadow-neon transition-all duration-200",
 
+    // Secondary — primary outline; label = secondary-content (day black / night white)
     [ButtonVariants.SECONDARY]:
-      "border-2 border-primary text-primary hover:bg-primary/10 active:bg-primary/20 transition-all duration-300",
+      "border-[1.5px] border-primary bg-transparent text-primary-content [-webkit-text-fill-color:var(--color-primary-content)] font-primary font-semibold hover:bg-primary/15 active:scale-[0.97] active:bg-primary/15 active:shadow-neon transition-all duration-200",
 
+    // Tertiary — text button (mobile osTextButton → primary)
     [ButtonVariants.TERTIARY]:
-      "text-base-content hover:bg-base-200 active:bg-base-300 transition-all duration-200",
+      "text-primary [-webkit-text-fill-color:var(--color-primary)] font-primary hover:bg-primary/10 active:bg-primary/15 transition-all duration-200",
   };
 
+  // MD = mobile Interactive padding xl/md (20/12) + buttonHeight 48
   const sizes: Partial<Record<ComponentSize, string>> = {
-    [ComponentSizes.XS]: "px-2 py-1 text-caption",
-    [ComponentSizes.SM]: "px-3 py-1 text-body-s",
-    [ComponentSizes.MD]: "px-4 py-2 text-body-m",
-    [ComponentSizes.LG]: "px-6 py-3 text-body-l",
-    [ComponentSizes.XL]: "px-8 py-4 text-body-l font-bold",
+    [ComponentSizes.XS]: "px-2 py-1 text-caption min-h-8",
+    [ComponentSizes.SM]: "px-3 py-1.5 text-body-s min-h-10",
+    [ComponentSizes.MD]: "px-5 py-3 text-body-m min-h-12",
+    [ComponentSizes.LG]: "px-6 py-3.5 text-body-l min-h-14",
+    [ComponentSizes.XL]: "px-8 py-4 text-body-l font-bold min-h-16",
   };
 
   const buttonClasses = cn(
@@ -66,7 +77,8 @@ export const Button: React.FC<IButtonProps> = ({
     variants[variant],
     sizes[size] || sizes[ComponentSizes.MD],
     fullWidth && "w-full",
-    (disabled || isLoading) && "opacity-50 cursor-not-allowed",
+    (disabled || isLoading) &&
+      "opacity-40 cursor-not-allowed hover:shadow-none active:scale-100 active:shadow-none",
     isLoading && "cursor-wait",
     className,
   );

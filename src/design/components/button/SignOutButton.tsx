@@ -3,6 +3,7 @@ import { AppLocales, useTranslate } from "../../../locales";
 import { Button } from "..";
 import AppRoutes from "../../../AppRoutes";
 import { useNavigate } from "react-router-dom";
+import { ButtonVariants } from "../../constants";
 
 export const SignOutButton: React.FC = () => {
   const navigate = useNavigate();
@@ -12,5 +13,9 @@ export const SignOutButton: React.FC = () => {
     navigate(AppRoutes.client.protected.SIGN_OUT);
   };
 
-  return <Button onClick={handleSignout}>{t(AppLocales.Auth.SignOut)}</Button>;
+  return (
+    <Button variant={ButtonVariants.PRIMARY} onClick={handleSignout}>
+      {t(AppLocales.Auth.SignOut)}
+    </Button>
+  );
 };

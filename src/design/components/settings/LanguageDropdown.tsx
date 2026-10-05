@@ -2,8 +2,13 @@ import { useAtom } from "jotai";
 import { i18n } from "../../../locales";
 import { Dropdown } from "../form/Dropdown";
 import atoms from "../../../atoms";
+import { cn } from "../../helpers";
 
-export const LanguageDropdown = () => {
+export interface ILanguageDropdownProps {
+  className?: string;
+}
+
+export const LanguageDropdown = ({ className }: ILanguageDropdownProps) => {
   const [locale, setLocale] = useAtom(atoms.localeAtom);
 
   const languageOptions = [
@@ -21,7 +26,8 @@ export const LanguageDropdown = () => {
       options={languageOptions}
       value={locale}
       onValueChange={handleLanguageChange}
-      className="min-w-36"
+      fullWidth={false}
+      className={cn("min-w-36", className)}
     />
   );
 };

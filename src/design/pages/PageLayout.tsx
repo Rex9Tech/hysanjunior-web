@@ -27,7 +27,8 @@ export const PageLayout: React.FC<IPageLayoutProps> = ({
   return (
     <div
       className={cn(
-        "min-h-screen w-full flex flex-col overflow-x-hidden bg-base-200 text-base-content",
+        // Transparent so the day cream gradient on html/body shows through
+        "min-h-screen w-full flex flex-col overflow-x-hidden bg-transparent text-base-content",
         className,
       )}
     >

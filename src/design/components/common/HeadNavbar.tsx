@@ -31,6 +31,10 @@ export interface IHeadNavbarBrandProps {
   showText?: boolean;
 }
 
+/** Navbar action control styles on primary bar (synced with mobile AppBar). */
+const navbarActionClass =
+  "text-white hover:bg-white/15 hover:text-white";
+
 export const HeadNavbarBrand: React.FC<IHeadNavbarBrandProps> = ({
   className,
   isAdmin = false,
@@ -56,16 +60,16 @@ export const HeadNavbarBrand: React.FC<IHeadNavbarBrandProps> = ({
         asset={icons.logo}
         className={cn(
           "h-9 w-9 shrink-0 select-none transition-transform duration-300 hover:scale-105",
-          isAdmin && "drop-shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.5)]",
+          isAdmin && "drop-shadow-[0_0_10px_rgba(255,255,255,0.35)]",
         )}
       />
       {showText && (
         <div className="min-w-0">
-          <div className="truncate text-body-m font-bold tracking-wide text-base-content font-display">
+          <div className="truncate text-body-m font-bold tracking-wide text-white font-display">
             {AppConfig.APP_NAME}
           </div>
           {isAdmin && (
-            <div className="truncate text-caption font-medium uppercase tracking-wider text-base-content/60">
+            <div className="truncate text-caption font-medium uppercase tracking-wider text-white/80">
               Control Center
             </div>
           )}
@@ -75,6 +79,10 @@ export const HeadNavbarBrand: React.FC<IHeadNavbarBrandProps> = ({
   );
 };
 
+/**
+ * App chrome header — synced with mobile AppPage AppBar:
+ * background = primary, title/actions = textSecondary (secondary-content: white day / black night).
+ */
 export const HeadNavbar: React.FC<HeadNavbarProps> = ({
   actions,
   children,
@@ -89,7 +97,7 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
     <>
       <header
         className={cn(
-          "fixed left-0 right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-base-300 bg-base-100 px-4 md:px-6",
+          "fixed left-0 right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-primary-dark/40 bg-primary px-4 text-white md:px-6",
           className,
         )}
       >
@@ -98,14 +106,19 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
             <div className="flex min-w-0 items-center gap-3">
               {leading ?? <HeadNavbarBrand />}
             </div>
-            <div className="flex items-center gap-2">
-              <TimeZoneIndicator />
+            <div className="flex items-center gap-2 text-white">
+              <TimeZoneIndicator
+                className="border-white/30 bg-white/10 text-white"
+              />
               {showFeedback && (
                 <Button
                   type={ButtonTypes.BUTTON}
                   variant={ButtonVariants.TERTIARY}
                   size={ComponentSizes.SM}
-                  className="h-10 w-10 p-0 inline-flex items-center justify-center"
+                  className={cn(
+                    "h-10 w-10 p-0 inline-flex items-center justify-center",
+                    navbarActionClass,
+                  )}
                   onClick={() => setFeedbackOpen(true)}
                   title="Send Feedback"
                   aria-label="Send Feedback"
@@ -113,10 +126,12 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
                   <iconsLib.feedback className="h-5 w-5" />
                 </Button>
               )}
-              {showNotifications && <NotificationCenter />}
-              <ThemeToggle />
+              {showNotifications && (
+                <NotificationCenter triggerClassName={navbarActionClass} />
+              )}
+              <ThemeToggle className={navbarActionClass} />
               <div className="hidden sm:block">
-                <LanguageDropdown />
+                <LanguageDropdown className="border-white/30 bg-white/10 text-white focus:border-white focus:ring-white/20 [&_option]:bg-base-100 [&_option]:text-base-content" />
               </div>
               {actions}
               <ProfileAvatar />

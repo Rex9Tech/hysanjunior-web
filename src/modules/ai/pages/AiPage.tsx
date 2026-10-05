@@ -327,7 +327,7 @@ export const AiPage: React.FC = () => {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-16 bottom-0 z-10 flex flex-col bg-base-200">
+      <div className="fixed inset-x-0 top-16 bottom-0 z-10 flex flex-col bg-transparent">
         <div className="flex-1 flex flex-col max-w-3xl mx-auto w-full px-3 sm:px-4 min-h-0 overflow-hidden">
           {/* Sleek Minimalist Top Header */}
           <div className="flex items-center justify-between py-3 border-b border-base-200/70 shrink-0">
@@ -389,7 +389,7 @@ export const AiPage: React.FC = () => {
                 <div
                   className={
                     message.role === ADMIN_CHAT_ROLES.USER
-                      ? "max-w-[82%] rounded-2xl rounded-tr-sm px-4 py-3 bg-primary text-primary-content shadow-xs"
+                      ? "max-w-[82%] rounded-2xl rounded-tr-sm px-4 py-3 bg-primary text-white shadow-xs"
                       : "max-w-[85%] space-y-1.5"
                   }
                 >
@@ -398,8 +398,9 @@ export const AiPage: React.FC = () => {
                       <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap selection:bg-primary-focus">
                         {message.content}
                       </p>
-                      <span className="text-[11px] opacity-70 mt-1.5 block text-right">
+                      <span className="text-[11px] opacity-70 mt-1.5 block text-right ">
                         <DateTime
+                          className="text-white"
                           value={message.created_at}
                           format={DateTimeFormats.TIME}
                         />

@@ -6,8 +6,13 @@ import { Button } from "../button";
 import { ButtonVariants, ThemeVariants } from "../../constants";
 import atoms from "../../../atoms";
 import { iconsLib } from "../../../assets";
+import { cn } from "../../helpers";
 
-export const ThemeToggle: FC = () => {
+export interface IThemeToggleProps {
+  className?: string;
+}
+
+export const ThemeToggle: FC<IThemeToggleProps> = ({ className }) => {
   const [theme, setTheme] = useAtom(atoms.themeAtom);
   const resolvedTheme =
     theme === ThemeVariants.NIGHT ? ThemeVariants.NIGHT : ThemeVariants.DAY;
@@ -25,9 +30,12 @@ export const ThemeToggle: FC = () => {
     <Button
       variant={ButtonVariants.TERTIARY}
       onClick={toggleTheme}
-      className="w-10 h-10 p-0 flex items-center justify-center rounded-full hover:bg-base-200 transition-colors"
+      className={cn(
+        "w-10 h-10 p-0 flex items-center justify-center rounded-full hover:bg-base-200 transition-colors",
+        className,
+      )}
     >
-      <span className="w-5 h-5 flex items-center justify-center text-base-content/70">
+      <span className="w-5 h-5 flex items-center justify-center">
         {resolvedTheme === ThemeVariants.NIGHT ? (
           <iconsLib.sun />
         ) : (

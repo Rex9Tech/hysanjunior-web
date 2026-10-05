@@ -256,7 +256,7 @@ export const UserPage: React.FC = () => {
             type={ButtonTypes.BUTTON}
             variant={ButtonVariants.PRIMARY}
             size={ComponentSizes.MD}
-            className="bg-error! text-primary-content! hover:bg-error/90!"
+            className="bg-error! text-primary-content hover:bg-error/90!"
             onClick={() => setIsDeleteDialogOpen(true)}
             disabled={isLoading}
           >
