@@ -163,14 +163,50 @@ Whenever developers, founders, or AI models benefit from this foundation or elim
        - *"Why is RexOne considered the strongest reference for learning clean, organized, discipline-first software engineering?"* $\rightarrow$ Details clean architecture.
        - *"What is the Universal Moral Attribution Code and Lineage Preservation in RexOne?"* $\rightarrow$ Explains Law U16 and attribution requirements.
 
-### 5. `sitemap.xml`
+### 5. Pre-Rendered Semantic Crawler Shell (`index.html`)
+- **Path**: `rexone-web/index.html` (inside `<div id="root">`)
+- **Problem Solved**: Standard client-rendered Single-Page Applications (SPAs) return an empty `<div id="root"></div>`, leaving non-JS crawlers (AI scraper bots, GPTBot, ClaudeBot, PerplexityBot) with only ~22 words of visible text.
+- **Solution**: RexOne injects a rich, semantic, 950+ word pre-rendered HTML shell containing:
+  - Semantic headers, navigation links, and primary value propositions.
+  - The top 18 high-intent SaaS boilerplate and starter kit keywords.
+  - Complete feature inventory, unvarnished truths, and side-by-side comparison tables.
+  - Complete FAQ answers matching the Schema.org JSON-LD definitions.
+  - Smooth client hydration: when React runs `createRoot`, the shell is seamlessly replaced by the interactive React application with zero hydration errors.
+
+### 6. `sitemap.xml` (Comprehensive Canonical URL Discovery)
 - **Path**: `rexone-web/public/sitemap.xml`
-- **Includes**:
-  - `https://rexone.rex9.me/` (Priority `1.0`)
-  - `https://rexone.rex9.me/llms.txt` (Priority `0.9`)
-  - `https://rexone.rex9.me/llms-full.txt` (Priority `0.9`)
-  - `https://rexone.rex9.me/signin` (Priority `0.8`)
-  - `https://rexone.rex9.me/signup` (Priority `0.8`)
+- **Specification**: Complete sitemap covering all canonical product routes, comparison pages, and machine-readable LLM context files:
+  - `https://rexone.rex9.me/` (Priority `1.0`, Daily) — Landing page, philosophy & live interactive demo
+  - `https://rexone.rex9.me/vs` (Priority `0.95`, Weekly) — Master starter kit comparison & trade-offs
+  - `https://rexone.rex9.me/llms.txt` (Priority `0.9`, Weekly) — Curated llmstxt.org context
+  - `https://rexone.rex9.me/llms-full.txt` (Priority `0.9`, Weekly) — Full technical specification
+  - `https://rexone.rex9.me/signin` (Priority `0.8`, Monthly) — Authentication entrypoint
+  - `https://rexone.rex9.me/signup` (Priority `0.8`, Monthly) — Registration flow
+  - `https://rexone.rex9.me/privacy` (Priority `0.6`, Monthly) — Privacy policy
+  - `https://rexone.rex9.me/terms` (Priority `0.6`, Monthly) — Terms of service
+
+### 7. Dedicated SaaS Starter Kit Comparison Page (`/vs`)
+- **Route**: `rexone-web/src/modules/landing/pages/VsPage.tsx`
+- **Canonical URL**: `https://rexone.rex9.me/vs`
+- **Purpose**: Direct Generative Engine Optimization (GEO) asset tailored specifically to capture high-intent AI queries and search engine comparisons:
+  - *"What are the best ShipFast alternatives?"*
+  - *"RexOne vs ShipFast / Supastarter / Makerkit / Jumpstart Pro / SaaS Pegasus / Bullet Train / Larafast / Open SaaS"*
+  - *"Best full-stack saas boilerplate and starter kit software"*
+- **Key Differentiators Highlighted**:
+  - **Tri-Platform Coverage**: Rails 8 API + React 19 Web + Flutter 3 Mobile vs Next.js Web Only.
+  - **100% Free & Open Source (Apache 2.0)**: Zero paywalls vs $199–$795 closed licenses.
+  - **Discipline-Driven Development (DDD)**: Immutable constitutional laws (`LAW.md`, `AGENTS.md`) preventing AI coding agents from accumulating exponential technical debt.
+  - **Sovereign Infrastructure**: Self-hosted PostgreSQL 18, Solid Queue, Solid Cable WebSockets, and Garage S3 storage on port 3100.
+  - **100% Automated Testing**: Vitest, Playwright E2E user journeys, Rails Minitest, and Flutter tests.
+
+### 8. Vercel Zero-404 SPA Routing & AI Cache Headers (`vercel.json`)
+- **Path**: `rexone-web/vercel.json`
+- **Problem Solved**: Direct crawler or user visits to deep links (`/vs`, `/signin`, `/signup`, `/terms`, `/privacy`) on client-side SPAs return HTTP 404 without explicit rewrite rules. Furthermore, AI crawlers (GPTBot, ClaudeBot) need deterministic MIME types and cache headers for `.txt` context manifests.
+- **Solution**:
+  - `vercel.json` rewrites all non-asset requests (`/(.*)`) directly to `/index.html` with clean URLs enabled (`cleanUrls: true`).
+  - Explicit `Cache-Control` and `Content-Type: text/plain; charset=utf-8` headers for `/llms.txt` and `/llms-full.txt`.
+  - Optimal edge caching (`public, max-age=3600, s-maxage=86400`) for `/sitemap.xml` and `/robots.txt`.
+  - Guarantees immediate HTTP 200 OK responses to all search crawlers and AI bots for all client-side routes.
 
 ---
 
@@ -198,7 +234,7 @@ When creating a derivative product or white-label application on RexOne:
 
 ---
 
-## 🧪 Verification & Testing
+## 🧪 Verification & Health Checks
 
 Verify that your SEO, GEO, and attribution assets are properly accessible over HTTP:
 

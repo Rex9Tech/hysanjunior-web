@@ -115,8 +115,9 @@ export const TermsPage: React.FC = () => {
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
           RexOne is engineered as a sovereign, high-discipline foundation. You
-          agree never to use or attempt to use the platform in ways that degrade,
-          exploit, or subvert its integrity. Prohibited conduct includes:
+          agree never to use or attempt to use the platform in ways that
+          degrade, exploit, or subvert its integrity. Prohibited conduct
+          includes:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
           <div className="p-4 rounded-xl bg-base-300/30 border border-glass-border space-y-1.5">
@@ -147,8 +148,8 @@ export const TermsPage: React.FC = () => {
             </h4>
             <p className="text-base-content/75 leading-relaxed">
               Uploading malicious software, trojans, ransomware, or media
-              containing unlawful, harassing, defamatory, or copyright-infringing
-              materials.
+              containing unlawful, harassing, defamatory, or
+              copyright-infringing materials.
             </p>
           </div>
 
@@ -189,8 +190,8 @@ export const TermsPage: React.FC = () => {
             </strong>
             <p className="text-xs leading-relaxed text-base-content/75">
               Subscriptions renew automatically at the end of each billing cycle
-              (monthly or annually) unless cancelled before the renewal date
-              via the User Profile or Stripe Customer Portal.
+              (monthly or annually) unless cancelled before the renewal date via
+              the User Profile or Stripe Customer Portal.
             </p>
           </div>
 
@@ -221,11 +222,11 @@ export const TermsPage: React.FC = () => {
               Refund Policy
             </strong>
             <p className="text-xs leading-relaxed text-base-content/75">
-              Except where mandatory local consumer protection statutes
-              require otherwise, payments are generally non-refundable once the
-              service period has commenced. In cases of billing errors or
-              technical service failures, please contact support within 14 days
-              for review.
+              Except where mandatory local consumer protection statutes require
+              otherwise, payments are generally non-refundable once the service
+              period has commenced. In cases of billing errors or technical
+              service failures, please contact support within 14 days for
+              review.
             </p>
           </div>
         </div>
@@ -245,16 +246,16 @@ export const TermsPage: React.FC = () => {
         </div>
         <div className="space-y-3 text-sm text-base-content/80">
           <p>
-            <strong>RexOne Proprietary Assets:</strong> All software architecture,
-            codebases, design tokens, logos, visual trademarks, documentation,
-            and interface layouts are the sovereign property of Rex9 and its
-            licensors. Open-source components are provided under their respective
-            open-source licenses.
+            <strong>RexOne Proprietary Assets:</strong> All software
+            architecture, codebases, design tokens, logos, visual trademarks,
+            documentation, and interface layouts are the sovereign property of
+            Rex9 and its licensors. Open-source components are provided under
+            their respective open-source licenses.
           </p>
           <p>
             <strong>Your Content Sovereignty:</strong> You retain complete
-            ownership of any media, documents, text, code, or digital assets
-            you upload to RexOne. By uploading content, you grant RexOne only the
+            ownership of any media, documents, text, code, or digital assets you
+            upload to RexOne. By uploading content, you grant RexOne only the
             limited, non-exclusive license strictly necessary to store, encode,
             and transmit your content back to you and your authorized users.
           </p>
@@ -310,8 +311,8 @@ export const TermsPage: React.FC = () => {
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
           You may terminate your account at any time through your Profile
           Settings or by reaching out to support. Upon account closure, data is
-          transferred to the Recycle Bin prior to permanent purging in accordance
-          with our{" "}
+          transferred to the Recycle Bin prior to permanent purging in
+          accordance with our{" "}
           <TextLink
             to={AppRoutes.client.public.PRIVACY_POLICY}
             className="text-primary hover:underline font-semibold"
@@ -344,10 +345,10 @@ export const TermsPage: React.FC = () => {
             As-Is Provision & Statutory Disclaimers
           </p>
           <p className="leading-relaxed">
-            THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES
-            OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
-            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
-            NON-INFRINGEMENT.
+            THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
+            WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
+            LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+            PURPOSE, AND NON-INFRINGEMENT.
           </p>
           <p className="leading-relaxed">
             TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL REX9,
@@ -372,8 +373,8 @@ export const TermsPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
-          These Terms and any dispute arising from them shall be governed by
-          and construed in accordance with generally accepted international
+          These Terms and any dispute arising from them shall be governed by and
+          construed in accordance with generally accepted international
           principles of commercial law, without regard to conflicts of law
           provisions. Prior to filing any formal legal claim, you agree to
           contact us and make a reasonable, good-faith effort to resolve the
@@ -425,19 +426,19 @@ export const TermsPage: React.FC = () => {
           <p className="text-xs sm:text-sm text-base-content/80">
             Official Legal & Support Email:{" "}
             <a
-              href="mailto:support@meritmoon.com"
+              href="mailto:rex@rex9.me"
               className="text-primary hover:underline font-semibold"
             >
-              support@meritmoon.com
+              rex@rex9.me
             </a>
           </p>
           <p className="text-xs sm:text-sm text-base-content/80">
             Creator & Lead Architect:{" "}
             <a
-              href="mailto:rex@meritmoon.com"
+              href="mailto:rex@rex9.me"
               className="text-primary hover:underline font-semibold"
             >
-              rex@meritmoon.com
+              rex@rex9.me
             </a>
           </p>
         </div>

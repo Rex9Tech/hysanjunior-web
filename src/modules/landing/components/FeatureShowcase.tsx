@@ -811,14 +811,14 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary/50 bg-black/60 backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary/40 bg-primary/15 text-primary-light backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)]">
             <iconsLib.sparkles className="w-4 h-4 text-primary drop-shadow-[0_0_6px_var(--color-primary)]" />
-            <span className="text-xs font-bold tracking-wider uppercase text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+            <span className="text-xs font-bold tracking-wider uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
               Sovereign Tri-Platform Capabilities
             </span>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-white">
             Architectural Feature Showcase
           </h2>
 
@@ -831,21 +831,21 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
 
         {/* View Switcher Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex p-1.5 rounded-2xl bg-black/50 border border-glass-border backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+          <div className="inline-flex p-1.5 rounded-2xl bg-glass-card/90 border border-glass-border backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
             <button
               type="button"
               onClick={() => setActiveTab("pillars")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 cursor-pointer ${
                 activeTab === "pillars"
-                  ? "bg-primary text-black shadow-[0_0_15px_var(--color-primary)] font-extrabold"
-                  : "text-base-content/70 hover:text-white hover:bg-white/5"
+                  ? "bg-primary text-white shadow-[0_0_15px_var(--color-primary)] font-extrabold"
+                  : "text-base-content/70 hover:text-white hover:bg-glass-card-hover"
               }`}
             >
               <span>⚡ 8 Sovereign Pillars</span>
               <span
                 className={`text-[10px] px-2 py-0.5 rounded-full ${
                   activeTab === "pillars"
-                    ? "bg-black/30 text-white font-bold"
+                    ? "bg-primary-dark/50 text-white font-bold"
                     : "bg-white/10 text-base-content/80"
                 }`}
               >
@@ -858,15 +858,15 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
               onClick={() => setActiveTab("matrix")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 cursor-pointer ${
                 activeTab === "matrix"
-                  ? "bg-primary text-black shadow-[0_0_15px_var(--color-primary)] font-extrabold"
-                  : "text-base-content/70 hover:text-white hover:bg-white/5"
+                  ? "bg-primary text-white shadow-[0_0_15px_var(--color-primary)] font-extrabold"
+                  : "text-base-content/70 hover:text-white hover:bg-glass-card-hover"
               }`}
             >
               <span>🏛️ Master Feature Matrix</span>
               <span
                 className={`text-[10px] px-2 py-0.5 rounded-full ${
                   activeTab === "matrix"
-                    ? "bg-black/30 text-white font-bold"
+                    ? "bg-primary-dark/50 text-white font-bold"
                     : "bg-white/10 text-base-content/80"
                 }`}
               >
@@ -931,7 +931,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
             </div>
 
             {/* Quick Stats Banner */}
-            <div className="rounded-2xl border border-glass-border bg-black/40 backdrop-blur-xl p-5 sm:p-6 text-center shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+            <div className="rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl p-5 sm:p-6 text-center shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div>
                   <div className="font-display text-2xl sm:text-3xl font-bold text-primary drop-shadow-[0_0_8px_var(--color-primary)]">
@@ -985,7 +985,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                       selectedCategory === cat
                         ? "bg-primary text-black font-bold shadow-[0_0_10px_var(--color-primary)]"
-                        : "bg-black/30 border border-glass-border text-base-content/80 hover:border-primary/40 hover:text-white"
+                        : "bg-glass-card border border-glass-border text-base-content/80 hover:border-primary/40 hover:text-white"
                     }`}
                   >
                     {cat}
@@ -1001,7 +1001,7 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search any capability or feature..."
-                  className="w-full pl-9 pr-8 py-2 rounded-xl bg-black/40 border border-glass-border text-xs text-white placeholder-base-content/40 focus:outline-none focus:border-primary focus:shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)] transition-all"
+                  className="w-full pl-9 pr-8 py-2 rounded-xl bg-glass-card border border-glass-border text-xs text-white placeholder-base-content/40 focus:outline-none focus:border-primary focus:shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)] transition-all"
                 />
                 {searchQuery && (
                   <button
@@ -1030,10 +1030,10 @@ export const FeatureShowcase: React.FC<{ id?: string }> = ({
             </div>
 
             {/* The Master Table */}
-            <div className="overflow-x-auto rounded-2xl border border-glass-border bg-black/25">
+            <div className="overflow-x-auto rounded-2xl border border-glass-border bg-glass-card/90">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-glass-border bg-black/50 text-base-content/90 font-bold uppercase tracking-wider text-[11px]">
+                  <tr className="border-b border-glass-border bg-glass-card backdrop-blur-xl text-base-content/90 font-bold uppercase tracking-wider text-[11px]">
                     <th className="py-3.5 px-4 font-semibold">Category</th>
                     <th className="py-3.5 px-4 font-semibold min-w-50">
                       Feature &amp; Capability

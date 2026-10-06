@@ -22,7 +22,7 @@ export const CandleQuoteCard: React.FC<ICandleQuoteCardProps> = ({
           🕯️
         </div>
 
-        <blockquote className="font-display text-base sm:text-lg text-glow-white italic leading-relaxed tracking-wide [text-shadow:0_0_8px_var(--color-glow-white),0_0_18px_var(--color-primary)] px-2 sm:px-4">
+        <blockquote className="font-display text-base sm:text-lg text-glow-white [text-shadow:0_0_6px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.7),0_0_30px_rgba(var(--color-primary-rgb),0.4)] italic leading-relaxed tracking-wide px-2 sm:px-4">
           &ldquo;Sharing is like lighting candles from one candle to another:
           sharing one&apos;s light does not make its own flame dimmer or weaker,
           but the world illuminates more and more with each light shared.&rdquo;{" "}
@@ -33,7 +33,7 @@ export const CandleQuoteCard: React.FC<ICandleQuoteCardProps> = ({
         </blockquote>
 
         <p className="text-xs sm:text-sm text-primary-light font-medium tracking-wide">
-          — Htet Naing (Rex9) · The Philosophy of Open Source &amp; Mettā
+          — Htet Naing (Rex9) · The Essence of Kindful Open Source
         </p>
       </div>
     </div>

@@ -86,17 +86,17 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
 
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
         {/* Doctrine Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/50 bg-black/60 backdrop-blur-md shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.35)] transition-all duration-300">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/40 bg-primary/15 text-primary-light backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)] transition-all duration-300">
           {pillIcon || (
             <iconsLib.sparkles className="w-4 h-4 text-primary animate-pulse drop-shadow-[0_0_6px_var(--color-primary)]" />
           )}
-          <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+          <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.85)]">
             {pillText}
           </span>
         </div>
 
         {/* The Heart Quote */}
-        <blockquote className="font-display text-2xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_12px_var(--color-glow-white),0_0_25px_var(--color-primary),0_0_50px_var(--color-primary-dark)] py-1">
+        <blockquote className="font-display text-2xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)] py-1">
           {quote}
         </blockquote>
 
@@ -128,7 +128,7 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
 
         {/* The 9-Month Plumbing Delusion vs Day-One Velocity */}
         <div className="pt-6 border-t border-glass-border/60">
-          <div className="rounded-2xl border border-primary/30 bg-black/40 backdrop-blur-xl p-5 sm:p-7 text-left relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+          <div className="rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl p-5 sm:p-7 text-left relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-4 border-b border-glass-border/40">
@@ -157,7 +157,7 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
                     Teams burn $150k–$300k reinventing generic plumbing: auth flows, Stripe webhook race conditions, CRUD admin panels, Redis broker bills, and broken cross-platform JSON payloads.
                   </p>
                 </div>
-                <div className="text-[11px] text-red-300/90 font-mono space-y-1.5 bg-black/50 p-3 rounded-lg border border-red-500/20">
+                <div className="text-[11px] text-red-300/90 font-mono space-y-1.5 bg-red-950/40 p-3 rounded-lg border border-red-500/30">
                   <div className="flex items-center gap-1.5">
                     <span className="text-red-400">✗</span> Month 1–3: Auth, IAM, Postgres & S3 uploads
                   </div>
@@ -184,7 +184,7 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
                     Every foundation problem solved on Day One: Rails 8 core, React 19 SPA, Flutter 3 native mobile, self-hosted Garage S3, and Solid Queue—governed under Constitutional Law.
                   </p>
                 </div>
-                <div className="text-[11px] text-primary-light font-mono space-y-1.5 bg-black/50 p-3 rounded-lg border border-primary/25">
+                <div className="text-[11px] text-primary-light font-mono space-y-1.5 bg-primary/15 p-3 rounded-lg border border-primary/30">
                   <div className="flex items-center gap-1.5">
                     <span className="text-primary">✓</span> 1,785+ automated tests across all 3 platforms
                   </div>
@@ -215,7 +215,7 @@ export const DoctrineCard: React.FC<IDoctrineCardProps> = ({
               return (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl border border-glass-border bg-black/25 backdrop-blur-md hover:border-primary/40 hover:bg-black/40 transition-all duration-300 group"
+                  className="p-3.5 rounded-xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-2.5 mb-1.5">
                     <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center text-primary group-hover:scale-105 transition-transform duration-300">

@@ -22,7 +22,7 @@ export const ProjectCard: React.FC<IProjectCardProps> = ({ project }) => {
       {/* Frosted Glass Overlay */}
       <div className="absolute inset-x-0 bottom-0 h-full bg-glass-project/90 backdrop-blur-xl border-t border-glass-border p-4 flex flex-col justify-between items-center text-center font-primary transform translate-y-[calc(100%-3.5rem)] transition-transform duration-500 ease-out group-hover:translate-y-0 group-hover:bg-glass-project-hover/95 group-hover:border-glass-border-hover">
         <div className="w-full flex flex-col items-center">
-          <h3 className="font-display text-xl text-glow-white mb-1.5 tracking-wide [text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary),0_0_24px_var(--color-primary-dark)]">
+          <h3 className="font-display text-xl text-white mb-1.5 tracking-wide">
             {project.name}
           </h3>
 

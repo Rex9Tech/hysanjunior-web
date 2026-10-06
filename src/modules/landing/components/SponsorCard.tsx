@@ -51,7 +51,7 @@ export const SponsorCard: React.FC<ISponsorCardProps> = ({
         {/* Identity & Subtitle */}
         <div className="flex-1 min-w-0 space-y-1.5">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <h3 className="font-display text-2xl sm:text-3xl font-normal text-glow-white tracking-wide [text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary)]">
+            <h3 className="font-display text-2xl sm:text-3xl font-normal text-white tracking-wide">
               Rex
             </h3>
             <TextLink

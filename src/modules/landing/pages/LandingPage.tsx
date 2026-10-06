@@ -15,12 +15,13 @@ import {
   DoctrineCard,
   FeatureShowcase,
   ProductHuntBadge,
+  ComparisonSection,
+  FaqSection,
+  LandingFooter,
 } from "../components";
 import { Button } from "../../../design/components/button";
-import { TextLink } from "../../../design/components/common/TextLink";
 import { ButtonVariants, ComponentSizes } from "../../../design/constants";
 import { images, iconsLib } from "../../../assets";
-import AppRoutes from "../../../AppRoutes";
 
 export interface ILandingPageProps {
   hideEnter?: boolean;
@@ -88,6 +89,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         "Features",
         "Projects",
         "Testimonials",
+        "FAQ",
         "Sponsor",
         "Contact",
       ];
@@ -126,10 +128,21 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
     tools: "DevOps, Cloud & AI",
   };
 
-  // Enforce dark mode on landing page
+  // Enforce dark mode on landing page & smooth-scroll to hash target if provided
   useEffect(() => {
     const prevTheme = document.documentElement.getAttribute("data-theme");
     document.documentElement.setAttribute("data-theme", "night");
+
+    if (window.location.hash) {
+      const targetId = window.location.hash.replace("#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        setTimeout(() => {
+          elem.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }
+
     return () => {
       if (prevTheme) {
         document.documentElement.setAttribute("data-theme", prevTheme);
@@ -172,27 +185,33 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         {/* 3. Catchphrase & Creator Attribution */}
         <section className="text-center max-w-4xl mx-auto my-8 space-y-4 px-4 font-primary">
           {/* Pill Badge: High-contrast, razor-sharp on dark brick wall */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/50 bg-black/60 backdrop-blur-md shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.35)] transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.5)]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/15 text-primary-light backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)] transition-all duration-300 hover:border-primary hover:shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.5)]">
             <iconsLib.sparkles className="w-4 h-4 text-primary animate-pulse drop-shadow-[0_0_6px_var(--color-primary)]" />
             <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
               Pioneering{" "}
-              <span className="text-primary-light font-extrabold tracking-wider">
+              <span className="text-primary-light font-extrabold tracking-wider [text-shadow:0_0_10px_rgba(var(--color-primary-rgb),0.85)]">
                 Discipline-Driven Development
               </span>
             </span>
           </div>
 
-          {/* Catchphrase Heading: Iconic Neon Glow */}
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold tracking-wider text-glow-white font-display [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
-            Start from One. Not from Zero. 🌟
+          {/* Catchphrase Heading: Clean, crisp display font */}
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold tracking-wider font-display text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
+            Start from One. Not from Zero.
           </h1>
 
           {/* Creator Attribution: High-contrast, clean readable typography */}
           <p className="text-base sm:text-lg font-medium tracking-wide text-white/90 font-primary">
             Architected &amp; Forged by{" "}
-            <span className="text-primary-light font-bold drop-shadow-[0_0_8px_rgba(var(--color-primary-rgb),0.6)]">
+            <a
+              href="https://rex9.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display font-bold text-glow-white [text-shadow:0_0_6px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.85),0_0_30px_rgba(var(--color-primary-rgb),0.5)] tracking-wider text-xl sm:text-2xl hover:scale-105 transition-transform inline-block no-underline ml-1 align-middle"
+              aria-label="Visit Rex9 portfolio (rex9.me)"
+            >
               Rex9
-            </span>
+            </a>
           </p>
 
           {/* Subtitle & Value Proposition */}
@@ -201,7 +220,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             humans and AI coding agents. Forging clean, disciplined ground where
             clarity meets code, and <br /> simplicity meets soul. 🛡️✨
           </p>
-          <p className="text-xs sm:text-sm text-base-content/70 italic font-primary">
+          <p className="text-sm sm:text-base font-display text-glow-white [text-shadow:0_0_6px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.8),0_0_30px_rgba(var(--color-primary-rgb),0.4)] italic tracking-wider py-1">
             No journey is walked alone. Let&apos;s conquer greatness &amp;
             stillness together. 🏹
           </p>
@@ -230,7 +249,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         {/* 4. Skills Section */}
         <section id="Skills" className="py-12 scroll-mt-20">
           <div className="text-center mb-9">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-white">
               Skills
             </h2>
           </div>
@@ -252,8 +271,8 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         {/* 6. Projects Section */}
         <section id="Projects" className="py-12 scroll-mt-20">
           <div className="text-center mb-8">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
-              Forged Realms & Masterworks
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-white">
+              Forged Realms &amp; Masterworks
             </h2>
           </div>
 
@@ -263,13 +282,13 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
           {/* Discipline-Driven Development (DDD): The Unvarnished Truths */}
           <div className="mb-12 rounded-3xl bg-glass-card/90 backdrop-blur-xl border border-glass-border p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]">
             <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary/50 bg-black/60 backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary/40 bg-primary/15 text-primary-light backdrop-blur-md shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.3)]">
                 <iconsLib.shieldCheck className="w-4 h-4 text-primary drop-shadow-[0_0_6px_var(--color-primary)]" />
-                <span className="text-xs font-bold tracking-wider uppercase text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+                <span className="text-xs font-bold tracking-wider uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
                   The Unvarnished Engineering Truths
                 </span>
               </div>
-              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary)]">
+              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
                 Discipline-Driven Development (DDD)
               </h3>
               <p className="text-sm sm:text-base text-base-content/80 leading-relaxed font-primary">
@@ -284,7 +303,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>⚡ 1. The Vibe-Coding Delusion</span>
                 </div>
@@ -296,7 +315,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 </p>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>🪤 2. The BaaS Lock-in Trap</span>
                 </div>
@@ -308,7 +327,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 </p>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>📦 3. The Full-Stack Monolith Lie</span>
                 </div>
@@ -320,7 +339,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 </p>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>📱 4. The Webview Wrapper Cop-Out</span>
                 </div>
@@ -332,7 +351,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 </p>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>🛡️ 5. Zero Zombie Code &amp; Shims</span>
                 </div>
@@ -344,7 +363,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
                 </p>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-black/30 backdrop-blur-md hover:border-primary/50 transition-all duration-300 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl border border-glass-border bg-glass-card/90 backdrop-blur-xl hover:border-primary/50 hover:bg-glass-card-hover hover:shadow-[0_8px_30px_rgba(var(--color-primary-rgb),0.25)] transition-all duration-300 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
                   <span>💎 6. 100% Free Sovereignty</span>
                 </div>
@@ -358,6 +377,9 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             </div>
           </div>
 
+          {/* Architectural Comparison: RexOne vs Commercial SaaS Boilerplates */}
+          <ComparisonSection />
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
             {LANDING_DATA.projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
@@ -368,7 +390,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         {/* 6. Testimonials Section */}
         <section id="Testimonials" className="py-12 scroll-mt-20">
           <div className="text-center mb-9">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-white">
               Testimonials
             </h2>
           </div>
@@ -380,7 +402,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
               variant={ButtonVariants.TERTIARY}
               aria-label="Previous Testimonial"
               onClick={handlePrevTestimonial}
-              className="hidden sm:flex absolute -left-2 md:-left-4 z-10 w-11! h-11! p-0! rounded-full! bg-glass-nav border border-glass-border text-glow-white items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-glass-card-hover hover:border-glass-border-hover hover:text-primary-light hover:shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.6),0_0_30px_rgba(var(--color-primary-rgb),0.25)] active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer"
+              className="hidden sm:flex absolute -left-2 md:-left-4 z-10 w-11! h-11! p-0! rounded-full! bg-glass-nav border border-glass-border text-white items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-glass-card-hover hover:border-glass-border-hover hover:text-primary-light hover:shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.6)] active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer"
             >
               <iconsLib.chevronLeft className="w-5 h-5 stroke-[2.5]" />
             </Button>
@@ -402,7 +424,7 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
               variant={ButtonVariants.TERTIARY}
               aria-label="Next Testimonial"
               onClick={handleNextTestimonial}
-              className="hidden sm:flex absolute -right-2 md:-right-4 z-10 w-11! h-11! p-0! rounded-full! bg-glass-nav border border-glass-border text-glow-white items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-glass-card-hover hover:border-glass-border-hover hover:text-primary-light hover:shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.6),0_0_30px_rgba(var(--color-primary-rgb),0.25)] active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer"
+              className="hidden sm:flex absolute -right-2 md:-right-4 z-10 w-11! h-11! p-0! rounded-full! bg-glass-nav border border-glass-border text-white items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-glass-card-hover hover:border-glass-border-hover hover:text-primary-light hover:shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.6)] active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer"
             >
               <iconsLib.chevronRight className="w-5 h-5 stroke-[2.5]" />
             </Button>
@@ -429,17 +451,21 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
           {/* Product Hunt Community Review Callout */}
           <div className="mt-8 flex flex-col items-center justify-center gap-2.5">
             <p className="text-xs sm:text-sm text-base-content/70 tracking-wide font-medium">
-              Experienced RexOne? Share your review with the community on Product Hunt:
+              Experienced RexOne? Share your review with the community on
+              Product Hunt:
             </p>
             <ProductHuntBadge />
           </div>
         </section>
 
-        {/* 7. Sponsor & Support Section */}
+        {/* 7. Frequently Asked Questions (Q&A) Section */}
+        <FaqSection variant="general" className="my-8" />
+
+        {/* 8. Sponsor & Support Section */}
         <section id="Sponsor" className="py-12 scroll-mt-20 text-center">
           <div className="mb-8 space-y-3">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
-              Support & Sponsor
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-white">
+              Support &amp; Sponsor
             </h2>
             <p className="text-body-m text-base-content/70 max-w-2xl mx-auto">
               Fuel the evolution of sovereign open-source engineering.
@@ -456,16 +482,25 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
         </section>
 
         {/* 8. Contact & Resume Section */}
-        <section id="Contact" className="py-12 scroll-mt-20">
+        <section id="Contact" className="pt-12 pb-0 scroll-mt-20">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-9">
             {/* Left Contact Text & Resume Button */}
             <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-              <div className="font-display text-xl sm:text-2xl md:text-3xl leading-relaxed font-normal text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
-                Every greatness begins with a single covenant.
-                <br className="hidden sm:inline" /> Whether forging a new
-                digital realm or conquering complex systems,
-                <br className="hidden sm:inline" /> send thy raven and let us
-                build with purpose, soul, and zero technical debt. ⚔️
+              <div className="space-y-3 font-primary">
+                <p className="text-base sm:text-lg md:text-xl text-white/95 leading-relaxed font-medium">
+                  Every greatness begins with a single covenant.
+                  <br className="hidden sm:inline" /> Forging new digital realms
+                  or conquering complex systems,
+                  <br className="hidden sm:inline" /> send thy raven and let us
+                  build with velocity, & quality. ⚔️
+                </p>
+                <p className="text-sm sm:text-base font-display tracking-wider text-glow-white [text-shadow:0_0_6px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.7),0_0_30px_rgba(var(--color-primary-rgb),0.4)] italic leading-relaxed pt-2">
+                  &ldquo;No journey is walked alone.
+                  <br />
+                  Clear in thought, exact in structure,
+                  <br />
+                  simple in use, and strong enough to endure.&rdquo; 🏹
+                </p>
               </div>
 
               <div className="resumeBox text-center lg:text-left pt-6">
@@ -488,31 +523,8 @@ export const LandingPage: React.FC<ILandingPageProps> = ({ hideEnter }) => {
             </div>
           </div>
 
-          {/* Divider matching Rex9 */}
-          <div className="w-4/5 max-w-5xl h-px mx-auto my-9 bg-linear-to-r from-transparent via-primary to-transparent shadow-[0_0_6px_rgba(var(--color-primary-rgb),0.3)]" />
-
-          {/* Footer Social Profiles & Legal Links */}
-          <footer className="text-center space-y-3 pb-8">
-            <SocialProfiles profiles={LANDING_DATA.profiles} />
-            <div className="flex items-center justify-center gap-5 text-xs text-base-content/60 font-medium">
-              <TextLink
-                to={AppRoutes.client.public.PRIVACY_POLICY}
-                className="text-base-content/60 hover:text-primary transition-colors text-xs tracking-wider no-underline hover:underline"
-              >
-                Privacy Policy
-              </TextLink>
-              <span className="text-base-content/30">•</span>
-              <TextLink
-                to={AppRoutes.client.public.TERMS_AND_CONDITIONS}
-                className="text-base-content/60 hover:text-primary transition-colors text-xs tracking-wider no-underline hover:underline"
-              >
-                Terms & Conditions
-              </TextLink>
-            </div>
-            <p className="text-xs text-base-content/50 font-medium">
-              © {new Date().getFullYear()} Rex9. Engineered with Soul & Clarity.
-            </p>
-          </footer>
+          {/* Unified Footer Component (Source of Truth) */}
+          <LandingFooter activePage="home" />
         </section>
       </main>
     </div>

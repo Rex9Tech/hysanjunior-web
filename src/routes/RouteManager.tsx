@@ -22,7 +22,7 @@ import {
 } from "../design/pages";
 import { UserPage } from "../modules/user";
 import { AnapanaRoute } from "../modules/anapana/pages";
-import { PrivacyPolicyPage, TermsPage } from "../modules/landing";
+import { PrivacyPolicyPage, TermsPage, VsPage } from "../modules/landing";
 import {
   AuthDialog,
   ConfirmEmailPage,
@@ -130,6 +130,18 @@ const router = createBrowserRouter(
         <Route
           path={AppRoutes.client.public.TERMS_AND_CONDITIONS}
           element={<TermsPage />}
+        />
+        <Route
+          path={AppRoutes.client.public.VS}
+          element={<VsPage />}
+        />
+        <Route
+          path="/vs-shipfast"
+          element={<Navigate to={AppRoutes.client.public.VS} replace />}
+        />
+        <Route
+          path="/alternatives/shipfast"
+          element={<Navigate to={AppRoutes.client.public.VS} replace />}
         />
 
         {/* Public Routes */}
