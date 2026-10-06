@@ -613,22 +613,20 @@ export const VsPage: React.FC = () => {
             </h1>
 
             <p className="text-sm sm:text-base text-base-content/90 max-w-3xl mx-auto leading-relaxed font-primary">
-              Comparing RexOne side-by-side against{" "}
-              <strong className="text-white">ShipFast</strong>,{" "}
-              <strong className="text-white">Makerkit</strong>,{" "}
-              <strong className="text-white">Supastarter</strong>,{" "}
-              <strong className="text-white">Jumpstart Pro</strong>,{" "}
-              <strong className="text-white">SaaS Pegasus</strong>,{" "}
-              <strong className="text-white">Bullet Train</strong>, and{" "}
-              <strong className="text-white">Larafast</strong>. While commercial
-              kits charge $169–$799 for single-framework templates,{" "}
+              Looking for a sovereign, open-source{" "}
+              <strong>ShipFast alternative</strong>?
               <strong className="text-primary-light font-bold">RexOne</strong>{" "}
-              provides the complete 100% free, Apache 2.0 open-source
+              is the premier 100% free, Apache 2.0 open-source alternative to
+              paid boilerplates like ShipFast ($169–$299) and Makerkit
+              ($199–$649). While commercial kits charge hundreds of dollars for
+              single-framework templates, RexOne provides the complete
               tri-platform foundation spanning{" "}
               <strong className="text-white">
-                Rails 8 API, React 19 Web, and Flutter Mobile
-              </strong>
-              —governed by immutable constitutional laws for AI coding agents.
+                Rails 8 API, React 19 Web, and Flutter 3 Mobile
+              </strong>{" "}
+              — governed by immutable constitutional laws for AI coding agents
+              under Discipline-Driven Development. Compare features, pricing,
+              and architecture trade-offs below.
             </p>
 
             {/* Quick Stats Badges */}
