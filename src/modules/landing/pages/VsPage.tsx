@@ -614,7 +614,7 @@ export const VsPage: React.FC = () => {
 
             <p className="text-sm sm:text-base text-base-content/90 max-w-3xl mx-auto leading-relaxed font-primary">
               Looking for a sovereign, open-source{" "}
-              <strong>ShipFast alternative</strong>?
+              <strong>ShipFast alternative</strong>?{" "}
               <strong className="text-primary-light font-bold">RexOne</strong>{" "}
               is the premier 100% free, Apache 2.0 open-source alternative to
               paid boilerplates like ShipFast ($169–$299) and Makerkit
