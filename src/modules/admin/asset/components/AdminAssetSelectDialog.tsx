@@ -16,6 +16,8 @@ export interface IAdminAssetSelectDialogProps {
   onClose: () => void;
   onSelect: (asset: IAdminAsset) => void;
   assetType?: string;
+  /** File format filter (e.g. video). Sent as API param and applied client-side. */
+  format?: string;
   title?: string;
   selectedAssetId?: string | null;
 }
@@ -25,6 +27,7 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
   onClose,
   onSelect,
   assetType,
+  format,
   title,
   selectedAssetId,
 }) => {
@@ -51,13 +54,23 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
           params.type = assetType;
         }
 
+        if (format) {
+          params.format = format;
+        }
+
         if (searchTerm.trim()) {
           params.search = searchTerm.trim();
         }
 
         const result = await Admin.AssetController.getAssets(params);
         if (result.success) {
-          setAssets(result.assets);
+          const nextAssets = format
+            ? result.assets.filter(
+                (asset) =>
+                  (asset.format || "").toLowerCase() === format.toLowerCase(),
+              )
+            : result.assets;
+          setAssets(nextAssets);
           setPagination(result.pagination);
         } else {
           setAssets([]);
@@ -67,7 +80,7 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
         setLoading(false, { overlay: false });
       }
     },
-    [assetType, limit, setLoading],
+    [assetType, format, limit, setLoading],
   );
 
   useEffect(() => {
@@ -129,6 +142,11 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
               <Badge variant="primary" className="capitalize">
                 {assetType}
               </Badge>
+              {format && (
+                <Badge variant="secondary" className="capitalize">
+                  {format}
+                </Badge>
+              )}
             </div>
           )}
         </div>

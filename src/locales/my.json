@@ -340,6 +340,7 @@
         "support": "အကြံပြုချက်",
         "observability": "စနစ်မှတ်တမ်း",
         "media": "မီဒီယာ",
+        "content_management": "အကြောင်းအရာ စီမံခန့်ခွဲမှု",
         "version_management": "ဗားရှင်း စီမံခန့်ခွဲမှု"
       },
       "items": {
@@ -360,6 +361,7 @@
         "feedback": "အကြံပြုချက်များ",
         "logs": "လော့ဂ်များ",
         "assets": "ပိုင်ဆိုင်မှုများ",
+        "lessons": "သင်ခန်းစာများ",
         "versions": "ဗားရှင်းများ",
         "user_versions": "အသုံးပြုသူ ဗားရှင်းများ"
       }
@@ -1862,6 +1864,420 @@
       },
       "errors": {
         "load_list": "အက်ပ် ထည့်သွင်းမှုများ ရယူခြင်း မအောင်မြင်ပါ"
+      }
+    },
+    "lessons": {
+      "title": "သင်ခန်းစာများ",
+      "description": "အဆင့်နှင့် ယူနစ်အလိုက် သင်ကြားရေး အကြောင်းအရာ စီမံပါ။",
+      "create_title": "သင်ခန်းစာ ဖန်တီးရန်",
+      "edit_title": "သင်ခန်းစာ တည်းဖြတ်ရန်",
+      "create_button": "သင်ခန်းစာ ဖန်တီးရန်",
+      "search_placeholder": "သင်ခန်းစာများ ရှာရန်...",
+      "filter_button": "စစ်ထုတ်ရန်",
+      "empty": "စစ်ထုတ်မှုနှင့် ကိုက်ညီသော သင်ခန်းစာ မရှိပါ။",
+      "table": {
+        "thumbnail": "ပုံ",
+        "title": "ခေါင်းစဉ်",
+        "unit": "ယူနစ်",
+        "level": "အဆင့်",
+        "created": "ဖန်တီးချိန်"
+      },
+      "filters": {
+        "title": "သင်ခန်းစာ စစ်ထုတ်ရန်",
+        "level": "အဆင့်",
+        "unit": "ယူနစ်",
+        "all_levels": "အဆင့်အားလုံး",
+        "all_units": "ယူနစ်အားလုံး",
+        "from": "စတင်ရက်",
+        "to": "ပြီးဆုံးရက်"
+      },
+      "form": {
+        "title_label": "ခေါင်းစဉ်",
+        "title_placeholder": "သင်ခန်းစာ ခေါင်းစဉ်",
+        "title_error": "ခေါင်းစဉ် လိုအပ်သည်",
+        "level_label": "အဆင့်",
+        "level_error": "အဆင့် လိုအပ်သည်",
+        "unit_label": "ယူနစ်",
+        "unit_error": "ယူနစ် လိုအပ်သည်",
+        "thumbnail_label": "Thumbnail",
+        "thumbnail_helper": "Asset မှ ရွေးပါ သို့မဟုတ် ပုံ တင်ပါ။",
+        "pick_button": "Assets မှ ရွေးရန်",
+        "picker_title": "Lesson thumbnail ရွေးရန်",
+        "upload_label": "သို့မဟုတ် ပုံ တင်ရန်",
+        "choose_image": "ပုံ ရွေးရန်",
+        "image_helper": "အများဆုံး {{size}}MB။ type thumbnail အဖြစ် တင်ပါမည်။",
+        "clear_image": "Thumbnail ဖယ်ရန်",
+        "picked_image": "Assets မှ ရွေးထားသည်",
+        "local_image_selected": "Local ဖိုင် ရွေးထားသည်",
+        "existing_image": "လက်ရှိ thumbnail",
+        "create_lesson": "သင်ခန်းစာ ဖန်တီးရန်",
+        "save_lesson": "သင်ခန်းစာ သိမ်းရန်",
+        "errors": {
+          "invalid_image": "ပုံ ဖိုင် ဖြစ်ရမည်",
+          "image_too_large": "ပုံသည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "upload_image": "Thumbnail တင်၍ မရပါ"
+        }
+      },
+      "assign_homework": {
+        "button": "Homework သတ်မှတ်ရန်",
+        "title": "Homework သတ်မှတ်ရန်",
+        "lesson_label": "Lesson: {{title}}",
+        "play_song_first": "Play Song at first",
+        "play_story": "Play Story video at first",
+        "activities_label": "Activities",
+        "activities_hint": "Activity အများဆုံး ၁၁ ခု ထည့်ပြီး အစဉ်စီပါ။",
+        "activities_count": "{{count}} / {{max}}",
+        "add_activity_label": "Activity",
+        "add_activity_placeholder": "Activity ရွေးပါ",
+        "add_activity": "ထည့်ရန်",
+        "all_activities_added": "Activity အားလုံး ထည့်ပြီးပါပြီ။",
+        "empty_activities": "Activity မထည့်ရသေးပါ။",
+        "move_up": "အပေါ်ရွှေ့ရန်",
+        "move_down": "အောက်ရွှေ့ရန်",
+        "save_button": "Homework သိမ်းရန်",
+        "activities": {
+          "listen_and_tap": "Listen And Tap",
+          "speak_and_record": "Speak and Record",
+          "trace_and_write": "Trace and Write",
+          "blend_the_sound": "Blend the sound",
+          "sort_the_word_families": "Sort the word families",
+          "read_a_story": "Read a Story",
+          "sing_and_chant": "Sing and chant",
+          "put_the_story_in_order": "Put the story in order",
+          "build_the_sentences": "Build the sentences",
+          "made_good_choice": "Made good choice",
+          "sort_healthy_choices": "Sort Healthy Choices"
+        },
+        "toasts": {
+          "save_success": "Homework သတ်မှတ်ချက် သိမ်းပြီးပါပြီ"
+        },
+        "errors": {
+          "save": "Homework သိမ်း၍ မရပါ"
+        }
+      },
+      "toasts": {
+        "create_success": "သင်ခန်းစာ ဖန်တီးပြီးပါပြီ",
+        "update_success": "သင်ခန်းစာ ပြင်ဆင်ပြီးပါပြီ",
+        "delete_success": "သင်ခန်းစာ ဖျက်ပြီးပါပြီ"
+      },
+      "errors": {
+        "load_list": "သင်ခန်းစာများ ရယူခြင်း မအောင်မြင်ပါ",
+        "load_one": "သင်ခန်းစာ ရယူခြင်း မအောင်မြင်ပါ",
+        "create": "သင်ခန်းစာ ဖန်တီးခြင်း မအောင်မြင်ပါ",
+        "update": "သင်ခန်းစာ ပြင်ဆင်ခြင်း မအောင်မြင်ပါ",
+        "delete": "သင်ခန်းစာ ဖျက်ခြင်း မအောင်မြင်ပါ",
+        "not_found": "သင်ခန်းစာ မတွေ့ပါ"
+      },
+      "confirm": {
+        "delete_title": "သင်ခန်းစာ ဖျက်မလား?",
+        "delete_message": "မော့ခ် သိုလှောင်မှုမှ သင်ခန်းစာကို အပြီးဖျက်ပါမည်။"
+      },
+      "songs": {
+        "title": "သီချင်း",
+        "description": "ဤသင်ခန်းစာအတွက် သီချင်း တစ်ပုဒ် (အသံနှင့် စာတန်းထိုး) ထုတ်ပါ။",
+        "placeholder_badge": "မော့ခ်",
+        "generate_hint": "စာသား ထည့်ပါ၊ AI profile ရွေးပါ၊ Generate နှိပ်ပါ။ API မချိတ်မီ audio နှင့် SRT က placeholder ဖြစ်ပါသည်။",
+        "text_label": "သီချင်း စာသား",
+        "text_placeholder": "စာသား သို့မဟုတ် script…",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "အစားထိုးရန်",
+        "empty": "သီချင်း မရှိသေးပါ။",
+        "preview_title": "နမူနာ နားထောင်ရန်",
+        "view_srt": "SRT ကြည့်ရန် (placeholder)",
+        "toasts": {
+          "generate_success": "Placeholder သီချင်း ထုတ်ပြီးပါပြီ",
+          "delete_success": "သီချင်း ဖျက်ပြီးပါပြီ"
+        },
+        "errors": {
+          "text_required": "စာသား လိုအပ်သည်",
+          "profile_required": "AI profile ရွေးပါ",
+          "generate": "သီချင်း ထုတ်၍ မရပါ",
+          "delete": "သီချင်း ဖျက်၍ မရပါ"
+        },
+        "confirm": {
+          "delete_title": "သီချင်း ဖျက်မလား?",
+          "delete_message": "မော့ခ် သိုလှောင်မှုမှ ဖယ်ရှားပါမည်။"
+        }
+      },
+      "story": {
+        "title": "Story video",
+        "description": "Story video တစ်ခု (type general) နှင့် SRT (လိုအပ်လျှင်) ချိတ်ပါ။",
+        "type_badge": "general",
+        "attach_hint": "Assets ထဲက general video ရွေးပါ သို့မဟုတ် video အသစ် တင်ပါ။ SRT ကို တစ်ခါတည်း ထည့်နိုင်ပါသည်။",
+        "pick_button": "Assets မှ ရွေးရန်",
+        "clear_pick": "ရွေးချယ်မှု ဖယ်ရန်",
+        "clear_video": "Video ဖယ်ရန်",
+        "clear_srt": "SRT ဖယ်ရန်",
+        "local_video_selected": "Local ဖိုင် တင်ရန် အဆင်သင့်",
+        "local_srt_selected": "Local SRT တင်ရန် အဆင်သင့်",
+        "picker_title": "Story video ရွေးရန်",
+        "video_label": "Video ဖိုင်",
+        "choose_video": "Video ရွေးရန်",
+        "video_helper": "အများဆုံး {{size}}MB။ type general အဖြစ် တင်ပါမည်။",
+        "srt_label": "စာတန်းထိုး (SRT)",
+        "choose_srt": "SRT ရွေးရန်",
+        "srt_helper": "မဖြစ်မနေ မဟုတ်။ Video asset ပေါ် subtitle child အဖြစ် ချိတ်ပါမည်။",
+        "attach_button": "ချိတ်ရန်",
+        "replace_button": "အစားထိုးရန်",
+        "preview_title": "Story နမူနာ",
+        "untitled": "ခေါင်းစဉ် မရှိ",
+        "no_subtitle": "စာတန်းထိုး မရှိသေးပါ။",
+        "existing_subtitle": "ဤ asset တွင် SRT က child အဖြစ် ပါပြီးသား ဖြစ်ပါသည်။",
+        "toasts": {
+          "attach_success": "Story video ချိတ်ပြီးပါပြီ",
+          "remove_success": "Lesson မှ Story video ဖြုတ်ပြီးပါပြီ"
+        },
+        "errors": {
+          "video_required": "Video ရွေးပါ သို့မဟုတ် တင်ပါ",
+          "invalid_video": "Video ဖိုင် ဖြစ်ရမည်",
+          "video_too_large": "Video သည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "invalid_srt": "SRT ဖိုင် ဖြစ်ရမည်",
+          "srt_too_large": "SRT သည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "upload_video": "Video တင်၍ မရပါ",
+          "upload_srt": "စာတန်းထိုး တင်၍ မရပါ",
+          "load_asset": "Asset ရယူ၍ မရပါ",
+          "remove": "Story video ဖယ်၍ မရပါ"
+        },
+        "confirm": {
+          "remove_title": "Story video ဖယ်မလား?",
+          "remove_message": "ဤ lesson မှ ဖြုတ်ပါမည်။ Asset က media library ထဲ ဆက်ရှိပါသည်။"
+        }
+      },
+      "vocabs": {
+        "title": "Vocabulary",
+        "description": "Vocab၊ vowel sound နှင့် ပုံ အများကြီး ထည့်နိုင်ပါသည်။",
+        "add_button": "Vocab ထည့်ရန်",
+        "add_title": "Vocab အသစ်",
+        "edit_title": "Vocab တည်းဖြတ်ရန်",
+        "save_button": "Vocab သိမ်းရန်",
+        "empty": "Vocab မရှိသေးပါ။",
+        "vocab_label": "Vocab",
+        "vocab_placeholder": "စကားလုံး",
+        "vowel_label": "Vowel sound",
+        "vowel_placeholder": "ဥပမာ /æ/",
+        "image_label": "ပုံ",
+        "upload_label": "သို့မဟုတ် ပုံ တင်ရန်",
+        "choose_image": "ပုံ ရွေးရန်",
+        "image_helper": "အများဆုံး {{size}}MB။ type general အဖြစ် တင်ပါမည်။",
+        "pick_button": "Assets မှ ရွေးရန်",
+        "picker_title": "Vocab ပုံ ရွေးရန်",
+        "clear_image": "ပုံ ဖယ်ရန်",
+        "picked_image": "Assets မှ ရွေးပြီး",
+        "local_image_selected": "Local ဖိုင် တင်ရန် အဆင်သင့်",
+        "existing_image": "လက်ရှိ ပုံ",
+        "toasts": {
+          "create_success": "Vocab ထည့်ပြီးပါပြီ",
+          "update_success": "Vocab ပြင်ပြီးပါပြီ",
+          "delete_success": "Vocab ဖျက်ပြီးပါပြီ"
+        },
+        "errors": {
+          "vocab_required": "Vocab လိုအပ်သည်",
+          "vowel_required": "Vowel sound လိုအပ်သည်",
+          "image_required": "ပုံ ရွေးပါ သို့မဟုတ် တင်ပါ",
+          "invalid_image": "ပုံ ဖိုင် ဖြစ်ရမည်",
+          "image_too_large": "ပုံသည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "upload_image": "ပုံ တင်၍ မရပါ",
+          "create": "Vocab ထည့်၍ မရပါ",
+          "update": "Vocab ပြင်၍ မရပါ",
+          "delete": "Vocab ဖျက်၍ မရပါ"
+        },
+        "confirm": {
+          "delete_title": "Vocab ဖျက်မလား?",
+          "delete_message": "ဤ lesson မှ ဖယ်ရှားပါမည်။ ပုံ asset က library ထဲ ဆက်ရှိပါသည်။"
+        }
+      },
+      "word_families": {
+        "title": "Word families",
+        "description": "Story video ကို အခြေခံပြီး AI profile ဖြင့် word family နှစ်ခု generate လုပ်ပါ။",
+        "placeholder_badge": "Mock",
+        "generate_hint": "AI profile ရွေးပြီး Generate နှိပ်ပါ။ API ချိတ်သောအခါ story video ကို context အဖြစ် သုံးပါမည်။ Family နှစ်ခု ထွက်ပြီး ပြင်နိုင် / regenerate လုပ်နိုင်ပါသည်။",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Word family တည်းဖြတ်ရန်",
+        "save_button": "သိမ်းရန်",
+        "title_label": "Family ခေါင်းစဉ်",
+        "title_placeholder": "ဥပမာ -et Word Family",
+        "words_label": "စကားလုံးများ",
+        "words_placeholder": "စကားလုံး",
+        "add_word": "စကားလုံး ထည့်ရန်",
+        "toasts": {
+          "generate_success": "Word families generate ပြီးပါပြီ",
+          "update_success": "Word family ပြင်ပြီးပါပြီ",
+          "delete_success": "Word families ဖယ်ပြီးပါပြီ"
+        },
+        "errors": {
+          "story_video_required": "Word family generate မလုပ်မီ story video attach လုပ်ပါ",
+          "profile_required": "AI profile ရွေးပါ",
+          "title_required": "Family ခေါင်းစဉ် လိုအပ်သည်",
+          "words_required": "အနည်းဆုံး စကားလုံး တစ်လုံး ထည့်ပါ",
+          "generate": "Word families generate မရပါ",
+          "update": "Word family ပြင်မရပါ",
+          "delete": "Word families ဖယ်မရပါ"
+        },
+        "confirm": {
+          "delete_title": "Word families ဖယ်မလား?",
+          "delete_message": "ဤ lesson မှ generated word family နှစ်ခုလုံး ဖယ်ရှားပါမည်။"
+        }
+      },
+      "story_summary": {
+        "title": "Summary of story",
+        "description": "Story video ကို အခြေခံပြီး AI profile ဖြင့် အတိုချုပ် summary generate လုပ်ပါ။",
+        "placeholder_badge": "Mock",
+        "generate_hint": "AI profile ရွေးပြီး Generate နှိပ်ပါ။ API ချိတ်သောအခါ story video ကို context အဖြစ် သုံးပါမည်။ အင်္ဂလိပ် sentence လေးကြောင်းခန့် ထွက်ပြီး ပြင်နိုင် / regenerate လုပ်နိုင်ပါသည်။",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Story summary တည်းဖြတ်ရန်",
+        "save_button": "သိမ်းရန်",
+        "sentences_label": "Sentences",
+        "sentence_placeholder": "Story sentence",
+        "add_sentence": "Sentence ထည့်ရန်",
+        "toasts": {
+          "generate_success": "Story summary generate ပြီးပါပြီ",
+          "update_success": "Story summary ပြင်ပြီးပါပြီ",
+          "delete_success": "Story summary ဖယ်ပြီးပါပြီ"
+        },
+        "errors": {
+          "profile_required": "AI profile ရွေးပါ",
+          "sentences_required": "အနည်းဆုံး sentence တစ်ကြောင်း ထည့်ပါ",
+          "generate": "Story summary generate မရပါ",
+          "update": "Story summary ပြင်မရပါ",
+          "delete": "Story summary ဖယ်မရပါ"
+        },
+        "confirm": {
+          "delete_title": "Story summary ဖယ်မလား?",
+          "delete_message": "ဤ lesson မှ generated story summary ကို ဖယ်ရှားပါမည်။"
+        }
+      },
+      "build_sentences": {
+        "title": "Build the sentence",
+        "description": "Vocab တစ်ခုစီအတွက် story SRT ကို context ယူပြီး sentence တစ်ကြောင်း generate လုပ်ပါ။",
+        "placeholder_badge": "Mock",
+        "generate_hint": "အရင် vocab ထည့်ပါ။ AI profile ရွေးပြီး Generate နှိပ်ပါ။ API ချိတ်သောအခါ story SRT ကို context အဖြစ် သုံးပါမည်။ Vocab တစ်ခုလျှင် အင်္ဂလိပ် sentence တစ်ကြောင်း ထွက်ပါမည်။",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Sentence တည်းဖြတ်ရန်",
+        "save_button": "သိမ်းရန်",
+        "vocab_label": "Vocab",
+        "sentence_label": "Sentence",
+        "sentence_placeholder": "Vocab ပါသော sentence",
+        "toasts": {
+          "generate_success": "Sentences generate ပြီးပါပြီ",
+          "update_success": "Sentence ပြင်ပြီးပါပြီ",
+          "delete_success": "Sentences ဖယ်ပြီးပါပြီ"
+        },
+        "errors": {
+          "vocabs_required": "Sentence generate မလုပ်မီ vocab အနည်းဆုံး တစ်ခု ထည့်ပါ",
+          "profile_required": "AI profile ရွေးပါ",
+          "sentence_required": "Sentence လိုအပ်သည်",
+          "generate": "Sentences generate မရပါ",
+          "update": "Sentence ပြင်မရပါ",
+          "delete": "Sentences ဖယ်မရပါ"
+        },
+        "confirm": {
+          "delete_title": "Sentences ဖယ်မလား?",
+          "delete_message": "ဤ lesson မှ generated build-the-sentence အားလုံး ဖယ်ရှားပါမည်။"
+        }
+      },
+      "healthy_choices": {
+        "title": "Healthy choice",
+        "description": "Title နှင့် text+image options ပါသော multiple-choice မေးခွန်းများ ထည့်ပါ။ Correct answer တစ်ခုထက်ပို ရွေးနိုင်ပါသည်။",
+        "add_button": "မေးခွန်း ထည့်ရန်",
+        "add_title": "Healthy choice အသစ်",
+        "edit_title": "Healthy choice တည်းဖြတ်ရန်",
+        "save_button": "မေးခွန်း သိမ်းရန်",
+        "empty": "Healthy choice မေးခွန်း မရှိသေးပါ။",
+        "title_label": "မေးခွန်း ခေါင်းစဉ်",
+        "title_placeholder": "ဥပမာ Which snack is healthier?",
+        "options_label": "Options",
+        "add_option": "Option ထည့်ရန်",
+        "option_label": "Option {{index}}",
+        "option_text_label": "Option စာသား",
+        "option_text_placeholder": "Choice label",
+        "correct_label": "Correct answer",
+        "correct_badge": "Correct",
+        "options_count": "options {{count}} ခု",
+        "correct_count": "correct {{count}} ခု",
+        "image_label": "ပုံ",
+        "upload_label": "သို့မဟုတ် ပုံ တင်ရန်",
+        "choose_image": "ပုံ ရွေးရန်",
+        "image_helper": "အများဆုံး {{size}}MB။ type general အဖြစ် တင်ပါမည်။",
+        "pick_button": "Assets မှ ရွေးရန်",
+        "picker_title": "Option ပုံ ရွေးရန်",
+        "clear_image": "ပုံ ဖယ်ရန်",
+        "toasts": {
+          "create_success": "Healthy choice မေးခွန်း ထည့်ပြီးပါပြီ",
+          "update_success": "Healthy choice မေးခွန်း ပြင်ပြီးပါပြီ",
+          "delete_success": "Healthy choice မေးခွန်း ဖျက်ပြီးပါပြီ"
+        },
+        "errors": {
+          "title_required": "မေးခွန်း ခေါင်းစဉ် လိုအပ်သည်",
+          "options_min": "Option အနည်းဆုံး နှစ်ခု ထည့်ပါ",
+          "option_text_required": "Option စာသား လိုအပ်သည်",
+          "image_required": "ပုံ ရွေးပါ သို့မဟုတ် တင်ပါ",
+          "invalid_image": "ပုံ ဖိုင် ဖြစ်ရမည်",
+          "image_too_large": "ပုံသည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "upload_image": "ပုံ တင်၍ မရပါ",
+          "correct_required": "Correct option အနည်းဆုံး တစ်ခု ရွေးပါ",
+          "create": "မေးခွန်း ထည့်၍ မရပါ",
+          "update": "မေးခွန်း ပြင်၍ မရပါ",
+          "delete": "မေးခွန်း ဖျက်၍ မရပါ"
+        },
+        "confirm": {
+          "delete_title": "မေးခွန်း ဖျက်မလား?",
+          "delete_message": "ဤ lesson မှ ဖယ်ရှားပါမည်။ ပုံ asset က library ထဲ ဆက်ရှိပါသည်။"
+        }
+      },
+      "sort_healthy_choices": {
+        "title": "Sort healthy choice",
+        "description": "ခေါင်းစဉ် ပြင်နိုင်သော sort အုပ်စု နှစ်ခု။ Item တိုင်းတွင် စာသားနှင့် ပုံ ပါရမည်။",
+        "edit_bucket_title": "အုပ်စု ခေါင်းစဉ် တည်းဖြတ်ရန်",
+        "save_bucket_title": "ခေါင်းစဉ် သိမ်းရန်",
+        "bucket_title_label": "အုပ်စု ခေါင်းစဉ်",
+        "bucket_title_placeholder": "ဥပမာ Healthy Food",
+        "add_item": "Item ထည့်ရန်",
+        "add_title": "{{bucket}} သို့ ထည့်ရန်",
+        "edit_title": "{{bucket}} item တည်းဖြတ်ရန်",
+        "save_button": "Item သိမ်းရန်",
+        "empty_bucket": "ဤအုပ်စုတွင် item မရှိသေးပါ။",
+        "items_count": "items {{count}} ခု",
+        "text_label": "Item အမည်",
+        "text_placeholder": "ဥပမာ Apple",
+        "image_label": "ပုံ",
+        "upload_label": "သို့မဟုတ် ပုံ တင်ရန်",
+        "choose_image": "ပုံ ရွေးရန်",
+        "image_helper": "အများဆုံး {{size}}MB။ type general အဖြစ် တင်ပါမည်။",
+        "pick_button": "Assets မှ ရွေးရန်",
+        "picker_title": "Item ပုံ ရွေးရန်",
+        "clear_image": "ပုံ ဖယ်ရန်",
+        "picked_image": "Assets မှ ရွေးထားသည်",
+        "local_image_selected": "Local ဖိုင် ရွေးထားသည်",
+        "existing_image": "လက်ရှိ ပုံ",
+        "toasts": {
+          "create_success": "Item ထည့်ပြီးပါပြီ",
+          "update_success": "Item ပြင်ပြီးပါပြီ",
+          "delete_success": "Item ဖျက်ပြီးပါပြီ",
+          "update_title_success": "အုပ်စု ခေါင်းစဉ် ပြင်ပြီးပါပြီ"
+        },
+        "errors": {
+          "title_required": "အုပ်စု ခေါင်းစဉ် လိုအပ်သည်",
+          "update_title": "အုပ်စု ခေါင်းစဉ် ပြင်၍ မရပါ",
+          "text_required": "Item အမည် လိုအပ်သည်",
+          "image_required": "ပုံ ရွေးပါ သို့မဟုတ် တင်ပါ",
+          "invalid_image": "ပုံ ဖိုင် ဖြစ်ရမည်",
+          "image_too_large": "ပုံသည် {{size}}MB အောက် ဖြစ်ရမည်",
+          "upload_image": "ပုံ တင်၍ မရပါ",
+          "create": "Item ထည့်၍ မရပါ",
+          "update": "Item ပြင်၍ မရပါ",
+          "delete": "Item ဖျက်၍ မရပါ"
+        },
+        "confirm": {
+          "delete_title": "Item ဖျက်မလား?",
+          "delete_message": "ဤ lesson မှ ဖယ်ရှားပါမည်။ ပုံ asset က library ထဲ ဆက်ရှိပါသည်။"
+        }
       }
     }
   },

@@ -36,13 +36,13 @@ export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
   const sidebar = (
     <aside
       className={cn(
-        "fixed bottom-0 left-0 top-0 flex flex-col border-r border-base-300 bg-base-100 transition-[width] duration-200 lg:w-72",
+        "fixed bottom-0 left-0 top-0 flex flex-col border-r-0 border-base-300 transition-[width] duration-200 lg:w-72 [background-image:var(--color-background-gradient)]",
         isSidebarOpen ? "w-72 z-40" : "w-16 z-20",
       )}
     >
       <div
         className={cn(
-          "flex h-16 items-center border-b border-base-300",
+          "flex h-16 items-center border-b border-primary-dark/40 bg-primary",
           isSidebarOpen
             ? "px-6 justify-between"
             : "px-3 justify-center lg:px-6 lg:justify-between",
@@ -76,13 +76,13 @@ export const AdminLayout: React.FC<IAdminLayoutProps> = ({ children }) => {
 
         <div
           className={cn(
-            "border-t border-base-300",
+            "border-t border-primary/40",
             isSidebarOpen ? "p-4" : "p-2 lg:p-4",
           )}
         >
           <div
             className={cn(
-              "rounded-md bg-base-200 p-3",
+              "rounded-md [background-image:var(--color-background-gradient)] p-3",
               isSidebarOpen ? "block" : "hidden lg:block",
             )}
           >

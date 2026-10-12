@@ -90,6 +90,9 @@ import {
   AdminAssetCreatePage,
   AdminAssetEditPage,
   AdminAssetDetailPage,
+  AdminLessonsPage,
+  AdminLessonCreatePage,
+  AdminLessonEditPage,
   AdminVersionsPage,
   AdminDiscardedVersionsPage,
   AdminVersionCreatePage,
@@ -845,6 +848,28 @@ const router = createBrowserRouter(
             <Route
               path={AppRoutes.client.protected.admin.ASSET_EDIT}
               element={<AdminAssetEditPage />}
+            />
+          </Route>
+          <Route
+            element={
+              <AdminRootRoute
+                action={ADMIN_ACTIONS.READ}
+                resource={ADMIN_RESOURCES.LESSONS}
+                adminOnly
+              />
+            }
+          >
+            <Route
+              path={AppRoutes.client.protected.admin.LESSONS}
+              element={<AdminLessonsPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.LESSON_CREATE}
+              element={<AdminLessonCreatePage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.LESSON_EDIT}
+              element={<AdminLessonEditPage />}
             />
           </Route>
           <Route

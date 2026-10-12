@@ -15,6 +15,8 @@ interface IAdminNavItem {
   action?: typeof ADMIN_ACTIONS.READ | typeof ADMIN_ACTIONS.CREATE;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   superAdminOnly?: boolean;
+  /** Show to any admin even when resource is not on the role (mock / client-only). */
+  adminOnly?: boolean;
 }
 
 interface IAdminNavSection {
@@ -105,6 +107,19 @@ const navSections: IAdminNavSection[] = [
         to: AppRoutes.client.protected.admin.ASSETS,
         resource: ADMIN_RESOURCES.ASSETS,
         icon: iconsLib.photo,
+      },
+    ],
+  },
+  {
+    id: "content-management",
+    labelKey: AppLocales.Admin.Nav.Sections.ContentManagement,
+    items: [
+      {
+        labelKey: AppLocales.Admin.Nav.Items.Lessons,
+        to: AppRoutes.client.protected.admin.LESSONS,
+        resource: ADMIN_RESOURCES.LESSONS,
+        icon: iconsLib.document,
+        adminOnly: true,
       },
     ],
   },
@@ -207,10 +222,12 @@ export const AdminSidebarNav: React.FC<IAdminSidebarNavProps> = ({
           items: section.items.filter((item) =>
             !isAdmin
               ? false
-              : item.superAdminOnly
-                ? isSuperAdmin
-                : isLoading ||
-                  can(item.action ?? ADMIN_ACTIONS.READ, item.resource),
+              : item.adminOnly
+                ? true
+                : item.superAdminOnly
+                  ? isSuperAdmin
+                  : isLoading ||
+                    can(item.action ?? ADMIN_ACTIONS.READ, item.resource),
           ),
         }))
         .filter((section) => section.items.length > 0),

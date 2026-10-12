@@ -38,7 +38,7 @@ export const PageLayout: React.FC<IPageLayoutProps> = ({
               actions={headerActions}
               className={isAdmin ? "left-16 lg:left-72" : undefined}
               isAdmin={isAdmin}
-              leading={headerLeading ?? (!isAdmin ? <HeadNavbarBrand /> : null)}
+              leading={ null}
             />
           ))
         : null}

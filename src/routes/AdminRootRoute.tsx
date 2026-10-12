@@ -9,12 +9,15 @@ interface IAdminRootRouteProps {
   action: AdminAction;
   resource: AdminResource;
   superAdminOnly?: boolean;
+  /** Allow any admin (skip resource permission). For client-only mock modules. */
+  adminOnly?: boolean;
 }
 
 export const AdminRootRoute: React.FC<IAdminRootRouteProps> = ({
   action,
   resource,
   superAdminOnly = false,
+  adminOnly = false,
 }) => {
   const { can, isAdmin, isLoading, isSuperAdmin } = usePermissions();
 
@@ -26,9 +29,11 @@ export const AdminRootRoute: React.FC<IAdminRootRouteProps> = ({
     );
   }
 
-  const isAllowed = superAdminOnly
-    ? isSuperAdmin
-    : isAdmin && can(action, resource);
+  const isAllowed = adminOnly
+    ? isAdmin
+    : superAdminOnly
+      ? isSuperAdmin
+      : isAdmin && can(action, resource);
 
   return isAllowed ? (
     <AdminLayout>

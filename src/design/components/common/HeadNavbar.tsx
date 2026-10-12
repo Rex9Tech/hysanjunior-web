@@ -69,7 +69,7 @@ export const HeadNavbarBrand: React.FC<IHeadNavbarBrandProps> = ({
             {AppConfig.APP_NAME}
           </div>
           {isAdmin && (
-            <div className="truncate text-caption font-medium uppercase tracking-wider text-white/80">
+            <div className="truncate text-caption font-medium uppercase tracking-wider text-white">
               Control Center
             </div>
           )}
@@ -104,7 +104,7 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
         {children ?? (
           <>
             <div className="flex min-w-0 items-center gap-3">
-              {leading ?? <HeadNavbarBrand />}
+              {/* {leading ?? <HeadNavbarBrand showText={false} />} */}
             </div>
             <div className="flex items-center gap-2 text-white">
               <TimeZoneIndicator

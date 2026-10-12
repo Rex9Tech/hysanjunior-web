@@ -341,6 +341,7 @@
         "support": "Support",
         "observability": "Observability",
         "media": "Media",
+        "content_management": "Content Management",
         "version_management": "Version Management"
       },
       "items": {
@@ -361,6 +362,7 @@
         "feedback": "Feedback Inbox",
         "logs": "Client Logs & Telemetry",
         "assets": "Assets",
+        "lessons": "Lessons",
         "versions": "Versions",
         "user_versions": "User Versions"
       }
@@ -1863,6 +1865,420 @@
       },
       "errors": {
         "load_list": "Failed to load app installs"
+      }
+    },
+    "lessons": {
+      "title": "Lessons",
+      "description": "Manage learning content by level and unit.",
+      "create_title": "Create Lesson",
+      "edit_title": "Edit Lesson",
+      "create_button": "Create Lesson",
+      "search_placeholder": "Search lessons...",
+      "filter_button": "Filters",
+      "empty": "No lessons match your filters.",
+      "table": {
+        "thumbnail": "Thumbnail",
+        "title": "Title",
+        "unit": "Unit",
+        "level": "Level",
+        "created": "Created"
+      },
+      "filters": {
+        "title": "Filter lessons",
+        "level": "Level",
+        "unit": "Unit",
+        "all_levels": "All levels",
+        "all_units": "All units",
+        "from": "From date",
+        "to": "To date"
+      },
+      "form": {
+        "title_label": "Title",
+        "title_placeholder": "Lesson title",
+        "title_error": "Title is required",
+        "level_label": "Level",
+        "level_error": "Level is required",
+        "unit_label": "Unit",
+        "unit_error": "Unit is required",
+        "thumbnail_label": "Thumbnail",
+        "thumbnail_helper": "Pick a thumbnail asset or upload an image.",
+        "pick_button": "Pick from assets",
+        "picker_title": "Select lesson thumbnail",
+        "upload_label": "Or upload image",
+        "choose_image": "Choose image",
+        "image_helper": "Max {{size}}MB. Uploads as type thumbnail.",
+        "clear_image": "Remove thumbnail",
+        "picked_image": "Selected from assets",
+        "local_image_selected": "Local file selected",
+        "existing_image": "Current thumbnail",
+        "create_lesson": "Create Lesson",
+        "save_lesson": "Save Lesson",
+        "errors": {
+          "invalid_image": "File must be an image",
+          "image_too_large": "Image must be under {{size}}MB",
+          "upload_image": "Failed to upload thumbnail"
+        }
+      },
+      "assign_homework": {
+        "button": "Assign homework",
+        "title": "Assign homework",
+        "lesson_label": "Lesson: {{title}}",
+        "play_song_first": "Play Song at first",
+        "play_story": "Play Story video at first",
+        "activities_label": "Activities",
+        "activities_hint": "Add up to 11 activities and set the order.",
+        "activities_count": "{{count}} / {{max}}",
+        "add_activity_label": "Activity",
+        "add_activity_placeholder": "Select an activity",
+        "add_activity": "Add",
+        "all_activities_added": "All activities are already added.",
+        "empty_activities": "No activities added yet.",
+        "move_up": "Move up",
+        "move_down": "Move down",
+        "save_button": "Save homework",
+        "activities": {
+          "listen_and_tap": "Listen And Tap",
+          "speak_and_record": "Speak and Record",
+          "trace_and_write": "Trace and Write",
+          "blend_the_sound": "Blend the sound",
+          "sort_the_word_families": "Sort the word families",
+          "read_a_story": "Read a Story",
+          "sing_and_chant": "Sing and chant",
+          "put_the_story_in_order": "Put the story in order",
+          "build_the_sentences": "Build the sentences",
+          "made_good_choice": "Made good choice",
+          "sort_healthy_choices": "Sort Healthy Choices"
+        },
+        "toasts": {
+          "save_success": "Homework assignment saved"
+        },
+        "errors": {
+          "save": "Could not save homework assignment"
+        }
+      },
+      "toasts": {
+        "create_success": "Lesson created",
+        "update_success": "Lesson updated",
+        "delete_success": "Lesson deleted"
+      },
+      "errors": {
+        "load_list": "Failed to load lessons",
+        "load_one": "Failed to load lesson",
+        "create": "Failed to create lesson",
+        "update": "Failed to update lesson",
+        "delete": "Failed to delete lesson",
+        "not_found": "Lesson not found"
+      },
+      "confirm": {
+        "delete_title": "Delete lesson?",
+        "delete_message": "This permanently removes the lesson from local mock storage."
+      },
+      "songs": {
+        "title": "Song",
+        "description": "Generate one song (audio + subtitles) for this lesson.",
+        "placeholder_badge": "Mock",
+        "generate_hint": "Enter lyrics or script, pick an AI profile, then generate. Audio and SRT are placeholders until the API is connected.",
+        "text_label": "Song text",
+        "text_placeholder": "Lyrics or spoken script…",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Replace",
+        "empty": "No song yet. Generate one above.",
+        "preview_title": "Song preview",
+        "view_srt": "View SRT (placeholder)",
+        "toasts": {
+          "generate_success": "Placeholder song generated",
+          "delete_success": "Song removed"
+        },
+        "errors": {
+          "text_required": "Song text is required",
+          "profile_required": "Select an AI profile",
+          "generate": "Could not generate song",
+          "delete": "Could not delete song"
+        },
+        "confirm": {
+          "delete_title": "Delete song?",
+          "delete_message": "Remove this song from local mock storage."
+        }
+      },
+      "story": {
+        "title": "Story video",
+        "description": "Attach one story video (type general) with optional SRT.",
+        "type_badge": "general",
+        "attach_hint": "Pick an existing general video from Assets, or upload a new video. You can add an SRT in the same step.",
+        "pick_button": "Pick from assets",
+        "clear_pick": "Clear selection",
+        "clear_video": "Clear video",
+        "clear_srt": "Clear SRT",
+        "local_video_selected": "Local file ready to upload",
+        "local_srt_selected": "Local SRT ready to upload",
+        "picker_title": "Select story video",
+        "video_label": "Video file",
+        "choose_video": "Choose video",
+        "video_helper": "Max {{size}}MB. Uploads as type general.",
+        "srt_label": "Subtitle (SRT)",
+        "choose_srt": "Choose SRT",
+        "srt_helper": "Optional. Attached as a subtitle child on the video asset.",
+        "attach_button": "Attach",
+        "replace_button": "Replace",
+        "preview_title": "Story preview",
+        "untitled": "Untitled video",
+        "no_subtitle": "No subtitle attached.",
+        "existing_subtitle": "SRT is already included as a child of this asset.",
+        "toasts": {
+          "attach_success": "Story video attached",
+          "remove_success": "Story video unlinked from lesson"
+        },
+        "errors": {
+          "video_required": "Pick or upload a video",
+          "invalid_video": "File must be a video",
+          "video_too_large": "Video must be under {{size}}MB",
+          "invalid_srt": "Subtitle must be an SRT file",
+          "srt_too_large": "SRT must be under {{size}}MB",
+          "upload_video": "Failed to upload video",
+          "upload_srt": "Failed to upload subtitle",
+          "load_asset": "Failed to load asset",
+          "remove": "Could not remove story video"
+        },
+        "confirm": {
+          "remove_title": "Remove story video?",
+          "remove_message": "Unlinks the video from this lesson. The asset stays in the media library."
+        }
+      },
+      "vocabs": {
+        "title": "Vocabulary",
+        "description": "Add multiple vocab items with vowel sound and an image.",
+        "add_button": "Add vocab",
+        "add_title": "Add vocab item",
+        "edit_title": "Edit vocab item",
+        "save_button": "Save vocab",
+        "empty": "No vocab items yet.",
+        "vocab_label": "Vocab",
+        "vocab_placeholder": "Word",
+        "vowel_label": "Vowel sound",
+        "vowel_placeholder": "e.g. /æ/",
+        "image_label": "Image",
+        "upload_label": "Or upload image",
+        "choose_image": "Choose image",
+        "image_helper": "Max {{size}}MB. Uploads as type general.",
+        "pick_button": "Pick from assets",
+        "picker_title": "Select vocab image",
+        "clear_image": "Clear image",
+        "picked_image": "Selected from assets",
+        "local_image_selected": "Local file ready to upload",
+        "existing_image": "Current image",
+        "toasts": {
+          "create_success": "Vocab added",
+          "update_success": "Vocab updated",
+          "delete_success": "Vocab removed"
+        },
+        "errors": {
+          "vocab_required": "Vocab is required",
+          "vowel_required": "Vowel sound is required",
+          "image_required": "Pick or upload an image",
+          "invalid_image": "File must be an image",
+          "image_too_large": "Image must be under {{size}}MB",
+          "upload_image": "Failed to upload image",
+          "create": "Could not add vocab",
+          "update": "Could not update vocab",
+          "delete": "Could not delete vocab"
+        },
+        "confirm": {
+          "delete_title": "Delete vocab?",
+          "delete_message": "Remove this vocab item from the lesson. The image asset stays in the library."
+        }
+      },
+      "word_families": {
+        "title": "Word families",
+        "description": "Generate two word families from the story video using an AI profile.",
+        "placeholder_badge": "Mock",
+        "generate_hint": "Pick an AI profile and generate. Story video will be used as context when the API is connected. Produces two word families you can edit or regenerate.",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Edit word family",
+        "save_button": "Save",
+        "title_label": "Family title",
+        "title_placeholder": "e.g. -et Word Family",
+        "words_label": "Words",
+        "words_placeholder": "Word",
+        "add_word": "Add word",
+        "toasts": {
+          "generate_success": "Word families generated",
+          "update_success": "Word family updated",
+          "delete_success": "Word families removed"
+        },
+        "errors": {
+          "story_video_required": "Attach a story video before generating word families",
+          "profile_required": "Select an AI profile",
+          "title_required": "Family title is required",
+          "words_required": "Add at least one word",
+          "generate": "Could not generate word families",
+          "update": "Could not update word family",
+          "delete": "Could not remove word families"
+        },
+        "confirm": {
+          "delete_title": "Clear word families?",
+          "delete_message": "Remove both generated word families from this lesson."
+        }
+      },
+      "story_summary": {
+        "title": "Summary of story",
+        "description": "Generate a short step-by-step summary from the story video using an AI profile.",
+        "placeholder_badge": "Mock",
+        "generate_hint": "Pick an AI profile and generate. Story video will be used as context when the API is connected. Produces about four English sentences you can edit or regenerate.",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Edit story summary",
+        "save_button": "Save",
+        "sentences_label": "Sentences",
+        "sentence_placeholder": "Story sentence",
+        "add_sentence": "Add sentence",
+        "toasts": {
+          "generate_success": "Story summary generated",
+          "update_success": "Story summary updated",
+          "delete_success": "Story summary removed"
+        },
+        "errors": {
+          "profile_required": "Select an AI profile",
+          "sentences_required": "Add at least one sentence",
+          "generate": "Could not generate story summary",
+          "update": "Could not update story summary",
+          "delete": "Could not remove story summary"
+        },
+        "confirm": {
+          "delete_title": "Clear story summary?",
+          "delete_message": "Remove the generated story summary from this lesson."
+        }
+      },
+      "build_sentences": {
+        "title": "Build the sentence",
+        "description": "Generate one sentence per vocab using the story SRT as context.",
+        "placeholder_badge": "Mock",
+        "generate_hint": "Add vocab items first, then pick an AI profile and generate. Story SRT will be used as context when the API is connected. One English sentence is created for each vocab.",
+        "profile_label": "AI profile",
+        "generate_button": "Generate",
+        "regenerate_button": "Regenerate",
+        "edit_title": "Edit sentence",
+        "save_button": "Save",
+        "vocab_label": "Vocab",
+        "sentence_label": "Sentence",
+        "sentence_placeholder": "Sentence that includes the vocab",
+        "toasts": {
+          "generate_success": "Sentences generated",
+          "update_success": "Sentence updated",
+          "delete_success": "Sentences removed"
+        },
+        "errors": {
+          "vocabs_required": "Add at least one vocab before generating sentences",
+          "profile_required": "Select an AI profile",
+          "sentence_required": "Sentence is required",
+          "generate": "Could not generate sentences",
+          "update": "Could not update sentence",
+          "delete": "Could not remove sentences"
+        },
+        "confirm": {
+          "delete_title": "Clear sentences?",
+          "delete_message": "Remove all generated build-the-sentence items from this lesson."
+        }
+      },
+      "healthy_choices": {
+        "title": "Healthy choice",
+        "description": "Add multiple-choice questions with text and image options. Mark one or more correct answers.",
+        "add_button": "Add question",
+        "add_title": "Add healthy choice",
+        "edit_title": "Edit healthy choice",
+        "save_button": "Save question",
+        "empty": "No healthy choice questions yet.",
+        "title_label": "Question title",
+        "title_placeholder": "e.g. Which snack is healthier?",
+        "options_label": "Options",
+        "add_option": "Add option",
+        "option_label": "Option {{index}}",
+        "option_text_label": "Option text",
+        "option_text_placeholder": "Choice label",
+        "correct_label": "Correct answer",
+        "correct_badge": "Correct",
+        "options_count": "{{count}} options",
+        "correct_count": "{{count}} correct",
+        "image_label": "Image",
+        "upload_label": "Or upload image",
+        "choose_image": "Choose image",
+        "image_helper": "Max {{size}}MB. Uploads as type general.",
+        "pick_button": "Pick from assets",
+        "picker_title": "Select option image",
+        "clear_image": "Clear image",
+        "toasts": {
+          "create_success": "Healthy choice question added",
+          "update_success": "Healthy choice question updated",
+          "delete_success": "Healthy choice question removed"
+        },
+        "errors": {
+          "title_required": "Question title is required",
+          "options_min": "Add at least two options",
+          "option_text_required": "Option text is required",
+          "image_required": "Pick or upload an image",
+          "invalid_image": "File must be an image",
+          "image_too_large": "Image must be under {{size}}MB",
+          "upload_image": "Failed to upload image",
+          "correct_required": "Mark at least one correct option",
+          "create": "Could not add question",
+          "update": "Could not update question",
+          "delete": "Could not delete question"
+        },
+        "confirm": {
+          "delete_title": "Delete question?",
+          "delete_message": "Remove this healthy choice question from the lesson. Image assets stay in the library."
+        }
+      },
+      "sort_healthy_choices": {
+        "title": "Sort healthy choice",
+        "description": "Two sort groups with editable titles. Each item has a label and an image.",
+        "edit_bucket_title": "Edit group title",
+        "save_bucket_title": "Save title",
+        "bucket_title_label": "Group title",
+        "bucket_title_placeholder": "e.g. Healthy Food",
+        "add_item": "Add item",
+        "add_title": "Add to {{bucket}}",
+        "edit_title": "Edit {{bucket}} item",
+        "save_button": "Save item",
+        "empty_bucket": "No items in this group yet.",
+        "items_count": "{{count}} items",
+        "text_label": "Item name",
+        "text_placeholder": "e.g. Apple",
+        "image_label": "Image",
+        "upload_label": "Or upload image",
+        "choose_image": "Choose image",
+        "image_helper": "Max {{size}}MB. Uploads as type general.",
+        "pick_button": "Pick from assets",
+        "picker_title": "Select item image",
+        "clear_image": "Clear image",
+        "picked_image": "Selected from assets",
+        "local_image_selected": "Local file selected",
+        "existing_image": "Current image",
+        "toasts": {
+          "create_success": "Item added",
+          "update_success": "Item updated",
+          "delete_success": "Item removed",
+          "update_title_success": "Group title updated"
+        },
+        "errors": {
+          "title_required": "Group title is required",
+          "update_title": "Could not update group title",
+          "text_required": "Item name is required",
+          "image_required": "Pick or upload an image",
+          "invalid_image": "File must be an image",
+          "image_too_large": "Image must be under {{size}}MB",
+          "upload_image": "Failed to upload image",
+          "create": "Could not add item",
+          "update": "Could not update item",
+          "delete": "Could not delete item"
+        },
+        "confirm": {
+          "delete_title": "Delete item?",
+          "delete_message": "Remove this item from the lesson. Image assets stay in the library."
+        }
       }
     }
   },

@@ -141,6 +141,7 @@ export const AppLocales = {
         Support: "admin.nav.sections.support",
         Observability: "admin.nav.sections.observability",
         Media: "admin.nav.sections.media",
+        ContentManagement: "admin.nav.sections.content_management",
         VersionManagement: "admin.nav.sections.version_management",
       },
       Items: {
@@ -161,6 +162,7 @@ export const AppLocales = {
         Feedback: "admin.nav.items.feedback",
         Logs: "admin.nav.items.logs",
         Assets: "admin.nav.items.assets",
+        Lessons: "admin.nav.items.lessons",
         Versions: "admin.nav.items.versions",
         UserVersions: "admin.nav.items.user_versions",
       },
@@ -1740,6 +1742,471 @@ export const AppLocales = {
       },
       Errors: {
         LoadList: "admin.user_versions.errors.load_list",
+      },
+    },
+    Lessons: {
+      Title: "admin.lessons.title",
+      Description: "admin.lessons.description",
+      CreateTitle: "admin.lessons.create_title",
+      EditTitle: "admin.lessons.edit_title",
+      CreateButton: "admin.lessons.create_button",
+      SearchPlaceholder: "admin.lessons.search_placeholder",
+      FilterButton: "admin.lessons.filter_button",
+      Empty: "admin.lessons.empty",
+      Table: {
+        Thumbnail: "admin.lessons.table.thumbnail",
+        Title: "admin.lessons.table.title",
+        Unit: "admin.lessons.table.unit",
+        Level: "admin.lessons.table.level",
+        Created: "admin.lessons.table.created",
+      },
+      Filters: {
+        Title: "admin.lessons.filters.title",
+        Level: "admin.lessons.filters.level",
+        Unit: "admin.lessons.filters.unit",
+        AllLevels: "admin.lessons.filters.all_levels",
+        AllUnits: "admin.lessons.filters.all_units",
+        From: "admin.lessons.filters.from",
+        To: "admin.lessons.filters.to",
+      },
+      Form: {
+        TitleLabel: "admin.lessons.form.title_label",
+        TitlePlaceholder: "admin.lessons.form.title_placeholder",
+        TitleError: "admin.lessons.form.title_error",
+        LevelLabel: "admin.lessons.form.level_label",
+        LevelError: "admin.lessons.form.level_error",
+        UnitLabel: "admin.lessons.form.unit_label",
+        UnitError: "admin.lessons.form.unit_error",
+        ThumbnailLabel: "admin.lessons.form.thumbnail_label",
+        ThumbnailHelper: "admin.lessons.form.thumbnail_helper",
+        PickButton: "admin.lessons.form.pick_button",
+        PickerTitle: "admin.lessons.form.picker_title",
+        UploadLabel: "admin.lessons.form.upload_label",
+        ChooseImage: "admin.lessons.form.choose_image",
+        ImageHelper: "admin.lessons.form.image_helper",
+        ClearImage: "admin.lessons.form.clear_image",
+        PickedImage: "admin.lessons.form.picked_image",
+        LocalImageSelected: "admin.lessons.form.local_image_selected",
+        ExistingImage: "admin.lessons.form.existing_image",
+        CreateLesson: "admin.lessons.form.create_lesson",
+        SaveLesson: "admin.lessons.form.save_lesson",
+        Errors: {
+          InvalidImage: "admin.lessons.form.errors.invalid_image",
+          ImageTooLarge: "admin.lessons.form.errors.image_too_large",
+          UploadImage: "admin.lessons.form.errors.upload_image",
+        },
+      },
+      AssignHomework: {
+        Button: "admin.lessons.assign_homework.button",
+        Title: "admin.lessons.assign_homework.title",
+        LessonLabel: "admin.lessons.assign_homework.lesson_label",
+        PlaySongFirst: "admin.lessons.assign_homework.play_song_first",
+        PlayStory: "admin.lessons.assign_homework.play_story",
+        ActivitiesLabel: "admin.lessons.assign_homework.activities_label",
+        ActivitiesHint: "admin.lessons.assign_homework.activities_hint",
+        ActivitiesCount: "admin.lessons.assign_homework.activities_count",
+        AddActivityLabel: "admin.lessons.assign_homework.add_activity_label",
+        AddActivityPlaceholder:
+          "admin.lessons.assign_homework.add_activity_placeholder",
+        AddActivity: "admin.lessons.assign_homework.add_activity",
+        AllActivitiesAdded:
+          "admin.lessons.assign_homework.all_activities_added",
+        EmptyActivities: "admin.lessons.assign_homework.empty_activities",
+        MoveUp: "admin.lessons.assign_homework.move_up",
+        MoveDown: "admin.lessons.assign_homework.move_down",
+        SaveButton: "admin.lessons.assign_homework.save_button",
+        Activities: {
+          ListenAndTap:
+            "admin.lessons.assign_homework.activities.listen_and_tap",
+          SpeakAndRecord:
+            "admin.lessons.assign_homework.activities.speak_and_record",
+          TraceAndWrite:
+            "admin.lessons.assign_homework.activities.trace_and_write",
+          BlendTheSound:
+            "admin.lessons.assign_homework.activities.blend_the_sound",
+          SortTheWordFamilies:
+            "admin.lessons.assign_homework.activities.sort_the_word_families",
+          ReadAStory: "admin.lessons.assign_homework.activities.read_a_story",
+          SingAndChant:
+            "admin.lessons.assign_homework.activities.sing_and_chant",
+          PutTheStoryInOrder:
+            "admin.lessons.assign_homework.activities.put_the_story_in_order",
+          BuildTheSentences:
+            "admin.lessons.assign_homework.activities.build_the_sentences",
+          MadeGoodChoice:
+            "admin.lessons.assign_homework.activities.made_good_choice",
+          SortHealthyChoices:
+            "admin.lessons.assign_homework.activities.sort_healthy_choices",
+        },
+        Toasts: {
+          SaveSuccess: "admin.lessons.assign_homework.toasts.save_success",
+        },
+        Errors: {
+          Save: "admin.lessons.assign_homework.errors.save",
+        },
+      },
+      Toasts: {
+        CreateSuccess: "admin.lessons.toasts.create_success",
+        UpdateSuccess: "admin.lessons.toasts.update_success",
+        DeleteSuccess: "admin.lessons.toasts.delete_success",
+      },
+      Errors: {
+        LoadList: "admin.lessons.errors.load_list",
+        LoadOne: "admin.lessons.errors.load_one",
+        Create: "admin.lessons.errors.create",
+        Update: "admin.lessons.errors.update",
+        Delete: "admin.lessons.errors.delete",
+        NotFound: "admin.lessons.errors.not_found",
+      },
+      Confirm: {
+        DeleteTitle: "admin.lessons.confirm.delete_title",
+        DeleteMessage: "admin.lessons.confirm.delete_message",
+      },
+      Songs: {
+        Title: "admin.lessons.songs.title",
+        Description: "admin.lessons.songs.description",
+        PlaceholderBadge: "admin.lessons.songs.placeholder_badge",
+        GenerateHint: "admin.lessons.songs.generate_hint",
+        TextLabel: "admin.lessons.songs.text_label",
+        TextPlaceholder: "admin.lessons.songs.text_placeholder",
+        ProfileLabel: "admin.lessons.songs.profile_label",
+        GenerateButton: "admin.lessons.songs.generate_button",
+        RegenerateButton: "admin.lessons.songs.regenerate_button",
+        Empty: "admin.lessons.songs.empty",
+        PreviewTitle: "admin.lessons.songs.preview_title",
+        ViewSrt: "admin.lessons.songs.view_srt",
+        Toasts: {
+          GenerateSuccess: "admin.lessons.songs.toasts.generate_success",
+          DeleteSuccess: "admin.lessons.songs.toasts.delete_success",
+        },
+        Errors: {
+          TextRequired: "admin.lessons.songs.errors.text_required",
+          ProfileRequired: "admin.lessons.songs.errors.profile_required",
+          Generate: "admin.lessons.songs.errors.generate",
+          Delete: "admin.lessons.songs.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.songs.confirm.delete_title",
+          DeleteMessage: "admin.lessons.songs.confirm.delete_message",
+        },
+      },
+      Story: {
+        Title: "admin.lessons.story.title",
+        Description: "admin.lessons.story.description",
+        TypeBadge: "admin.lessons.story.type_badge",
+        AttachHint: "admin.lessons.story.attach_hint",
+        PickButton: "admin.lessons.story.pick_button",
+        ClearPick: "admin.lessons.story.clear_pick",
+        ClearVideo: "admin.lessons.story.clear_video",
+        ClearSrt: "admin.lessons.story.clear_srt",
+        LocalVideoSelected: "admin.lessons.story.local_video_selected",
+        LocalSrtSelected: "admin.lessons.story.local_srt_selected",
+        PickerTitle: "admin.lessons.story.picker_title",
+        VideoLabel: "admin.lessons.story.video_label",
+        ChooseVideo: "admin.lessons.story.choose_video",
+        VideoHelper: "admin.lessons.story.video_helper",
+        SrtLabel: "admin.lessons.story.srt_label",
+        ChooseSrt: "admin.lessons.story.choose_srt",
+        SrtHelper: "admin.lessons.story.srt_helper",
+        AttachButton: "admin.lessons.story.attach_button",
+        ReplaceButton: "admin.lessons.story.replace_button",
+        PreviewTitle: "admin.lessons.story.preview_title",
+        Untitled: "admin.lessons.story.untitled",
+        NoSubtitle: "admin.lessons.story.no_subtitle",
+        ExistingSubtitle: "admin.lessons.story.existing_subtitle",
+        Toasts: {
+          AttachSuccess: "admin.lessons.story.toasts.attach_success",
+          RemoveSuccess: "admin.lessons.story.toasts.remove_success",
+        },
+        Errors: {
+          VideoRequired: "admin.lessons.story.errors.video_required",
+          InvalidVideo: "admin.lessons.story.errors.invalid_video",
+          VideoTooLarge: "admin.lessons.story.errors.video_too_large",
+          InvalidSrt: "admin.lessons.story.errors.invalid_srt",
+          SrtTooLarge: "admin.lessons.story.errors.srt_too_large",
+          UploadVideo: "admin.lessons.story.errors.upload_video",
+          UploadSrt: "admin.lessons.story.errors.upload_srt",
+          LoadAsset: "admin.lessons.story.errors.load_asset",
+          Remove: "admin.lessons.story.errors.remove",
+        },
+        Confirm: {
+          RemoveTitle: "admin.lessons.story.confirm.remove_title",
+          RemoveMessage: "admin.lessons.story.confirm.remove_message",
+        },
+      },
+      Vocabs: {
+        Title: "admin.lessons.vocabs.title",
+        Description: "admin.lessons.vocabs.description",
+        AddButton: "admin.lessons.vocabs.add_button",
+        AddTitle: "admin.lessons.vocabs.add_title",
+        EditTitle: "admin.lessons.vocabs.edit_title",
+        SaveButton: "admin.lessons.vocabs.save_button",
+        Empty: "admin.lessons.vocabs.empty",
+        VocabLabel: "admin.lessons.vocabs.vocab_label",
+        VocabPlaceholder: "admin.lessons.vocabs.vocab_placeholder",
+        VowelLabel: "admin.lessons.vocabs.vowel_label",
+        VowelPlaceholder: "admin.lessons.vocabs.vowel_placeholder",
+        ImageLabel: "admin.lessons.vocabs.image_label",
+        UploadLabel: "admin.lessons.vocabs.upload_label",
+        ChooseImage: "admin.lessons.vocabs.choose_image",
+        ImageHelper: "admin.lessons.vocabs.image_helper",
+        PickButton: "admin.lessons.vocabs.pick_button",
+        PickerTitle: "admin.lessons.vocabs.picker_title",
+        ClearImage: "admin.lessons.vocabs.clear_image",
+        PickedImage: "admin.lessons.vocabs.picked_image",
+        LocalImageSelected: "admin.lessons.vocabs.local_image_selected",
+        ExistingImage: "admin.lessons.vocabs.existing_image",
+        Toasts: {
+          CreateSuccess: "admin.lessons.vocabs.toasts.create_success",
+          UpdateSuccess: "admin.lessons.vocabs.toasts.update_success",
+          DeleteSuccess: "admin.lessons.vocabs.toasts.delete_success",
+        },
+        Errors: {
+          VocabRequired: "admin.lessons.vocabs.errors.vocab_required",
+          VowelRequired: "admin.lessons.vocabs.errors.vowel_required",
+          ImageRequired: "admin.lessons.vocabs.errors.image_required",
+          InvalidImage: "admin.lessons.vocabs.errors.invalid_image",
+          ImageTooLarge: "admin.lessons.vocabs.errors.image_too_large",
+          UploadImage: "admin.lessons.vocabs.errors.upload_image",
+          Create: "admin.lessons.vocabs.errors.create",
+          Update: "admin.lessons.vocabs.errors.update",
+          Delete: "admin.lessons.vocabs.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.vocabs.confirm.delete_title",
+          DeleteMessage: "admin.lessons.vocabs.confirm.delete_message",
+        },
+      },
+      WordFamilies: {
+        Title: "admin.lessons.word_families.title",
+        Description: "admin.lessons.word_families.description",
+        PlaceholderBadge: "admin.lessons.word_families.placeholder_badge",
+        GenerateHint: "admin.lessons.word_families.generate_hint",
+        ProfileLabel: "admin.lessons.word_families.profile_label",
+        GenerateButton: "admin.lessons.word_families.generate_button",
+        RegenerateButton: "admin.lessons.word_families.regenerate_button",
+        EditTitle: "admin.lessons.word_families.edit_title",
+        SaveButton: "admin.lessons.word_families.save_button",
+        TitleLabel: "admin.lessons.word_families.title_label",
+        TitlePlaceholder: "admin.lessons.word_families.title_placeholder",
+        WordsLabel: "admin.lessons.word_families.words_label",
+        WordsPlaceholder: "admin.lessons.word_families.words_placeholder",
+        AddWord: "admin.lessons.word_families.add_word",
+        Toasts: {
+          GenerateSuccess: "admin.lessons.word_families.toasts.generate_success",
+          UpdateSuccess: "admin.lessons.word_families.toasts.update_success",
+          DeleteSuccess: "admin.lessons.word_families.toasts.delete_success",
+        },
+        Errors: {
+          StoryVideoRequired:
+            "admin.lessons.word_families.errors.story_video_required",
+          ProfileRequired:
+            "admin.lessons.word_families.errors.profile_required",
+          TitleRequired: "admin.lessons.word_families.errors.title_required",
+          WordsRequired: "admin.lessons.word_families.errors.words_required",
+          Generate: "admin.lessons.word_families.errors.generate",
+          Update: "admin.lessons.word_families.errors.update",
+          Delete: "admin.lessons.word_families.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.word_families.confirm.delete_title",
+          DeleteMessage: "admin.lessons.word_families.confirm.delete_message",
+        },
+      },
+      StorySummary: {
+        Title: "admin.lessons.story_summary.title",
+        Description: "admin.lessons.story_summary.description",
+        PlaceholderBadge: "admin.lessons.story_summary.placeholder_badge",
+        GenerateHint: "admin.lessons.story_summary.generate_hint",
+        ProfileLabel: "admin.lessons.story_summary.profile_label",
+        GenerateButton: "admin.lessons.story_summary.generate_button",
+        RegenerateButton: "admin.lessons.story_summary.regenerate_button",
+        EditTitle: "admin.lessons.story_summary.edit_title",
+        SaveButton: "admin.lessons.story_summary.save_button",
+        SentencesLabel: "admin.lessons.story_summary.sentences_label",
+        SentencePlaceholder: "admin.lessons.story_summary.sentence_placeholder",
+        AddSentence: "admin.lessons.story_summary.add_sentence",
+        Toasts: {
+          GenerateSuccess:
+            "admin.lessons.story_summary.toasts.generate_success",
+          UpdateSuccess: "admin.lessons.story_summary.toasts.update_success",
+          DeleteSuccess: "admin.lessons.story_summary.toasts.delete_success",
+        },
+        Errors: {
+          ProfileRequired:
+            "admin.lessons.story_summary.errors.profile_required",
+          SentencesRequired:
+            "admin.lessons.story_summary.errors.sentences_required",
+          Generate: "admin.lessons.story_summary.errors.generate",
+          Update: "admin.lessons.story_summary.errors.update",
+          Delete: "admin.lessons.story_summary.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.story_summary.confirm.delete_title",
+          DeleteMessage: "admin.lessons.story_summary.confirm.delete_message",
+        },
+      },
+      BuildSentences: {
+        Title: "admin.lessons.build_sentences.title",
+        Description: "admin.lessons.build_sentences.description",
+        PlaceholderBadge: "admin.lessons.build_sentences.placeholder_badge",
+        GenerateHint: "admin.lessons.build_sentences.generate_hint",
+        ProfileLabel: "admin.lessons.build_sentences.profile_label",
+        GenerateButton: "admin.lessons.build_sentences.generate_button",
+        RegenerateButton: "admin.lessons.build_sentences.regenerate_button",
+        EditTitle: "admin.lessons.build_sentences.edit_title",
+        SaveButton: "admin.lessons.build_sentences.save_button",
+        VocabLabel: "admin.lessons.build_sentences.vocab_label",
+        SentenceLabel: "admin.lessons.build_sentences.sentence_label",
+        SentencePlaceholder:
+          "admin.lessons.build_sentences.sentence_placeholder",
+        Toasts: {
+          GenerateSuccess:
+            "admin.lessons.build_sentences.toasts.generate_success",
+          UpdateSuccess: "admin.lessons.build_sentences.toasts.update_success",
+          DeleteSuccess: "admin.lessons.build_sentences.toasts.delete_success",
+        },
+        Errors: {
+          VocabsRequired:
+            "admin.lessons.build_sentences.errors.vocabs_required",
+          ProfileRequired:
+            "admin.lessons.build_sentences.errors.profile_required",
+          SentenceRequired:
+            "admin.lessons.build_sentences.errors.sentence_required",
+          Generate: "admin.lessons.build_sentences.errors.generate",
+          Update: "admin.lessons.build_sentences.errors.update",
+          Delete: "admin.lessons.build_sentences.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.build_sentences.confirm.delete_title",
+          DeleteMessage: "admin.lessons.build_sentences.confirm.delete_message",
+        },
+      },
+      HealthyChoices: {
+        Title: "admin.lessons.healthy_choices.title",
+        Description: "admin.lessons.healthy_choices.description",
+        AddButton: "admin.lessons.healthy_choices.add_button",
+        AddTitle: "admin.lessons.healthy_choices.add_title",
+        EditTitle: "admin.lessons.healthy_choices.edit_title",
+        SaveButton: "admin.lessons.healthy_choices.save_button",
+        Empty: "admin.lessons.healthy_choices.empty",
+        TitleLabel: "admin.lessons.healthy_choices.title_label",
+        TitlePlaceholder: "admin.lessons.healthy_choices.title_placeholder",
+        OptionsLabel: "admin.lessons.healthy_choices.options_label",
+        AddOption: "admin.lessons.healthy_choices.add_option",
+        OptionLabel: "admin.lessons.healthy_choices.option_label",
+        OptionTextLabel: "admin.lessons.healthy_choices.option_text_label",
+        OptionTextPlaceholder:
+          "admin.lessons.healthy_choices.option_text_placeholder",
+        CorrectLabel: "admin.lessons.healthy_choices.correct_label",
+        CorrectBadge: "admin.lessons.healthy_choices.correct_badge",
+        OptionsCount: "admin.lessons.healthy_choices.options_count",
+        CorrectCount: "admin.lessons.healthy_choices.correct_count",
+        ImageLabel: "admin.lessons.healthy_choices.image_label",
+        UploadLabel: "admin.lessons.healthy_choices.upload_label",
+        ChooseImage: "admin.lessons.healthy_choices.choose_image",
+        ImageHelper: "admin.lessons.healthy_choices.image_helper",
+        PickButton: "admin.lessons.healthy_choices.pick_button",
+        PickerTitle: "admin.lessons.healthy_choices.picker_title",
+        ClearImage: "admin.lessons.healthy_choices.clear_image",
+        Toasts: {
+          CreateSuccess:
+            "admin.lessons.healthy_choices.toasts.create_success",
+          UpdateSuccess:
+            "admin.lessons.healthy_choices.toasts.update_success",
+          DeleteSuccess:
+            "admin.lessons.healthy_choices.toasts.delete_success",
+        },
+        Errors: {
+          TitleRequired:
+            "admin.lessons.healthy_choices.errors.title_required",
+          OptionsMin: "admin.lessons.healthy_choices.errors.options_min",
+          OptionTextRequired:
+            "admin.lessons.healthy_choices.errors.option_text_required",
+          ImageRequired:
+            "admin.lessons.healthy_choices.errors.image_required",
+          InvalidImage:
+            "admin.lessons.healthy_choices.errors.invalid_image",
+          ImageTooLarge:
+            "admin.lessons.healthy_choices.errors.image_too_large",
+          UploadImage: "admin.lessons.healthy_choices.errors.upload_image",
+          CorrectRequired:
+            "admin.lessons.healthy_choices.errors.correct_required",
+          Create: "admin.lessons.healthy_choices.errors.create",
+          Update: "admin.lessons.healthy_choices.errors.update",
+          Delete: "admin.lessons.healthy_choices.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle: "admin.lessons.healthy_choices.confirm.delete_title",
+          DeleteMessage:
+            "admin.lessons.healthy_choices.confirm.delete_message",
+        },
+      },
+      SortHealthyChoices: {
+        Title: "admin.lessons.sort_healthy_choices.title",
+        Description: "admin.lessons.sort_healthy_choices.description",
+        EditBucketTitle:
+          "admin.lessons.sort_healthy_choices.edit_bucket_title",
+        SaveBucketTitle:
+          "admin.lessons.sort_healthy_choices.save_bucket_title",
+        BucketTitleLabel:
+          "admin.lessons.sort_healthy_choices.bucket_title_label",
+        BucketTitlePlaceholder:
+          "admin.lessons.sort_healthy_choices.bucket_title_placeholder",
+        AddItem: "admin.lessons.sort_healthy_choices.add_item",
+        AddTitle: "admin.lessons.sort_healthy_choices.add_title",
+        EditTitle: "admin.lessons.sort_healthy_choices.edit_title",
+        SaveButton: "admin.lessons.sort_healthy_choices.save_button",
+        EmptyBucket: "admin.lessons.sort_healthy_choices.empty_bucket",
+        ItemsCount: "admin.lessons.sort_healthy_choices.items_count",
+        TextLabel: "admin.lessons.sort_healthy_choices.text_label",
+        TextPlaceholder: "admin.lessons.sort_healthy_choices.text_placeholder",
+        ImageLabel: "admin.lessons.sort_healthy_choices.image_label",
+        UploadLabel: "admin.lessons.sort_healthy_choices.upload_label",
+        ChooseImage: "admin.lessons.sort_healthy_choices.choose_image",
+        ImageHelper: "admin.lessons.sort_healthy_choices.image_helper",
+        PickButton: "admin.lessons.sort_healthy_choices.pick_button",
+        PickerTitle: "admin.lessons.sort_healthy_choices.picker_title",
+        ClearImage: "admin.lessons.sort_healthy_choices.clear_image",
+        PickedImage: "admin.lessons.sort_healthy_choices.picked_image",
+        LocalImageSelected:
+          "admin.lessons.sort_healthy_choices.local_image_selected",
+        ExistingImage: "admin.lessons.sort_healthy_choices.existing_image",
+        Toasts: {
+          CreateSuccess:
+            "admin.lessons.sort_healthy_choices.toasts.create_success",
+          UpdateSuccess:
+            "admin.lessons.sort_healthy_choices.toasts.update_success",
+          DeleteSuccess:
+            "admin.lessons.sort_healthy_choices.toasts.delete_success",
+          UpdateTitleSuccess:
+            "admin.lessons.sort_healthy_choices.toasts.update_title_success",
+        },
+        Errors: {
+          TitleRequired:
+            "admin.lessons.sort_healthy_choices.errors.title_required",
+          UpdateTitle:
+            "admin.lessons.sort_healthy_choices.errors.update_title",
+          TextRequired:
+            "admin.lessons.sort_healthy_choices.errors.text_required",
+          ImageRequired:
+            "admin.lessons.sort_healthy_choices.errors.image_required",
+          InvalidImage:
+            "admin.lessons.sort_healthy_choices.errors.invalid_image",
+          ImageTooLarge:
+            "admin.lessons.sort_healthy_choices.errors.image_too_large",
+          UploadImage:
+            "admin.lessons.sort_healthy_choices.errors.upload_image",
+          Create: "admin.lessons.sort_healthy_choices.errors.create",
+          Update: "admin.lessons.sort_healthy_choices.errors.update",
+          Delete: "admin.lessons.sort_healthy_choices.errors.delete",
+        },
+        Confirm: {
+          DeleteTitle:
+            "admin.lessons.sort_healthy_choices.confirm.delete_title",
+          DeleteMessage:
+            "admin.lessons.sort_healthy_choices.confirm.delete_message",
+        },
       },
     },
   },

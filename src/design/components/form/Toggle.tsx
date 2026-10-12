@@ -1,5 +1,4 @@
 // src/design/components/form/Toggle.tsx
-// TODO: UI bug
 
 import React from "react";
 import { cn } from "../../helpers";
@@ -64,9 +63,9 @@ export function Toggle({
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={cn(
-        "relative inline-flex items-center rounded-full transition-colors duration-200",
+        "relative inline-flex items-center rounded-full border border-primary transition-colors duration-200",
         "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-100",
-        checked ? "bg-primary" : "bg-base-300",
+        checked ? "!bg-primary" : "bg-base-100",
         disabled && "cursor-not-allowed opacity-50",
         currentSize.track,
         className,
@@ -75,7 +74,8 @@ export function Toggle({
     >
       <span
         className={cn(
-          "absolute left-1 rounded-full bg-base-100 shadow-sm transition-transform duration-200",
+          "absolute left-1 rounded-full shadow-sm transition-transform duration-200",
+          checked ? "bg-base-100" : "bg-primary",
           currentSize.thumb,
           checked ? currentSize.on : "translate-x-0",
         )}

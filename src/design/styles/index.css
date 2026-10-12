@@ -94,7 +94,7 @@
 [data-theme] body {
   color: var(--color-base-content);
   background-color: var(--color-base-100);
-  background-image: var(--color-background-gradient);
+  background-image: var(--color-background);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
