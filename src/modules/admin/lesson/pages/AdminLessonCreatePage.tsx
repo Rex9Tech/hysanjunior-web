@@ -1,29 +1,40 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../../AppRoutes";
-import { useDocumentTitle } from "../../../../hooks";
-import { useToast } from "../../../../contexts/ToastContext";
 import { iconsLib } from "../../../../assets";
+import { useToast } from "../../../../contexts/ToastContext";
 import { Button } from "../../../../design";
-import { ButtonVariants, ButtonSizes } from "../../../../design/constants";
+import { ButtonSizes, ButtonVariants } from "../../../../design/constants";
+import { useDocumentTitle } from "../../../../hooks";
 import { AppLocales, useTranslate } from "../../../../locales";
 import { PageHeader } from "../../components";
 import { ADMIN_ACTIONS } from "../../constants";
-import { createLesson } from "../lesson.mock.store";
+import { Admin } from "../..";
 import type { IAdminLessonFormValues } from "../types";
 import { AdminLessonForm } from "./AdminLessonForm";
 
 export const AdminLessonCreatePage: React.FC = () => {
   const t = useTranslate();
   useDocumentTitle(`${t(AppLocales.Admin.Lessons.CreateTitle)} | Admin`);
-
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleSubmit = (values: IAdminLessonFormValues) => {
-    createLesson(values);
-    toast.success(t(AppLocales.Admin.Lessons.Toasts.CreateSuccess));
-    navigate(AppRoutes.client.protected.admin.LESSONS, { replace: true });
+  const handleSubmit = async (values: IAdminLessonFormValues) => {
+    const result = await Admin.LessonController.createLesson(values);
+    if (!result.success || !result.lesson) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Create));
+      return;
+    }
+    toast.success(
+      result.message || t(AppLocales.Admin.Lessons.Toasts.CreateSuccess),
+    );
+    navigate(
+      AppRoutes.withId(
+        AppRoutes.client.protected.admin.LESSON_EDIT,
+        result.lesson.id,
+      ),
+      { replace: true },
+    );
   };
 
   return (
@@ -44,7 +55,7 @@ export const AdminLessonCreatePage: React.FC = () => {
       />
       <AdminLessonForm
         mode={ADMIN_ACTIONS.CREATE}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => void handleSubmit(values)}
         onCancel={() => navigate(AppRoutes.client.protected.admin.LESSONS)}
       />
     </div>

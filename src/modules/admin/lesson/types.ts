@@ -1,160 +1,207 @@
-export interface IAdminLessonSong {
-  id: string;
-  lessonId: string;
-  text: string;
-  aiProfileId: string;
-  aiProfileName: string;
-  audioUrl: string;
-  srtContent: string;
-  createdAt: string;
-}
+import type { IAsset } from "../../../models";
+import type { TSortOrder } from "../../../hooks/useSort";
 
-export interface IAdminLessonStoryVideo {
-  videoAssetId: string;
-  videoUrl: string;
-  title: string | null;
-  subtitleAssetId: string | null;
-  subtitleUrl: string | null;
-  /** Inline SRT text for Player (avoids CORS on remote .srt URLs). */
-  subtitleContent: string | null;
-}
+export const LESSON_STATUSES = {
+  DRAFT: "draft",
+  PUBLISHED: "published",
+  UNPUBLISHED: "unpublished",
+} as const;
 
-export interface IAdminLessonVocabItem {
+export type TLessonStatus =
+  (typeof LESSON_STATUSES)[keyof typeof LESSON_STATUSES];
+
+export const QUESTION_KINDS = {
+  MULTIPLE_CHOICE: "multiple_choice",
+} as const;
+
+export type TQuestionKind =
+  (typeof QUESTION_KINDS)[keyof typeof QUESTION_KINDS];
+
+export type IAdminLessonAsset = IAsset;
+
+export interface IAdminLessonVocabulary {
   id: string;
   vocab: string;
-  vowelSound: string;
-  imageAssetId: string;
-  imageUrl: string;
-  createdAt: string;
+  vowel_symbol: string | null;
+  position: number;
+  image_asset_id: string | null;
+  image: IAdminLessonAsset | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IAdminLessonWordFamily {
   id: string;
-  title: string;
+  pattern: string;
   words: string[];
+  position: number;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface IAdminLessonWordFamilySet {
-  aiProfileId: string;
-  aiProfileName: string;
-  createdAt: string;
-  families: IAdminLessonWordFamily[];
-}
-
-export interface IAdminLessonStorySummary {
-  aiProfileId: string;
-  aiProfileName: string;
-  createdAt: string;
-  sentences: string[];
-}
-
-export interface IAdminLessonBuildSentenceItem {
+export interface IAdminLessonQuestionOption {
   id: string;
-  vocabId: string;
+  text: string;
+  correct: boolean;
+  position: number;
+  image_asset_id: string | null;
+  image: IAdminLessonAsset | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAdminLessonQuestion {
+  id: string;
+  kind: TQuestionKind;
+  title: string;
+  position: number;
+  options: IAdminLessonQuestionOption[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAdminLessonSortHealthChoice {
+  id: string;
+  label: string;
+  position: number;
+  items: IAdminLessonVocabulary[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAdminLessonBuildSentencePair {
   vocab: string;
   sentence: string;
-}
-
-export interface IAdminLessonBuildSentenceSet {
-  aiProfileId: string;
-  aiProfileName: string;
-  createdAt: string;
-  items: IAdminLessonBuildSentenceItem[];
-}
-
-export interface IAdminLessonHealthyChoiceOption {
-  id: string;
-  text: string;
-  imageAssetId: string;
-  imageUrl: string;
-}
-
-export interface IAdminLessonHealthyChoiceQuestion {
-  id: string;
-  title: string;
-  options: IAdminLessonHealthyChoiceOption[];
-  correctOptionIds: string[];
-  createdAt: string;
-}
-
-export type TAdminLessonSortHealthyBucketKey = "healthyFood" | "junkFood";
-
-export interface IAdminLessonSortHealthyItem {
-  id: string;
-  text: string;
-  imageAssetId: string;
-  imageUrl: string;
-}
-
-export interface IAdminLessonSortHealthyBucket {
-  title: string;
-  items: IAdminLessonSortHealthyItem[];
-}
-
-export interface IAdminLessonSortHealthyChoice {
-  healthyFood: IAdminLessonSortHealthyBucket;
-  junkFood: IAdminLessonSortHealthyBucket;
-}
-
-export type TAdminLessonHomeworkActivityType =
-  | "listen_and_tap"
-  | "speak_and_record"
-  | "trace_and_write"
-  | "blend_the_sound"
-  | "sort_the_word_families"
-  | "read_a_story"
-  | "sing_and_chant"
-  | "put_the_story_in_order"
-  | "build_the_sentences"
-  | "made_good_choice"
-  | "sort_healthy_choices";
-
-export interface IAdminLessonHomeworkConfig {
-  playSongFirst: boolean;
-  playStory: boolean;
-  activityTypes: TAdminLessonHomeworkActivityType[];
 }
 
 export interface IAdminLesson {
   id: string;
   title: string;
-  level: string;
+  level: number;
   unit: string;
-  thumbnailUrl: string | null;
-  createdAt: string;
-  song: IAdminLessonSong | null;
-  storyVideo: IAdminLessonStoryVideo | null;
-  vocabs: IAdminLessonVocabItem[];
-  wordFamilySet: IAdminLessonWordFamilySet | null;
-  storySummary: IAdminLessonStorySummary | null;
-  buildSentenceSet: IAdminLessonBuildSentenceSet | null;
-  healthyChoices: IAdminLessonHealthyChoiceQuestion[];
-  sortHealthyChoice: IAdminLessonSortHealthyChoice;
-  homework: IAdminLessonHomeworkConfig | null;
+  status: TLessonStatus;
+  story_order: string[];
+  build_the_sentences: IAdminLessonBuildSentencePair[];
+  song_asset_id: string | null;
+  song: IAdminLessonAsset | null;
+  story_asset_id: string | null;
+  story: IAdminLessonAsset | null;
+  vocabularies: IAdminLessonVocabulary[];
+  word_families: IAdminLessonWordFamily[];
+  questions: IAdminLessonQuestion[];
+  sort_health_choices: IAdminLessonSortHealthChoice[];
+  discarded_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAdminLessonWritePayload {
+  title?: string;
+  level?: number;
+  unit?: string;
+  status?: TLessonStatus;
+  story_order?: string[];
+  build_the_sentences?: IAdminLessonBuildSentencePair[];
+  song_asset_id?: string | null;
+  story_asset_id?: string | null;
+  thumbnail_asset_id?: string | null;
+  vocabularies?: IAdminLessonVocabularyWrite[];
+  word_families?: IAdminLessonWordFamilyWrite[];
+  questions?: IAdminLessonQuestionWrite[];
+  sort_health_choices?: IAdminLessonSortHealthChoiceWrite[];
+}
+
+export interface IAdminLessonVocabularyWrite {
+  id?: string;
+  vocab: string;
+  vowel_symbol?: string | null;
+  image_asset_id?: string | null;
+}
+
+export interface IAdminLessonWordFamilyWrite {
+  id?: string;
+  pattern: string;
+  words: string[];
+}
+
+export interface IAdminLessonQuestionOptionWrite {
+  id?: string;
+  text: string;
+  correct: boolean;
+  image_asset_id?: string | null;
+}
+
+export interface IAdminLessonQuestionWrite {
+  id?: string;
+  title: string;
+  kind?: TQuestionKind;
+  options: IAdminLessonQuestionOptionWrite[];
+}
+
+export interface IAdminLessonSortHealthItemWrite {
+  id?: string;
+  vocab: string;
+  image_asset_id?: string | null;
+}
+
+export interface IAdminLessonSortHealthChoiceWrite {
+  id?: string;
+  label: string;
+  items: IAdminLessonSortHealthItemWrite[];
+}
+
+export interface IAdminLessonMediaFiles {
+  audio?: File;
+  srt?: File;
+  video?: File;
+  video_srt?: File;
+  thumbnail?: File;
 }
 
 export interface IAdminLessonFormValues {
   title: string;
-  level: string;
+  level: number;
   unit: string;
-  thumbnailUrl: string;
+  status: TLessonStatus;
 }
 
 export interface IAdminLessonListParams {
   page?: number;
   limit?: number;
   search?: string;
-  level?: string;
+  status?: TLessonStatus | "";
+  level?: number | string;
   unit?: string;
-  from?: string;
-  to?: string;
+  discarded?: boolean;
   sort_by?: string;
-  sort_order?: "asc" | "desc";
+  sort_order?: TSortOrder;
 }
 
 export interface IAdminLessonFilters {
+  status: string;
   level: string;
   unit: string;
-  from: string;
-  to: string;
+}
+
+export interface IAdminLessonAiQueueResult {
+  lesson_id: string;
+  operation_id: string;
+}
+
+export type TLessonAiSocketType =
+  | "lesson_word_families_generated"
+  | "lesson_word_families_failed"
+  | "lesson_story_order_generated"
+  | "lesson_story_order_failed"
+  | "lesson_build_the_sentences_generated"
+  | "lesson_build_the_sentences_failed";
+
+export interface ILessonAiSocketData {
+  type: TLessonAiSocketType;
+  lesson_id: string;
+  run_id?: string;
+  error?: string;
+  word_families?: Array<{ pattern: string; words: string[] }>;
+  story_order?: string[];
+  build_the_sentences?: Array<{ vocab: string; sentence: string }>;
 }

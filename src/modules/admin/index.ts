@@ -12,6 +12,7 @@ import { AssetController, AssetService } from "./asset";
 import { VersionController, VersionService } from "./version";
 import { PaymentController, PaymentService } from "./payment";
 import { AiController, AiService } from "./ai";
+import { LessonController, LessonService } from "./lesson";
 
 export * from "./analytics";
 export * from "./chat";
@@ -58,4 +59,6 @@ export const Admin = {
   PaymentService,
   AiController,
   AiService,
+  LessonController,
+  LessonService,
 };

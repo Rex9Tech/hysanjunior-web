@@ -855,7 +855,6 @@ const router = createBrowserRouter(
               <AdminRootRoute
                 action={ADMIN_ACTIONS.READ}
                 resource={ADMIN_RESOURCES.LESSONS}
-                adminOnly
               />
             }
           >

@@ -1,25 +1,26 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AppRoutes from "../../../../AppRoutes";
 import { useDocumentTitle } from "../../../../hooks";
+import { useLoading } from "../../../../contexts/LoadingContext";
 import { useToast } from "../../../../contexts/ToastContext";
 import { iconsLib } from "../../../../assets";
 import { Button } from "../../../../design";
 import { ButtonVariants, ButtonSizes } from "../../../../design/constants";
 import { AppLocales, useTranslate } from "../../../../locales";
+import { Admin } from "../..";
 import { AdminState, PageHeader } from "../../components";
 import { ADMIN_ACTIONS } from "../../constants";
-import { getLesson, updateLesson } from "../lesson.mock.store";
-import type { IAdminLessonFormValues } from "../types";
+import type { IAdminLesson, IAdminLessonFormValues } from "../types";
 import { AdminLessonForm } from "./AdminLessonForm";
-import { AdminLessonBuildSentencesSection } from "./AdminLessonBuildSentencesSection";
-import { AdminLessonHealthyChoicesSection } from "./AdminLessonHealthyChoicesSection";
 import { AdminLessonSongsSection } from "./AdminLessonSongsSection";
-import { AdminLessonSortHealthyChoicesSection } from "./AdminLessonSortHealthyChoicesSection";
-import { AdminLessonStorySummarySection } from "./AdminLessonStorySummarySection";
 import { AdminLessonStoryVideoSection } from "./AdminLessonStoryVideoSection";
+import { AdminLessonStoryOrderSection } from "./AdminLessonStoryOrderSection";
 import { AdminLessonVocabsSection } from "./AdminLessonVocabsSection";
+import { AdminLessonBuildSentencesSection } from "./AdminLessonBuildSentencesSection";
 import { AdminLessonWordFamiliesSection } from "./AdminLessonWordFamiliesSection";
+import { AdminLessonQuestionsSection } from "./AdminLessonQuestionsSection";
+import { AdminLessonSortHealthyChoicesSection } from "./AdminLessonSortHealthyChoicesSection";
 
 export const AdminLessonEditPage: React.FC = () => {
   const t = useTranslate();
@@ -28,34 +29,49 @@ export const AdminLessonEditPage: React.FC = () => {
   const { id = "" } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const toast = useToast();
-  const [refreshKey, setRefreshKey] = useState(0);
+  const { setLoading } = useLoading();
+  const [lesson, setLesson] = useState<IAdminLesson | null>(null);
+  const [loadError, setLoadError] = useState("");
 
-  const lesson = useMemo(
-    () => (id ? getLesson(id) : null),
-    [id, refreshKey],
-  );
+  const loadLesson = useCallback(async () => {
+    if (!id) return;
+    setLoading(true);
+    const result = await Admin.LessonController.getLesson(id);
+    setLoading(false);
+    if (!result.success || !result.lesson) {
+      setLesson(null);
+      setLoadError(result.error || t(AppLocales.Admin.Lessons.Errors.NotFound));
+      return;
+    }
+    setLesson(result.lesson);
+    setLoadError("");
+  }, [id, setLoading, t]);
 
-  const refreshLesson = useCallback(() => {
-    setRefreshKey((current) => current + 1);
-  }, []);
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => void loadLesson(), 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [loadLesson]);
 
-  if (!lesson) {
+  if (loadError || !lesson) {
     return (
       <AdminState
         title={t(AppLocales.Admin.Lessons.EditTitle)}
-        message={t(AppLocales.Admin.Lessons.Errors.NotFound)}
+        message={loadError || t(AppLocales.Admin.Lessons.Errors.NotFound)}
       />
     );
   }
 
-  const handleSubmit = (values: IAdminLessonFormValues) => {
-    const updated = updateLesson(lesson.id, values);
-    if (!updated) {
-      toast.error(t(AppLocales.Admin.Lessons.Errors.Update));
+  const handleSubmit = async (values: IAdminLessonFormValues) => {
+    const result = await Admin.LessonController.updateLesson(lesson.id, values);
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
       return;
     }
-    toast.success(t(AppLocales.Admin.Lessons.Toasts.UpdateSuccess));
-    navigate(AppRoutes.client.protected.admin.LESSONS, { replace: true });
+    toast.success(
+      result.message || t(AppLocales.Admin.Lessons.Toasts.UpdateSuccess),
+    );
+    if (result.lesson) setLesson(result.lesson);
+    else void loadLesson();
   };
 
   return (
@@ -77,59 +93,41 @@ export const AdminLessonEditPage: React.FC = () => {
       <AdminLessonForm
         mode={ADMIN_ACTIONS.EDIT}
         lesson={lesson}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => void handleSubmit(values)}
         onCancel={() => navigate(AppRoutes.client.protected.admin.LESSONS)}
       />
 
       <AdminLessonSongsSection
-        lessonId={lesson.id}
-        song={lesson.song}
-        onSongChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
       <AdminLessonStoryVideoSection
-        lessonId={lesson.id}
-        storyVideo={lesson.storyVideo}
-        onStoryChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
-      <AdminLessonStorySummarySection
-        lessonId={lesson.id}
-        storySummary={lesson.storySummary}
-        onStorySummaryChange={refreshLesson}
+      <AdminLessonStoryOrderSection
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
       <AdminLessonVocabsSection
-        lessonId={lesson.id}
-        vocabs={lesson.vocabs}
-        onVocabsChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
       <AdminLessonBuildSentencesSection
-        lessonId={lesson.id}
-        vocabs={lesson.vocabs}
-        storyVideo={lesson.storyVideo}
-        buildSentenceSet={lesson.buildSentenceSet}
-        onBuildSentencesChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
       <AdminLessonWordFamiliesSection
-        lessonId={lesson.id}
-        storyVideo={lesson.storyVideo}
-        wordFamilySet={lesson.wordFamilySet}
-        onWordFamiliesChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
-      <AdminLessonHealthyChoicesSection
-        lessonId={lesson.id}
-        healthyChoices={lesson.healthyChoices}
-        onHealthyChoicesChange={refreshLesson}
+      <AdminLessonQuestionsSection
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
-
       <AdminLessonSortHealthyChoicesSection
-        lessonId={lesson.id}
-        sortHealthyChoice={lesson.sortHealthyChoice}
-        onSortHealthyChoiceChange={refreshLesson}
+        lesson={lesson}
+        onLessonChange={loadLesson}
       />
     </div>
   );

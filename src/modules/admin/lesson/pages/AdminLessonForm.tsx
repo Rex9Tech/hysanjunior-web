@@ -1,19 +1,4 @@
 import React, { useState } from "react";
-import { iconsLib } from "../../../../assets";
-import { UPLOAD_SIZE_LIMITS } from "../../../../constants";
-import { useLoading } from "../../../../contexts/LoadingContext";
-import { useToast } from "../../../../contexts/ToastContext";
-import { Button, FileInput, Image } from "../../../../design";
-import {
-  ButtonSizes,
-  ButtonVariants,
-  ComponentSizes,
-} from "../../../../design/constants";
-import { AppLocales, useTranslate } from "../../../../locales";
-import { Admin } from "../..";
-import { AdminAssetSelectDialog } from "../../asset/components/AdminAssetSelectDialog";
-import { ASSET_FORMATS, ASSET_TYPES } from "../../asset/constants";
-import type { IAdminAsset } from "../../asset/types";
 import {
   Dropdown,
   FormActionRow,
@@ -21,8 +6,13 @@ import {
   TextInput,
 } from "../../components";
 import { ADMIN_ACTIONS } from "../../constants";
-import { ADMIN_LESSON_LEVELS, ADMIN_LESSON_UNITS } from "../constants";
-import type { IAdminLesson, IAdminLessonFormValues } from "../types";
+import { AppLocales, useTranslate } from "../../../../locales";
+import {
+  ADMIN_LESSON_LEVELS,
+  ADMIN_LESSON_STATUS_OPTIONS,
+  ADMIN_LESSON_UNITS,
+} from "../constants";
+import { LESSON_STATUSES, type IAdminLesson, type IAdminLessonFormValues } from "../types";
 
 interface IAdminLessonFormProps {
   mode: typeof ADMIN_ACTIONS.CREATE | typeof ADMIN_ACTIONS.EDIT;
@@ -35,17 +25,14 @@ interface IAdminLessonFormState {
   title: string;
   level: string;
   unit: string;
+  status: string;
 }
-
-type TImageSelection =
-  | { source: "pick"; asset: IAdminAsset }
-  | { source: "upload"; file: File; previewUrl: string }
-  | null;
 
 const emptyValues: IAdminLessonFormState = {
   title: "",
   level: "",
   unit: "",
+  status: LESSON_STATUSES.DRAFT,
 };
 
 const buildInitialValues = (
@@ -54,8 +41,9 @@ const buildInitialValues = (
   if (!lesson) return emptyValues;
   return {
     title: lesson.title,
-    level: lesson.level,
+    level: String(lesson.level),
     unit: lesson.unit,
+    status: lesson.status,
   };
 };
 
@@ -66,21 +54,12 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
   onCancel,
 }) => {
   const t = useTranslate();
-  const toast = useToast();
-  const { setLoading } = useLoading();
-
   const [values, setValues] = useState<IAdminLessonFormState>(() =>
     buildInitialValues(lesson),
   );
   const [titleError, setTitleError] = useState("");
   const [levelError, setLevelError] = useState("");
   const [unitError, setUnitError] = useState("");
-  const [thumbnailError, setThumbnailError] = useState("");
-  const [imageSelection, setImageSelection] = useState<TImageSelection>(null);
-  const [existingThumbnailUrl, setExistingThumbnailUrl] = useState<string | null>(
-    lesson?.thumbnailUrl ?? null,
-  );
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const updateValue = <K extends keyof IAdminLessonFormState>(
     field: K,
@@ -89,63 +68,7 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
     setValues((current) => ({ ...current, [field]: value }));
   };
 
-  const clearImageSelection = () => {
-    if (imageSelection?.source === "upload") {
-      URL.revokeObjectURL(imageSelection.previewUrl);
-    }
-    setImageSelection(null);
-    setThumbnailError("");
-  };
-
-  const clearThumbnail = () => {
-    clearImageSelection();
-    setExistingThumbnailUrl(null);
-  };
-
-  const validateImageFile = (file: File): boolean => {
-    if (!file.type.startsWith("image/")) {
-      setThumbnailError(t(AppLocales.Admin.Lessons.Form.Errors.InvalidImage));
-      return false;
-    }
-    if (file.size > UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_BYTES) {
-      setThumbnailError(
-        t(AppLocales.Admin.Lessons.Form.Errors.ImageTooLarge, {
-          size: UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_SIZE_MB,
-        }),
-      );
-      return false;
-    }
-    setThumbnailError("");
-    return true;
-  };
-
-  const resolveThumbnailUrl = async (): Promise<string> => {
-    if (imageSelection?.source === "pick") {
-      return imageSelection.asset.url;
-    }
-
-    if (imageSelection?.source === "upload") {
-      const uploadResult = await Admin.AssetController.uploadAsset(
-        imageSelection.file,
-        {
-          type: ASSET_TYPES.THUMBNAIL,
-          title: imageSelection.file.name.replace(/\.[^.]+$/, ""),
-        },
-      );
-      if (!uploadResult.success || !uploadResult.asset) {
-        toast.error(
-          uploadResult.error ||
-            t(AppLocales.Admin.Lessons.Form.Errors.UploadImage),
-        );
-        throw new Error("upload_failed");
-      }
-      return uploadResult.asset.url;
-    }
-
-    return existingThumbnailUrl ?? "";
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     let isValid = true;
@@ -172,25 +95,17 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
 
     if (!isValid) return;
 
-    setLoading(true);
-    try {
-      const thumbnailUrl = await resolveThumbnailUrl();
-      onSubmit({
-        title: values.title.trim(),
-        level: values.level,
-        unit: values.unit,
-        thumbnailUrl,
-      });
-    } catch {
-      // Upload failure already toasted.
-    } finally {
-      setLoading(false);
-    }
+    onSubmit({
+      title: values.title.trim(),
+      level: Number(values.level),
+      unit: values.unit,
+      status: values.status as IAdminLessonFormValues["status"],
+    });
   };
 
   const levelOptions = ADMIN_LESSON_LEVELS.map((level) => ({
-    value: level,
-    label: level,
+    value: String(level),
+    label: t(AppLocales.Admin.Lessons.Form.LevelOption, { level }),
   }));
 
   const unitOptions = ADMIN_LESSON_UNITS.map((unit) => ({
@@ -198,18 +113,13 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
     label: unit,
   }));
 
-  const hasThumbnail =
-    Boolean(imageSelection) || Boolean(existingThumbnailUrl && !imageSelection);
-
-  const thumbnailPreviewUrl =
-    imageSelection?.source === "pick"
-      ? imageSelection.asset.url
-      : imageSelection?.source === "upload"
-        ? imageSelection.previewUrl
-        : existingThumbnailUrl;
+  const statusOptions = ADMIN_LESSON_STATUS_OPTIONS.map((status) => ({
+    value: status,
+    label: t(AppLocales.Admin.Lessons.Status[status]),
+  }));
 
   return (
-    <FormContainer onSubmit={(e) => void handleSubmit(e)}>
+    <FormContainer onSubmit={handleSubmit}>
       <TextInput
         label={t(AppLocales.Admin.Lessons.Form.TitleLabel)}
         placeholder={t(AppLocales.Admin.Lessons.Form.TitlePlaceholder)}
@@ -237,104 +147,13 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
         error={unitError}
       />
 
-      <div className="space-y-3">
-        <p className="text-body-s font-medium text-base-content">
-          {t(AppLocales.Admin.Lessons.Form.ThumbnailLabel)}
-        </p>
-        <p className="text-caption text-base-content/60">
-          {t(AppLocales.Admin.Lessons.Form.ThumbnailHelper)}
-        </p>
-
-        {!hasThumbnail ? (
-          <>
-            <div className="flex flex-wrap gap-2">
-              <Button
-                type="button"
-                variant={ButtonVariants.SECONDARY}
-                size={ButtonSizes.SM}
-                onClick={() => setIsPickerOpen(true)}
-              >
-                <iconsLib.photo className="mr-1.5 h-4 w-4" />
-                {t(AppLocales.Admin.Lessons.Form.PickButton)}
-              </Button>
-            </div>
-            <FileInput
-              label={t(AppLocales.Admin.Lessons.Form.UploadLabel)}
-              accept="image/*"
-              buttonText={t(AppLocales.Admin.Lessons.Form.ChooseImage)}
-              helperText={t(AppLocales.Admin.Lessons.Form.ImageHelper, {
-                size: UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_SIZE_MB,
-              })}
-              error={thumbnailError}
-              onChange={(file) => {
-                if (!file) {
-                  clearImageSelection();
-                  return;
-                }
-                if (!validateImageFile(file)) return;
-                clearImageSelection();
-                setExistingThumbnailUrl(null);
-                setImageSelection({
-                  source: "upload",
-                  file,
-                  previewUrl: URL.createObjectURL(file),
-                });
-              }}
-            />
-          </>
-        ) : (
-          <div className="flex flex-wrap items-start gap-3 rounded-xl border border-base-300 bg-base-100 p-3">
-            {thumbnailPreviewUrl ? (
-              <Image
-                src={thumbnailPreviewUrl}
-                alt=""
-                className="h-20 w-28 shrink-0 rounded-lg object-cover border border-base-300"
-              />
-            ) : (
-              <div className="h-20 w-28 shrink-0 rounded-lg border border-base-300 bg-base-200" />
-            )}
-            <div className="min-w-0 flex-1 space-y-2">
-              <p className="text-body-s font-semibold truncate">
-                {imageSelection?.source === "pick"
-                  ? imageSelection.asset.title || imageSelection.asset.name
-                  : imageSelection?.source === "upload"
-                    ? imageSelection.file.name
-                    : t(AppLocales.Admin.Lessons.Form.ExistingImage)}
-              </p>
-              <p className="text-caption text-base-content/60">
-                {imageSelection?.source === "pick"
-                  ? t(AppLocales.Admin.Lessons.Form.PickedImage)
-                  : imageSelection?.source === "upload"
-                    ? t(AppLocales.Admin.Lessons.Form.LocalImageSelected)
-                    : t(AppLocales.Admin.Lessons.Form.ExistingImage)}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  type="button"
-                  size={ComponentSizes.SM}
-                  variant={ButtonVariants.SECONDARY}
-                  onClick={() => setIsPickerOpen(true)}
-                >
-                  <iconsLib.photo className="mr-1.5 h-4 w-4" />
-                  {t(AppLocales.Admin.Lessons.Form.PickButton)}
-                </Button>
-                <Button
-                  type="button"
-                  size={ComponentSizes.SM}
-                  variant={ButtonVariants.TERTIARY}
-                  className="text-error hover:bg-error/10"
-                  onClick={clearThumbnail}
-                >
-                  {t(AppLocales.Admin.Lessons.Form.ClearImage)}
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-        {thumbnailError && hasThumbnail ? (
-          <p className="text-caption text-error">{thumbnailError}</p>
-        ) : null}
-      </div>
+      <Dropdown
+        label={t(AppLocales.Admin.Lessons.Form.StatusLabel)}
+        value={values.status}
+        onValueChange={(value) => updateValue("status", value)}
+        options={statusOptions}
+        placeholder={t(AppLocales.Admin.Lessons.Form.StatusLabel)}
+      />
 
       <FormActionRow
         onCancel={onCancel}
@@ -344,23 +163,6 @@ export const AdminLessonForm: React.FC<IAdminLessonFormProps> = ({
             ? t(AppLocales.Admin.Lessons.Form.CreateLesson)
             : t(AppLocales.Admin.Lessons.Form.SaveLesson)
         }
-      />
-
-      <AdminAssetSelectDialog
-        isOpen={isPickerOpen}
-        onClose={() => setIsPickerOpen(false)}
-        assetType={ASSET_TYPES.THUMBNAIL}
-        format={ASSET_FORMATS.IMAGE}
-        title={t(AppLocales.Admin.Lessons.Form.PickerTitle)}
-        selectedAssetId={
-          imageSelection?.source === "pick" ? imageSelection.asset.id : undefined
-        }
-        onSelect={(asset) => {
-          clearImageSelection();
-          setExistingThumbnailUrl(null);
-          setImageSelection({ source: "pick", asset });
-          setThumbnailError("");
-        }}
       />
     </FormContainer>
   );

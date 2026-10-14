@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { iconsLib } from "../../../../assets";
 import { UPLOAD_SIZE_LIMITS } from "../../../../constants";
 import {
@@ -17,17 +17,15 @@ import { Admin } from "../..";
 import { AdminAssetSelectDialog } from "../../asset/components/AdminAssetSelectDialog";
 import { ASSET_FORMATS, ASSET_TYPES } from "../../asset/constants";
 import type { IAdminAsset } from "../../asset/types";
-import {
-  addLessonVocab,
-  deleteLessonVocab,
-  updateLessonVocab,
-} from "../lesson.mock.store";
-import type { IAdminLessonVocabItem } from "../types";
+import type {
+  IAdminLesson,
+  IAdminLessonVocabulary,
+  IAdminLessonVocabularyWrite,
+} from "../types";
 
-interface IAdminLessonVocabsSectionProps {
-  lessonId: string;
-  vocabs: IAdminLessonVocabItem[];
-  onVocabsChange: () => void;
+interface IProps {
+  lesson: IAdminLesson;
+  onLessonChange: () => void;
 }
 
 type TImageSelection =
@@ -35,20 +33,20 @@ type TImageSelection =
   | { source: "upload"; file: File; previewUrl: string }
   | null;
 
-export const AdminLessonVocabsSection: React.FC<
-  IAdminLessonVocabsSectionProps
-> = ({ lessonId, vocabs, onVocabsChange }) => {
+export const AdminLessonVocabsSection: React.FC<IProps> = ({
+  lesson,
+  onLessonChange,
+}) => {
   const t = useTranslate();
   const toast = useToast();
-
+  const [items, setItems] = useState(lesson.vocabularies);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<IAdminLessonVocabItem | null>(
+  const [editingItem, setEditingItem] = useState<IAdminLessonVocabulary | null>(
     null,
   );
   const [vocab, setVocab] = useState("");
-  const [vowelSound, setVowelSound] = useState("");
+  const [vowelSymbol, setVowelSymbol] = useState("");
   const [vocabError, setVocabError] = useState("");
-  const [vowelError, setVowelError] = useState("");
   const [imageError, setImageError] = useState("");
   const [imageSelection, setImageSelection] = useState<TImageSelection>(null);
   const [existingImage, setExistingImage] = useState<{
@@ -57,9 +55,12 @@ export const AdminLessonVocabsSection: React.FC<
   } | null>(null);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<IAdminLessonVocabItem | null>(
-    null,
-  );
+  const [deleteTarget, setDeleteTarget] =
+    useState<IAdminLessonVocabulary | null>(null);
+
+  useEffect(() => {
+    setItems(lesson.vocabularies);
+  }, [lesson.vocabularies]);
 
   const clearImageSelection = () => {
     if (imageSelection?.source === "upload") {
@@ -73,9 +74,8 @@ export const AdminLessonVocabsSection: React.FC<
     clearImageSelection();
     setEditingItem(null);
     setVocab("");
-    setVowelSound("");
+    setVowelSymbol("");
     setVocabError("");
-    setVowelError("");
     setImageError("");
     setExistingImage(null);
   };
@@ -90,17 +90,17 @@ export const AdminLessonVocabsSection: React.FC<
     setIsFormOpen(true);
   };
 
-  const openEditForm = (item: IAdminLessonVocabItem) => {
+  const openEditForm = (item: IAdminLessonVocabulary) => {
     clearImageSelection();
     setEditingItem(item);
     setVocab(item.vocab);
-    setVowelSound(item.vowelSound);
-    setExistingImage({
-      imageAssetId: item.imageAssetId,
-      imageUrl: item.imageUrl,
-    });
+    setVowelSymbol(item.vowel_symbol || "");
+    setExistingImage(
+      item.image_asset_id && item.image?.url
+        ? { imageAssetId: item.image_asset_id, imageUrl: item.image.url }
+        : null,
+    );
     setVocabError("");
-    setVowelError("");
     setImageError("");
     setIsFormOpen(true);
   };
@@ -122,17 +122,8 @@ export const AdminLessonVocabsSection: React.FC<
     return true;
   };
 
-  const resolveImage = async (): Promise<{
-    imageAssetId: string;
-    imageUrl: string;
-  } | null> => {
-    if (imageSelection?.source === "pick") {
-      return {
-        imageAssetId: imageSelection.asset.id,
-        imageUrl: imageSelection.asset.url,
-      };
-    }
-
+  const resolveImageAssetId = async (): Promise<string | null> => {
+    if (imageSelection?.source === "pick") return imageSelection.asset.id;
     if (imageSelection?.source === "upload") {
       const uploadResult = await Admin.AssetController.uploadAsset(
         imageSelection.file,
@@ -148,86 +139,83 @@ export const AdminLessonVocabsSection: React.FC<
         );
         return null;
       }
-      return {
-        imageAssetId: uploadResult.asset.id,
-        imageUrl: uploadResult.asset.url,
-      };
+      return uploadResult.asset.id;
     }
-
-    if (existingImage) {
-      return existingImage;
-    }
-
+    if (existingImage) return existingImage.imageAssetId;
     setImageError(t(AppLocales.Admin.Lessons.Vocabs.Errors.ImageRequired));
     return null;
   };
 
+  const syncVocabularies = async (next: IAdminLessonVocabularyWrite[]) => {
+    const result = await Admin.LessonController.updateLesson(lesson.id, {
+      vocabularies: next,
+    });
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
+      return false;
+    }
+    onLessonChange();
+    return true;
+  };
+
+  const toWrite = (
+    list: IAdminLessonVocabulary[],
+  ): IAdminLessonVocabularyWrite[] =>
+    list.map((item) => ({
+      id: item.id,
+      vocab: item.vocab,
+      vowel_symbol: item.vowel_symbol,
+      image_asset_id: item.image_asset_id,
+    }));
+
   const handleSave = async () => {
-    let valid = true;
     if (!vocab.trim()) {
       setVocabError(t(AppLocales.Admin.Lessons.Vocabs.Errors.VocabRequired));
-      valid = false;
-    } else {
-      setVocabError("");
+      return;
     }
-    if (!vowelSound.trim()) {
-      setVowelError(t(AppLocales.Admin.Lessons.Vocabs.Errors.VowelRequired));
-      valid = false;
-    } else {
-      setVowelError("");
-    }
-    if (!valid) return;
-
+    setVocabError("");
     setIsSaving(true);
-    try {
-      const image = await resolveImage();
-      if (!image) return;
-
-      const input = {
-        vocab: vocab.trim(),
-        vowelSound: vowelSound.trim(),
-        imageAssetId: image.imageAssetId,
-        imageUrl: image.imageUrl,
-      };
-
-      if (editingItem) {
-        const updated = updateLessonVocab(lessonId, editingItem.id, input);
-        if (!updated) {
-          toast.error(t(AppLocales.Admin.Lessons.Vocabs.Errors.Update));
-          return;
-        }
-        toast.success(t(AppLocales.Admin.Lessons.Vocabs.Toasts.UpdateSuccess));
-      } else {
-        const created = addLessonVocab(lessonId, input);
-        if (!created) {
-          toast.error(t(AppLocales.Admin.Lessons.Vocabs.Errors.Create));
-          return;
-        }
-        toast.success(t(AppLocales.Admin.Lessons.Vocabs.Toasts.CreateSuccess));
-      }
-
-      closeForm();
-      onVocabsChange();
-    } finally {
+    const imageAssetId = await resolveImageAssetId();
+    if (!imageAssetId) {
       setIsSaving(false);
+      return;
     }
+
+    const entry: IAdminLessonVocabularyWrite = {
+      id: editingItem?.id,
+      vocab: vocab.trim(),
+      vowel_symbol: vowelSymbol.trim() || null,
+      image_asset_id: imageAssetId,
+    };
+
+    const next = editingItem
+      ? toWrite(items).map((item) =>
+          item.id === editingItem.id ? entry : item,
+        )
+      : [...toWrite(items), entry];
+
+    const ok = await syncVocabularies(next);
+    setIsSaving(false);
+    if (!ok) return;
+    toast.success(
+      editingItem
+        ? t(AppLocales.Admin.Lessons.Vocabs.Toasts.UpdateSuccess)
+        : t(AppLocales.Admin.Lessons.Vocabs.Toasts.CreateSuccess),
+    );
+    closeForm();
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    const ok = deleteLessonVocab(lessonId, deleteTarget.id);
+    setIsSaving(true);
+    const next = toWrite(items.filter((item) => item.id !== deleteTarget.id));
+    const ok = await syncVocabularies(next);
+    setIsSaving(false);
     setDeleteTarget(null);
-    if (ok) {
-      toast.success(t(AppLocales.Admin.Lessons.Vocabs.Toasts.DeleteSuccess));
-      if (editingItem?.id === deleteTarget.id) closeForm();
-      onVocabsChange();
-    } else {
-      toast.error(t(AppLocales.Admin.Lessons.Vocabs.Errors.Delete));
-    }
+    if (!ok) return;
+    toast.success(t(AppLocales.Admin.Lessons.Vocabs.Toasts.DeleteSuccess));
+    if (editingItem?.id === deleteTarget.id) closeForm();
   };
-
-  const hasImage =
-    Boolean(imageSelection) || Boolean(existingImage && !imageSelection);
 
   const imagePreviewUrl =
     imageSelection?.source === "pick"
@@ -251,37 +239,41 @@ export const AdminLessonVocabsSection: React.FC<
         }
       >
         <div className="space-y-6">
-          {vocabs.length === 0 ? (
+          {items.length === 0 ? (
             <p className="text-body-s text-base-content/60 py-4 text-center">
               {t(AppLocales.Admin.Lessons.Vocabs.Empty)}
             </p>
           ) : (
             <ul className="space-y-3">
-              {vocabs.map((item) => (
+              {items.map((item) => (
                 <li
                   key={item.id}
                   className="flex flex-wrap items-center gap-4 rounded-xl border border-base-300 bg-base-100 p-3"
                 >
-                  <Image
-                    src={item.imageUrl}
-                    alt=""
-                    className="h-14 w-14 shrink-0 rounded-lg object-cover border border-base-300"
-                  />
+                  {item.image?.url ? (
+                    <Image
+                      src={item.image.url}
+                      alt=""
+                      className="h-14 w-14 shrink-0 rounded-lg object-cover border border-base-300"
+                    />
+                  ) : (
+                    <div className="h-14 w-14 shrink-0 rounded-lg border border-base-300 bg-base-200" />
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="text-body-m font-semibold text-base-content">
                       {item.vocab}
                     </p>
-                    <p className="text-caption text-base-content/60">
-                      {t(AppLocales.Admin.Lessons.Vocabs.VowelLabel)}:{" "}
-                      {item.vowelSound}
-                    </p>
+                    {item.vowel_symbol ? (
+                      <p className="text-caption text-base-content/60">
+                        {t(AppLocales.Admin.Lessons.Vocabs.VowelLabel)}:{" "}
+                        {item.vowel_symbol}
+                      </p>
+                    ) : null}
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Button
                       size={ButtonSizes.SM}
                       variant={ButtonVariants.TERTIARY}
-                      className="h-8 w-8 p-0"
-                      aria-label={t(AppLocales.Admin.Common.Actions.Edit)}
                       onClick={() => openEditForm(item)}
                     >
                       <iconsLib.pencilSquare className="h-4 w-4" />
@@ -289,8 +281,7 @@ export const AdminLessonVocabsSection: React.FC<
                     <Button
                       size={ButtonSizes.SM}
                       variant={ButtonVariants.TERTIARY}
-                      className="h-8 w-8 p-0 border border-error/30 text-error hover:bg-error/10"
-                      aria-label={t(AppLocales.Admin.Common.Actions.Destroy)}
+                      className="text-error"
                       onClick={() => setDeleteTarget(item)}
                     >
                       <iconsLib.trash className="h-4 w-4" />
@@ -313,12 +304,8 @@ export const AdminLessonVocabsSection: React.FC<
         }
         className="max-w-lg"
         footer={
-          <div className="flex w-full justify-end gap-2">
-            <Button
-              variant={ButtonVariants.TERTIARY}
-              onClick={closeForm}
-              disabled={isSaving}
-            >
+          <div className="flex justify-end gap-2">
+            <Button variant={ButtonVariants.TERTIARY} onClick={closeForm}>
               {t(AppLocales.Admin.Common.Actions.Cancel)}
             </Button>
             <Button
@@ -326,113 +313,76 @@ export const AdminLessonVocabsSection: React.FC<
               isLoading={isSaving}
               disabled={isSaving}
             >
-              {editingItem
-                ? t(AppLocales.Admin.Lessons.Vocabs.SaveButton)
-                : t(AppLocales.Admin.Lessons.Vocabs.AddButton)}
+              {t(AppLocales.Admin.Lessons.Vocabs.SaveButton)}
             </Button>
           </div>
         }
       >
         <div className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <TextInput
-              label={t(AppLocales.Admin.Lessons.Vocabs.VocabLabel)}
-              placeholder={t(AppLocales.Admin.Lessons.Vocabs.VocabPlaceholder)}
-              value={vocab}
-              error={vocabError}
-              onChange={(e) => setVocab(e.target.value)}
-              required
-            />
-            <TextInput
-              label={t(AppLocales.Admin.Lessons.Vocabs.VowelLabel)}
-              placeholder={t(AppLocales.Admin.Lessons.Vocabs.VowelPlaceholder)}
-              value={vowelSound}
-              error={vowelError}
-              onChange={(e) => setVowelSound(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="space-y-3">
-            <p className="text-body-s font-medium text-base-content">
+          <TextInput
+            label={t(AppLocales.Admin.Lessons.Vocabs.VocabLabel)}
+            placeholder={t(AppLocales.Admin.Lessons.Vocabs.VocabPlaceholder)}
+            value={vocab}
+            onChange={(e) => setVocab(e.target.value)}
+            error={vocabError}
+            required
+          />
+          <TextInput
+            label={t(AppLocales.Admin.Lessons.Vocabs.VowelLabel)}
+            placeholder={t(AppLocales.Admin.Lessons.Vocabs.VowelPlaceholder)}
+            value={vowelSymbol}
+            onChange={(e) => setVowelSymbol(e.target.value)}
+          />
+          <div className="space-y-2">
+            <p className="text-body-s font-medium">
               {t(AppLocales.Admin.Lessons.Vocabs.ImageLabel)}
             </p>
-
-            {!hasImage ? (
-              <>
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant={ButtonVariants.SECONDARY}
-                    onClick={() => setIsPickerOpen(true)}
-                  >
-                    <iconsLib.photo className="mr-2 h-4 w-4" />
-                    {t(AppLocales.Admin.Lessons.Vocabs.PickButton)}
-                  </Button>
-                </div>
-                <FileInput
-                  label={t(AppLocales.Admin.Lessons.Vocabs.UploadLabel)}
-                  accept="image/*"
-                  buttonText={t(AppLocales.Admin.Lessons.Vocabs.ChooseImage)}
-                  helperText={t(AppLocales.Admin.Lessons.Vocabs.ImageHelper, {
-                    size: UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_SIZE_MB,
-                  })}
-                  error={imageError}
-                  onChange={(file) => {
-                    if (!file) {
-                      clearImageSelection();
-                      return;
-                    }
-                    if (!validateImageFile(file)) return;
+            {imagePreviewUrl ? (
+              <Image
+                src={imagePreviewUrl}
+                alt=""
+                className="h-24 w-24 rounded-lg object-cover border border-base-300"
+              />
+            ) : null}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                size={ButtonSizes.SM}
+                variant={ButtonVariants.SECONDARY}
+                onClick={() => setIsPickerOpen(true)}
+              >
+                {t(AppLocales.Admin.Lessons.Vocabs.PickButton)}
+              </Button>
+              {(imageSelection || existingImage) && (
+                <Button
+                  size={ButtonSizes.SM}
+                  variant={ButtonVariants.TERTIARY}
+                  onClick={() => {
                     clearImageSelection();
                     setExistingImage(null);
-                    setImageSelection({
-                      source: "upload",
-                      file,
-                      previewUrl: URL.createObjectURL(file),
-                    });
                   }}
-                />
-              </>
-            ) : (
-              <div className="flex flex-wrap items-start gap-3">
-                {imagePreviewUrl ? (
-                  <Image
-                    src={imagePreviewUrl}
-                    alt=""
-                    className="h-20 w-20 rounded-lg object-cover border border-base-300"
-                  />
-                ) : null}
-                <div className="min-w-0 flex-1 space-y-2">
-                  <p className="text-body-s font-semibold truncate">
-                    {imageSelection?.source === "pick"
-                      ? imageSelection.asset.title || imageSelection.asset.name
-                      : imageSelection?.source === "upload"
-                        ? imageSelection.file.name
-                        : existingImage?.imageAssetId}
-                  </p>
-                  <p className="text-caption text-base-content/60">
-                    {imageSelection?.source === "pick"
-                      ? t(AppLocales.Admin.Lessons.Vocabs.PickedImage)
-                      : imageSelection?.source === "upload"
-                        ? t(AppLocales.Admin.Lessons.Vocabs.LocalImageSelected)
-                        : t(AppLocales.Admin.Lessons.Vocabs.ExistingImage)}
-                  </p>
-                  <Button
-                    size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
-                    onClick={() => {
-                      clearImageSelection();
-                      setExistingImage(null);
-                    }}
-                  >
-                    {t(AppLocales.Admin.Lessons.Vocabs.ClearImage)}
-                  </Button>
-                </div>
-              </div>
-            )}
-            {imageError && hasImage ? (
-              <p className="text-caption text-error">{imageError}</p>
-            ) : null}
+                >
+                  {t(AppLocales.Admin.Lessons.Vocabs.ClearImage)}
+                </Button>
+              )}
+            </div>
+            <FileInput
+              label={t(AppLocales.Admin.Lessons.Vocabs.UploadLabel)}
+              accept="image/*"
+              buttonText={t(AppLocales.Admin.Lessons.Vocabs.ChooseImage)}
+              helperText={t(AppLocales.Admin.Lessons.Vocabs.ImageHelper, {
+                size: UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_SIZE_MB,
+              })}
+              error={imageError}
+              onChange={(file) => {
+                if (!file || !validateImageFile(file)) return;
+                clearImageSelection();
+                setImageSelection({
+                  source: "upload",
+                  file,
+                  previewUrl: URL.createObjectURL(file),
+                });
+              }}
+            />
           </div>
         </div>
       </Dialog>
@@ -443,16 +393,10 @@ export const AdminLessonVocabsSection: React.FC<
         assetType={ASSET_TYPES.GENERAL}
         format={ASSET_FORMATS.IMAGE}
         title={t(AppLocales.Admin.Lessons.Vocabs.PickerTitle)}
-        selectedAssetId={
-          imageSelection?.source === "pick"
-            ? imageSelection.asset.id
-            : existingImage?.imageAssetId
-        }
         onSelect={(asset) => {
           clearImageSelection();
-          setExistingImage(null);
           setImageSelection({ source: "pick", asset });
-          setImageError("");
+          setIsPickerOpen(false);
         }}
       />
 
@@ -463,7 +407,7 @@ export const AdminLessonVocabsSection: React.FC<
         confirmLabel={t(AppLocales.Admin.Common.Actions.Destroy)}
         cancelLabel={t(AppLocales.Admin.Common.Actions.Cancel)}
         isDestructive
-        onConfirm={handleDelete}
+        onConfirm={() => void handleDelete()}
         onClose={() => setDeleteTarget(null)}
       />
     </>

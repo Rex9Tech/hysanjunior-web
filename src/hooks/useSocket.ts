@@ -5,7 +5,54 @@ import { getSocketToast, SOCKET_MESSAGE_TYPES } from "../helpers/socket.helpers"
 import { getUtcNowIso } from "../helpers";
 import SocketService, { ISocketMessage } from "../services/socket.service";
 import { NOTIFICATION_SOCKET_TYPES } from "../modules/notification";
+import {
+  LESSON_AI_PREVIEW_KINDS,
+  writeLessonAiPreview,
+} from "../helpers/lessonAiSocket";
 import { ToastTypes } from "../constants";
+
+const cacheLessonAiPreview = (message: ISocketMessage): void => {
+  const data = message.data;
+  if (!data || typeof data !== "object") return;
+  const type = typeof data.type === "string" ? data.type : "";
+  const lessonId = typeof data.lesson_id === "string" ? data.lesson_id : "";
+  if (!lessonId) return;
+
+  if (
+    type === NOTIFICATION_SOCKET_TYPES.LESSON_STORY_ORDER_GENERATED &&
+    Array.isArray(data.story_order)
+  ) {
+    writeLessonAiPreview(
+      lessonId,
+      LESSON_AI_PREVIEW_KINDS.STORY_ORDER,
+      data.story_order,
+    );
+    return;
+  }
+
+  if (
+    type === NOTIFICATION_SOCKET_TYPES.LESSON_WORD_FAMILIES_GENERATED &&
+    Array.isArray(data.word_families)
+  ) {
+    writeLessonAiPreview(
+      lessonId,
+      LESSON_AI_PREVIEW_KINDS.WORD_FAMILIES,
+      data.word_families,
+    );
+    return;
+  }
+
+  if (
+    type === NOTIFICATION_SOCKET_TYPES.LESSON_BUILD_THE_SENTENCES_GENERATED &&
+    Array.isArray(data.build_the_sentences)
+  ) {
+    writeLessonAiPreview(
+      lessonId,
+      LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
+      data.build_the_sentences,
+    );
+  }
+};
 
 export interface INotification {
   id: string;
@@ -51,6 +98,8 @@ export const useSocket = () => {
       if (isEntitlementEvent) {
         void refreshCurrentUser();
       }
+
+      cacheLessonAiPreview(data);
 
       const toast = getSocketToast(data);
       if (!toast) {

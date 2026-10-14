@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { iconsLib } from "../../../../assets";
+import { UPLOAD_SIZE_LIMITS } from "../../../../constants";
 import {
   Badge,
   Button,
-  DateTime,
-  DateTimeFormats,
   DetailSection,
-  Player,
+  FileInput,
+  StatusBadge,
 } from "../../../../design";
 import {
   BadgeVariants,
@@ -16,72 +16,152 @@ import {
 } from "../../../../design/constants";
 import { useToast } from "../../../../contexts/ToastContext";
 import { AppLocales, useTranslate } from "../../../../locales";
-import { ConfirmDialog, Dropdown, TextArea } from "../../components";
-import { MOCK_LESSON_SONG_AI_PROFILES } from "../constants";
+import { SOCKET_MESSAGE_TYPES } from "../../../../helpers/socket.helpers";
+import SocketService, {
+  type ISocketMessage,
+} from "../../../../services/socket.service";
+import { NOTIFICATION_SOCKET_TYPES } from "../../../notification/constants";
+import { Admin } from "../..";
+import { AdminAssetSelectDialog } from "../../asset/components/AdminAssetSelectDialog";
 import {
-  clearLessonSong,
-  generateMockLessonSong,
-} from "../lesson.mock.store";
-import type { IAdminLessonSong } from "../types";
+  ASSET_FORMATS,
+  ASSET_STATUSES,
+  ASSET_TYPES,
+} from "../../asset/constants";
+import type { IAdminAsset } from "../../asset/types";
+import type { IAdminLesson, IAdminLessonAsset } from "../types";
 
-interface IAdminLessonSongsSectionProps {
-  lessonId: string;
-  song: IAdminLessonSong | null;
-  onSongChange: () => void;
+interface IProps {
+  lesson: IAdminLesson;
+  onLessonChange: () => void;
 }
 
-export const AdminLessonSongsSection: React.FC<
-  IAdminLessonSongsSectionProps
-> = ({ lessonId, song, onSongChange }) => {
+const ASSET_STATUS_EVENTS = new Set<string>([
+  NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSED,
+  NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSION_FAILED,
+  NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSING,
+]);
+
+export const AdminLessonSongsSection: React.FC<IProps> = ({
+  lesson,
+  onLessonChange,
+}) => {
   const t = useTranslate();
   const toast = useToast();
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [srtFile, setSrtFile] = useState<File | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [song, setSong] = useState<IAdminLessonAsset | null>(lesson.song);
 
-  const [text, setText] = useState("");
-  const [aiProfileId, setAiProfileId] = useState(
-    MOCK_LESSON_SONG_AI_PROFILES[0]?.id ?? "",
-  );
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  useEffect(() => {
+    setSong(lesson.song);
+  }, [lesson.song]);
 
-  const profileOptions = MOCK_LESSON_SONG_AI_PROFILES.map((profile) => ({
-    value: profile.id,
-    label: profile.name,
-  }));
+  useEffect(() => {
+    const assetId = song?.id || lesson.song_asset_id;
+    if (!assetId) return;
 
-  const handleGenerate = async () => {
-    setIsGenerating(true);
-    const result = await generateMockLessonSong(lessonId, {
-      text,
-      aiProfileId,
-    });
-    setIsGenerating(false);
+    const handler = (message: ISocketMessage) => {
+      if (message.type !== SOCKET_MESSAGE_TYPES.NOTIFICATION) return;
+      const eventType =
+        typeof message.data?.type === "string" ? message.data.type : "";
+      if (!ASSET_STATUS_EVENTS.has(eventType)) return;
 
-    if (!result.success) {
-      if (result.error === "text_required") {
-        toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.TextRequired));
-      } else if (result.error === "profile_required") {
-        toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.ProfileRequired));
-      } else {
-        toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.Generate));
+      const eventAssetId =
+        typeof message.data?.asset_id === "string" ? message.data.asset_id : "";
+      if (eventAssetId !== assetId) return;
+
+      const status =
+        typeof message.data?.status === "string"
+          ? message.data.status
+          : eventType === NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSING
+            ? ASSET_STATUSES.PROCESSING
+            : eventType === NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSION_FAILED
+              ? ASSET_STATUSES.FAILED
+              : "";
+      const sizeBytes =
+        typeof message.data?.size_bytes === "number"
+          ? message.data.size_bytes
+          : undefined;
+      const url =
+        typeof message.data?.url === "string" ? message.data.url : undefined;
+
+      setSong((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: status || prev.status,
+              size_bytes:
+                sizeBytes !== undefined ? sizeBytes : prev.size_bytes,
+              url: url !== undefined ? url : prev.url,
+            }
+          : prev,
+      );
+
+      if (
+        eventType === NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSED ||
+        eventType === NOTIFICATION_SOCKET_TYPES.ASSET_COMPRESSION_FAILED
+      ) {
+        onLessonChange();
       }
+    };
+
+    SocketService.addListener(handler);
+    return () => SocketService.removeListener(handler);
+  }, [lesson.song_asset_id, onLessonChange, song?.id]);
+
+  const handlePickAsset = async (asset: IAdminAsset) => {
+    setIsSaving(true);
+    const result = await Admin.LessonController.updateLesson(lesson.id, {
+      song_asset_id: asset.id,
+    });
+    setIsSaving(false);
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
       return;
     }
-
-    toast.success(t(AppLocales.Admin.Lessons.Songs.Toasts.GenerateSuccess));
-    setText("");
-    onSongChange();
+    toast.success(t(AppLocales.Admin.Lessons.Songs.Toasts.SaveSuccess));
+    onLessonChange();
   };
 
-  const handleDelete = () => {
-    const ok = clearLessonSong(lessonId);
-    setIsDeleteOpen(false);
-    if (ok) {
-      toast.success(t(AppLocales.Admin.Lessons.Songs.Toasts.DeleteSuccess));
-      onSongChange();
-    } else {
-      toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.Delete));
+  const handleUpload = async () => {
+    if (!audioFile) {
+      toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.AudioRequired));
+      return;
     }
+    setIsSaving(true);
+    const result = await Admin.LessonController.updateLesson(
+      lesson.id,
+      {},
+      { audio: audioFile, srt: srtFile || undefined },
+    );
+    setIsSaving(false);
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
+      return;
+    }
+    setAudioFile(null);
+    setSrtFile(null);
+    toast.success(t(AppLocales.Admin.Lessons.Songs.Toasts.SaveSuccess));
+    onLessonChange();
   };
+
+  const handleClear = async () => {
+    setIsSaving(true);
+    const result = await Admin.LessonController.updateLesson(lesson.id, {
+      song_asset_id: null,
+    });
+    setIsSaving(false);
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
+      return;
+    }
+    toast.success(t(AppLocales.Admin.Lessons.Songs.Toasts.ClearSuccess));
+    onLessonChange();
+  };
+
+  const subtitles = song?.children?.subtitles ?? [];
 
   return (
     <>
@@ -89,123 +169,115 @@ export const AdminLessonSongsSection: React.FC<
         accent
         title={t(AppLocales.Admin.Lessons.Songs.Title)}
         description={t(AppLocales.Admin.Lessons.Songs.Description)}
-        icon={iconsLib.sparkles}
+        icon={iconsLib.document}
         badge={
-          <Badge variant={BadgeVariants.WARNING} size={ComponentSizes.SM}>
-            {t(AppLocales.Admin.Lessons.Songs.PlaceholderBadge)}
-          </Badge>
+          song ? (
+            <StatusBadge status={song.status || ASSET_STATUSES.PENDING} />
+          ) : (
+            <Badge variant={BadgeVariants.DEFAULT} size={ComponentSizes.SM}>
+              {t(AppLocales.Admin.Lessons.Songs.EmptyBadge)}
+            </Badge>
+          )
         }
       >
-        <div className="space-y-6">
-          {!song ? (
-            <div className="rounded-xl border border-dashed border-base-300 bg-base-200/30 p-4 space-y-4">
-              <p className="text-body-s text-base-content/70">
-                {t(AppLocales.Admin.Lessons.Songs.GenerateHint)}
-              </p>
-              <div className="grid gap-4 lg:grid-cols-[1fr_minmax(12rem,16rem)_auto] lg:items-end">
-                <TextArea
-                  label={t(AppLocales.Admin.Lessons.Songs.TextLabel)}
-                  placeholder={t(
-                    AppLocales.Admin.Lessons.Songs.TextPlaceholder,
-                  )}
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  rows={3}
-                />
-                <Dropdown
-                  label={t(AppLocales.Admin.Lessons.Songs.ProfileLabel)}
-                  value={aiProfileId}
-                  onValueChange={setAiProfileId}
-                  options={profileOptions}
-                />
+        <div className="space-y-4">
+          {song ? (
+            <div className="rounded-xl border border-base-300 bg-base-100 p-4 space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-body-s font-medium min-w-0 flex-1">
+                  {song.title || song.name || lesson.song_asset_id}
+                </p>
+                <StatusBadge status={song.status || ASSET_STATUSES.PENDING} />
+              </div>
+              {subtitles.length > 0 ? (
+                <ul className="space-y-1.5">
+                  {subtitles.map((subtitle) => (
+                    <li
+                      key={subtitle.id}
+                      className="flex flex-wrap items-center gap-2 text-caption text-base-content/70"
+                    >
+                      <span className="truncate">
+                        {subtitle.title || subtitle.name || "SRT"}
+                      </span>
+                      <StatusBadge
+                        status={subtitle.status || ASSET_STATUSES.READY}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <div className="flex flex-wrap gap-2">
                 <Button
-                  className="lg:mb-1"
-                  onClick={() => void handleGenerate()}
-                  isLoading={isGenerating}
-                  disabled={isGenerating}
+                  size={ButtonSizes.SM}
+                  variant={ButtonVariants.SECONDARY}
+                  onClick={() => setIsPickerOpen(true)}
+                  disabled={isSaving}
                 >
-                  <iconsLib.sparkles className="mr-2 h-4 w-4 text-secondary-content" />
-                  {t(AppLocales.Admin.Lessons.Songs.GenerateButton)}
+                  {t(AppLocales.Admin.Lessons.Songs.ReplaceButton)}
+                </Button>
+                <Button
+                  size={ButtonSizes.SM}
+                  variant={ButtonVariants.TERTIARY}
+                  className="text-error"
+                  onClick={() => void handleClear()}
+                  disabled={isSaving}
+                >
+                  {t(AppLocales.Admin.Lessons.Songs.ClearButton)}
                 </Button>
               </div>
             </div>
           ) : (
-            <div className="rounded-xl border border-base-300 bg-base-100 p-4 space-y-4">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="min-w-0 space-y-1">
-                  <p className="text-body-m font-semibold text-base-content whitespace-pre-wrap">
-                    {song.text}
-                  </p>
-                  <p className="text-caption text-base-content/60">
-                    {song.aiProfileName}
-                    {" · "}
-                    <DateTime
-                      value={song.createdAt}
-                      format={DateTimeFormats.ADMIN}
-                    />
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    size={ButtonSizes.SM}
-                    variant={ButtonVariants.SECONDARY}
-                    onClick={() => {
-                      setText(song.text);
-                      setAiProfileId(song.aiProfileId);
-                      void clearLessonSong(lessonId);
-                      onSongChange();
-                    }}
-                  >
-                    {t(AppLocales.Admin.Lessons.Songs.RegenerateButton)}
-                  </Button>
-                  <Button
-                    size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
-                    className="border border-error/30 text-error hover:bg-error/10"
-                    onClick={() => setIsDeleteOpen(true)}
-                  >
-                    <iconsLib.trash className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <Player
-                view="audio"
-                src={song.audioUrl}
-                title={t(AppLocales.Admin.Lessons.Songs.PreviewTitle)}
-                tracks={[
-                  {
-                    content: song.srtContent,
-                    type: "srt",
-                    kind: "subtitles",
-                    label: "SRT",
-                    default: true,
-                  },
-                ]}
+            <div className="rounded-xl border border-dashed border-base-300 bg-base-200/30 p-4 space-y-4">
+              <Button
+                variant={ButtonVariants.SECONDARY}
+                onClick={() => setIsPickerOpen(true)}
+              >
+                <iconsLib.photo className="mr-2 h-4 w-4" />
+                {t(AppLocales.Admin.Lessons.Songs.PickButton)}
+              </Button>
+              <FileInput
+                label={t(AppLocales.Admin.Lessons.Songs.UploadAudioLabel)}
+                accept="audio/*"
+                buttonText={
+                  audioFile?.name ||
+                  t(AppLocales.Admin.Lessons.Songs.ChooseAudio)
+                }
+                helperText={t(AppLocales.Admin.Lessons.Songs.AudioHelper, {
+                  size: UPLOAD_SIZE_LIMITS.MAX_NON_VIDEO_SIZE_MB,
+                })}
+                onChange={(file) => setAudioFile(file)}
               />
-
-              <details className="text-body-s">
-                <summary className="cursor-pointer text-base-content/70 hover:text-base-content">
-                  {t(AppLocales.Admin.Lessons.Songs.ViewSrt)}
-                </summary>
-                <pre className="mt-2 max-h-40 overflow-auto rounded-lg bg-base-200 p-3 font-mono text-caption whitespace-pre-wrap">
-                  {song.srtContent}
-                </pre>
-              </details>
+              <FileInput
+                label={t(AppLocales.Admin.Lessons.Songs.UploadSrtLabel)}
+                accept=".srt,text/plain"
+                buttonText={
+                  srtFile?.name || t(AppLocales.Admin.Lessons.Songs.ChooseSrt)
+                }
+                onChange={(file) => setSrtFile(file)}
+              />
+              <Button
+                onClick={() => void handleUpload()}
+                isLoading={isSaving}
+                disabled={isSaving || !audioFile}
+              >
+                {t(AppLocales.Admin.Lessons.Songs.UploadButton)}
+              </Button>
             </div>
           )}
         </div>
       </DetailSection>
 
-      <ConfirmDialog
-        isOpen={isDeleteOpen}
-        title={t(AppLocales.Admin.Lessons.Songs.Confirm.DeleteTitle)}
-        message={t(AppLocales.Admin.Lessons.Songs.Confirm.DeleteMessage)}
-        confirmLabel={t(AppLocales.Admin.Common.Actions.Destroy)}
-        cancelLabel={t(AppLocales.Admin.Common.Actions.Cancel)}
-        isDestructive
-        onConfirm={handleDelete}
-        onClose={() => setIsDeleteOpen(false)}
+      <AdminAssetSelectDialog
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        assetType={ASSET_TYPES.GENERAL}
+        format={ASSET_FORMATS.AUDIO}
+        title={t(AppLocales.Admin.Lessons.Songs.PickerTitle)}
+        selectedAssetId={lesson.song_asset_id}
+        onSelect={(asset) => {
+          setIsPickerOpen(false);
+          void handlePickAsset(asset);
+        }}
       />
     </>
   );

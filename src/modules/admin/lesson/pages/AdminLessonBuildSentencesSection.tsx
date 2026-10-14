@@ -1,167 +1,191 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { iconsLib } from "../../../../assets";
 import {
-  Badge,
   Button,
-  DateTime,
-  DateTimeFormats,
   DetailSection,
   Dialog,
   TextInput,
 } from "../../../../design";
-import {
-  BadgeVariants,
-  ButtonSizes,
-  ButtonVariants,
-  ComponentSizes,
-} from "../../../../design/constants";
+import { ButtonSizes, ButtonVariants } from "../../../../design/constants";
 import { useToast } from "../../../../contexts/ToastContext";
 import { AppLocales, useTranslate } from "../../../../locales";
-import { ConfirmDialog, Dropdown } from "../../components";
-import { MOCK_LESSON_BUILD_SENTENCE_AI_PROFILES } from "../constants";
+import SocketService, {
+  type ISocketMessage,
+} from "../../../../services/socket.service";
+import { NOTIFICATION_SOCKET_TYPES } from "../../../notification/constants";
+import { ConfirmDialog } from "../../components";
+import { Admin } from "../..";
 import {
-  clearLessonBuildSentenceSet,
-  generateMockLessonBuildSentences,
-  updateLessonBuildSentence,
-} from "../lesson.mock.store";
+  clearLessonAiPreview,
+  LESSON_AI_PREVIEW_KINDS,
+  parseLessonAiSocketMessage,
+  readLessonAiPreview,
+} from "../../../../helpers/lessonAiSocket";
 import type {
-  IAdminLessonBuildSentenceItem,
-  IAdminLessonBuildSentenceSet,
-  IAdminLessonStoryVideo,
-  IAdminLessonVocabItem,
+  IAdminLesson,
+  IAdminLessonBuildSentencePair,
 } from "../types";
 
-interface IAdminLessonBuildSentencesSectionProps {
-  lessonId: string;
-  vocabs: IAdminLessonVocabItem[];
-  storyVideo: IAdminLessonStoryVideo | null;
-  buildSentenceSet: IAdminLessonBuildSentenceSet | null;
-  onBuildSentencesChange: () => void;
+interface IProps {
+  lesson: IAdminLesson;
+  onLessonChange: () => void;
 }
 
-export const AdminLessonBuildSentencesSection: React.FC<
-  IAdminLessonBuildSentencesSectionProps
-> = ({
-  lessonId,
-  vocabs,
-  storyVideo: _storyVideo,
-  buildSentenceSet,
-  onBuildSentencesChange,
+export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
+  lesson,
+  onLessonChange,
 }) => {
   const t = useTranslate();
   const toast = useToast();
+  const toastRef = useRef(toast);
+  const tRef = useRef(t);
+  toastRef.current = toast;
+  tRef.current = t;
 
-  const [aiProfileId, setAiProfileId] = useState(
-    MOCK_LESSON_BUILD_SENTENCE_AI_PROFILES[0]?.id ?? "",
-  );
+  const [pairs, setPairs] = useState(lesson.build_the_sentences);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [editingItem, setEditingItem] =
-    useState<IAdminLessonBuildSentenceItem | null>(null);
-  const [editSentence, setEditSentence] = useState("");
-  const [sentenceError, setSentenceError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [sentence, setSentence] = useState("");
+  const [sentenceError, setSentenceError] = useState("");
+  const [isClearOpen, setIsClearOpen] = useState(false);
 
   useEffect(() => {
-    if (buildSentenceSet?.aiProfileId) {
-      setAiProfileId(buildSentenceSet.aiProfileId);
-    }
-  }, [buildSentenceSet?.aiProfileId]);
+    setPairs(lesson.build_the_sentences);
+  }, [lesson.build_the_sentences]);
 
-  const profileOptions = MOCK_LESSON_BUILD_SENTENCE_AI_PROFILES.map(
-    (profile) => ({
-      value: profile.id,
-      label: profile.name,
-    }),
-  );
+  const syncPairs = async (next: IAdminLessonBuildSentencePair[]) => {
+    const result = await Admin.LessonController.updateLesson(lesson.id, {
+      build_the_sentences: next,
+    });
+    if (!result.success) {
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
+      return false;
+    }
+    onLessonChange();
+    return true;
+  };
+
+  useEffect(() => {
+    const applyGenerated = async (next: IAdminLessonBuildSentencePair[]) => {
+      setIsGenerating(false);
+      clearLessonAiPreview(
+        lesson.id,
+        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
+      );
+      const ok = await syncPairs(next);
+      if (!ok) return;
+      toastRef.current.success(
+        tRef.current(
+          AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess,
+        ),
+      );
+    };
+
+    const handler = (message: ISocketMessage) => {
+      const data = parseLessonAiSocketMessage(message, lesson.id);
+      if (!data) return;
+
+      if (
+        data.type ===
+        NOTIFICATION_SOCKET_TYPES.LESSON_BUILD_THE_SENTENCES_GENERATED
+      ) {
+        void applyGenerated(data.build_the_sentences ?? []);
+      }
+      if (
+        data.type ===
+        NOTIFICATION_SOCKET_TYPES.LESSON_BUILD_THE_SENTENCES_FAILED
+      ) {
+        setIsGenerating(false);
+        toastRef.current.error(
+          data.error ||
+            tRef.current(
+              AppLocales.Admin.Lessons.BuildSentences.Errors.Generate,
+            ),
+        );
+      }
+    };
+
+    SocketService.addListener(handler);
+    return () => SocketService.removeListener(handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson.id]);
+
+  useEffect(() => {
+    if (!isGenerating) return;
+    const timer = window.setInterval(() => {
+      const cached = readLessonAiPreview<IAdminLessonBuildSentencePair[]>(
+        lesson.id,
+        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
+      );
+      if (!cached?.length) return;
+      setIsGenerating(false);
+      clearLessonAiPreview(
+        lesson.id,
+        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
+      );
+      void syncPairs(cached).then((ok) => {
+        if (ok) {
+          toastRef.current.success(
+            tRef.current(
+              AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess,
+            ),
+          );
+        }
+      });
+    }, 1000);
+    return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGenerating, lesson.id]);
 
   const handleGenerate = async () => {
-    if (vocabs.length === 0) {
-      toast.error(
-        t(AppLocales.Admin.Lessons.BuildSentences.Errors.VocabsRequired),
-      );
+    if (lesson.vocabularies.length === 0) {
+      toast.error(t(AppLocales.Admin.Lessons.BuildSentences.Errors.VocabsRequired));
       return;
     }
-
     setIsGenerating(true);
-    const result = await generateMockLessonBuildSentences(lessonId, {
-      aiProfileId,
-    });
-    setIsGenerating(false);
-
-    if (!result.success) {
-      if (result.error === "vocabs_required") {
-        toast.error(
-          t(AppLocales.Admin.Lessons.BuildSentences.Errors.VocabsRequired),
-        );
-      } else if (result.error === "profile_required") {
-        toast.error(
-          t(AppLocales.Admin.Lessons.BuildSentences.Errors.ProfileRequired),
-        );
-      } else {
-        toast.error(t(AppLocales.Admin.Lessons.BuildSentences.Errors.Generate));
-      }
-      return;
-    }
-
-    toast.success(
-      t(AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess),
+    clearLessonAiPreview(
+      lesson.id,
+      LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
     );
-    onBuildSentencesChange();
+    const result =
+      await Admin.LessonController.createBuildTheSentences(lesson.id);
+    if (!result.success) {
+      setIsGenerating(false);
+      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.AiQueue));
+    }
   };
 
-  const openEdit = (item: IAdminLessonBuildSentenceItem) => {
-    setEditingItem(item);
-    setEditSentence(item.sentence);
-    setSentenceError("");
-  };
-
-  const closeEdit = () => {
-    setEditingItem(null);
-    setEditSentence("");
-    setSentenceError("");
-  };
-
-  const handleSaveEdit = () => {
-    if (!editingItem) return;
-    const sentence = editSentence.trim();
-    if (!sentence) {
+  const handleSaveEdit = async () => {
+    if (editIndex === null) return;
+    if (!sentence.trim()) {
       setSentenceError(
         t(AppLocales.Admin.Lessons.BuildSentences.Errors.SentenceRequired),
       );
       return;
     }
-    setSentenceError("");
-
+    const next = pairs.map((pair, index) =>
+      index === editIndex ? { ...pair, sentence: sentence.trim() } : pair,
+    );
     setIsSaving(true);
-    const updated = updateLessonBuildSentence(lessonId, editingItem.id, {
-      sentence,
-    });
+    const ok = await syncPairs(next);
     setIsSaving(false);
-
-    if (!updated) {
-      toast.error(t(AppLocales.Admin.Lessons.BuildSentences.Errors.Update));
-      return;
-    }
-
+    if (!ok) return;
     toast.success(
       t(AppLocales.Admin.Lessons.BuildSentences.Toasts.UpdateSuccess),
     );
-    closeEdit();
-    onBuildSentencesChange();
+    setEditIndex(null);
   };
 
-  const handleClear = () => {
-    const ok = clearLessonBuildSentenceSet(lessonId);
-    setIsDeleteOpen(false);
-    if (ok) {
-      toast.success(
-        t(AppLocales.Admin.Lessons.BuildSentences.Toasts.DeleteSuccess),
-      );
-      onBuildSentencesChange();
-    } else {
-      toast.error(t(AppLocales.Admin.Lessons.BuildSentences.Errors.Delete));
-    }
+  const handleClear = async () => {
+    setIsSaving(true);
+    const ok = await syncPairs([]);
+    setIsSaving(false);
+    setIsClearOpen(false);
+    if (!ok) return;
+    toast.success(
+      t(AppLocales.Admin.Lessons.BuildSentences.Toasts.DeleteSuccess),
+    );
   };
 
   return (
@@ -170,129 +194,89 @@ export const AdminLessonBuildSentencesSection: React.FC<
         accent
         title={t(AppLocales.Admin.Lessons.BuildSentences.Title)}
         description={t(AppLocales.Admin.Lessons.BuildSentences.Description)}
-        icon={iconsLib.sparkles}
-        badge={
-          <Badge variant={BadgeVariants.WARNING} size={ComponentSizes.SM}>
-            {t(AppLocales.Admin.Lessons.BuildSentences.PlaceholderBadge)}
-          </Badge>
+        icon={iconsLib.document}
+        actions={
+          <div className="flex flex-wrap gap-2">
+            <Button
+              size={ButtonSizes.SM}
+              variant={ButtonVariants.SECONDARY}
+              onClick={() => void handleGenerate()}
+              isLoading={isGenerating}
+              disabled={isGenerating}
+            >
+              <iconsLib.sparkles className="mr-1.5 h-4 w-4" />
+              {t(AppLocales.Admin.Lessons.BuildSentences.GenerateButton)}
+            </Button>
+            {pairs.length > 0 ? (
+              <Button
+                size={ButtonSizes.SM}
+                variant={ButtonVariants.TERTIARY}
+                className="text-error"
+                onClick={() => setIsClearOpen(true)}
+              >
+                {t(AppLocales.Admin.Lessons.BuildSentences.ClearButton)}
+              </Button>
+            ) : null}
+          </div>
         }
       >
-        <div className="space-y-6">
-          {!buildSentenceSet ? (
-            <div className="rounded-xl border border-dashed border-base-300 bg-base-200/30 p-4 space-y-4">
-              <p className="text-body-s text-base-content/70">
-                {t(AppLocales.Admin.Lessons.BuildSentences.GenerateHint)}
-              </p>
-              <div className="grid gap-4 lg:grid-cols-[minmax(12rem,16rem)_auto] lg:items-end">
-                <Dropdown
-                  label={t(AppLocales.Admin.Lessons.BuildSentences.ProfileLabel)}
-                  value={aiProfileId}
-                  onValueChange={setAiProfileId}
-                  options={profileOptions}
-                />
-                <Button
-                  className="lg:mb-1"
-                  onClick={() => void handleGenerate()}
-                  isLoading={isGenerating}
-                  disabled={isGenerating}
-                >
-                  <iconsLib.sparkles className="mr-2 h-4 w-4 text-secondary-content" />
-                  {t(AppLocales.Admin.Lessons.BuildSentences.GenerateButton)}
-                </Button>
-              </div>
-            </div>
+        <div className="space-y-4">
+          {isGenerating ? (
+            <p className="text-body-s font-medium text-primary">
+              {t(AppLocales.Admin.Lessons.Ai.Pending)}
+            </p>
+          ) : null}
+          {pairs.length === 0 ? (
+            <p className="text-body-s text-base-content/60 py-4 text-center">
+              {t(AppLocales.Admin.Lessons.BuildSentences.Empty)}
+            </p>
           ) : (
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="min-w-0 space-y-1">
-                  <p className="text-caption text-base-content/60">
-                    {buildSentenceSet.aiProfileName}
-                    {" · "}
-                    <DateTime
-                      value={buildSentenceSet.createdAt}
-                      format={DateTimeFormats.ADMIN}
-                    />
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <Dropdown
-                    className="min-w-[12rem]"
-                    value={aiProfileId}
-                    onValueChange={setAiProfileId}
-                    options={profileOptions}
-                  />
-                  <Button
-                    size={ButtonSizes.SM}
-                    variant={ButtonVariants.SECONDARY}
-                    onClick={() => void handleGenerate()}
-                    isLoading={isGenerating}
-                    disabled={isGenerating}
-                  >
-                    {t(AppLocales.Admin.Lessons.BuildSentences.RegenerateButton)}
-                  </Button>
+            <ul className="space-y-3">
+              {pairs.map((item, index) => (
+                <li
+                  key={`${item.vocab}-${index}`}
+                  className="flex flex-wrap items-start gap-3 rounded-xl border border-base-300 bg-base-100 p-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold">{item.vocab}</p>
+                    <p className="text-body-s text-base-content/80">
+                      {item.sentence}
+                    </p>
+                  </div>
                   <Button
                     size={ButtonSizes.SM}
                     variant={ButtonVariants.TERTIARY}
-                    className="border border-error/30 text-error hover:bg-error/10"
-                    onClick={() => setIsDeleteOpen(true)}
+                    onClick={() => {
+                      setEditIndex(index);
+                      setSentence(item.sentence);
+                      setSentenceError("");
+                    }}
                   >
-                    <iconsLib.trash className="h-4 w-4" />
+                    <iconsLib.pencilSquare className="h-4 w-4" />
                   </Button>
-                </div>
-              </div>
-
-              <ul className="space-y-3">
-                {buildSentenceSet.items.map((item) => (
-                  <li
-                    key={item.id}
-                    className="rounded-xl border border-base-300 bg-base-100 p-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 space-y-1">
-                        <p className="text-caption font-semibold uppercase tracking-wide text-base-content/50">
-                          {t(AppLocales.Admin.Lessons.BuildSentences.VocabLabel)}
-                        </p>
-                        <p className="text-body-m font-semibold text-base-content">
-                          {item.vocab}
-                        </p>
-                        <p className="text-body-s text-base-content/80 leading-relaxed">
-                          {item.sentence}
-                        </p>
-                      </div>
-                      <Button
-                        size={ButtonSizes.SM}
-                        variant={ButtonVariants.TERTIARY}
-                        onClick={() => openEdit(item)}
-                      >
-                        <iconsLib.pencilSquare className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </DetailSection>
 
       <Dialog
-        isOpen={Boolean(editingItem)}
-        onClose={closeEdit}
+        isOpen={editIndex !== null}
+        onClose={() => setEditIndex(null)}
         title={t(AppLocales.Admin.Lessons.BuildSentences.EditTitle)}
-        className="max-w-lg"
+        className="max-w-md"
         footer={
-          <div className="flex w-full justify-end gap-2">
+          <div className="flex justify-end gap-2">
             <Button
               variant={ButtonVariants.TERTIARY}
-              onClick={closeEdit}
-              disabled={isSaving}
+              onClick={() => setEditIndex(null)}
             >
               {t(AppLocales.Admin.Common.Actions.Cancel)}
             </Button>
             <Button
-              onClick={handleSaveEdit}
+              onClick={() => void handleSaveEdit()}
               isLoading={isSaving}
-              disabled={isSaving}
             >
               {t(AppLocales.Admin.Lessons.BuildSentences.SaveButton)}
             </Button>
@@ -300,29 +284,28 @@ export const AdminLessonBuildSentencesSection: React.FC<
         }
       >
         <div className="space-y-4">
-          <div>
-            <p className="text-body-s font-medium text-base-content/70 mb-1">
-              {t(AppLocales.Admin.Lessons.BuildSentences.VocabLabel)}
+          {editIndex !== null ? (
+            <p className="text-body-s">
+              <span className="font-medium">
+                {t(AppLocales.Admin.Lessons.BuildSentences.VocabLabel)}:
+              </span>{" "}
+              {pairs[editIndex]?.vocab}
             </p>
-            <p className="text-body-m font-semibold text-base-content">
-              {editingItem?.vocab}
-            </p>
-          </div>
+          ) : null}
           <TextInput
             label={t(AppLocales.Admin.Lessons.BuildSentences.SentenceLabel)}
             placeholder={t(
               AppLocales.Admin.Lessons.BuildSentences.SentencePlaceholder,
             )}
-            value={editSentence}
+            value={sentence}
+            onChange={(e) => setSentence(e.target.value)}
             error={sentenceError}
-            onChange={(e) => setEditSentence(e.target.value)}
-            required
           />
         </div>
       </Dialog>
 
       <ConfirmDialog
-        isOpen={isDeleteOpen}
+        isOpen={isClearOpen}
         title={t(AppLocales.Admin.Lessons.BuildSentences.Confirm.DeleteTitle)}
         message={t(
           AppLocales.Admin.Lessons.BuildSentences.Confirm.DeleteMessage,
@@ -330,8 +313,8 @@ export const AdminLessonBuildSentencesSection: React.FC<
         confirmLabel={t(AppLocales.Admin.Common.Actions.Destroy)}
         cancelLabel={t(AppLocales.Admin.Common.Actions.Cancel)}
         isDestructive
-        onConfirm={handleClear}
-        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={() => void handleClear()}
+        onClose={() => setIsClearOpen(false)}
       />
     </>
   );

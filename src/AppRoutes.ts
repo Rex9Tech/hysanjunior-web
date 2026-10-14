@@ -342,6 +342,18 @@ class AppRoutes {
           "/client/versions/:id/user_versions",
         ), // GET
         APP_INSTALLS: AppRoutes.adminApi("/client/versions/user_versions"), // GET
+        LESSONS: AppRoutes.adminApi("/lessons"), // GET, POST
+        LESSON_DETAIL: AppRoutes.adminApi("/lessons/:id"), // GET, PATCH/PUT, DELETE
+        LESSON_UNDISCARD: AppRoutes.adminApi("/lessons/:id/undiscard"), // POST
+        LESSON_CREATE_WORD_FAMILIES: AppRoutes.adminApi(
+          "/lessons/:id/create_word_families",
+        ), // POST
+        LESSON_CREATE_STORY_ORDER: AppRoutes.adminApi(
+          "/lessons/:id/create_story_order",
+        ), // POST
+        LESSON_CREATE_BUILD_THE_SENTENCES: AppRoutes.adminApi(
+          "/lessons/:id/create_build_the_sentences",
+        ), // POST
       },
     },
   };

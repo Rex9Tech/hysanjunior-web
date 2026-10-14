@@ -119,7 +119,6 @@ const navSections: IAdminNavSection[] = [
         to: AppRoutes.client.protected.admin.LESSONS,
         resource: ADMIN_RESOURCES.LESSONS,
         icon: iconsLib.document,
-        adminOnly: true,
       },
     ],
   },

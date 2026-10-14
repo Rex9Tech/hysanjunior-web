@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  DateTimePicker,
-  Dialog,
-  Dropdown,
-} from "../../../../design";
+import { Button, Dialog } from "../../../../design";
 import { ButtonVariants } from "../../../../design/constants";
 import { AppLocales, useTranslate } from "../../../../locales";
-import { ADMIN_LESSON_LEVELS, ADMIN_LESSON_UNITS } from "../constants";
+import { Dropdown } from "../../components";
+import {
+  ADMIN_LESSON_LEVELS,
+  ADMIN_LESSON_STATUS_OPTIONS,
+  ADMIN_LESSON_UNITS,
+} from "../constants";
 import type { IAdminLessonFilters } from "../types";
 
 interface IAdminLessonFilterDialogProps {
@@ -22,81 +22,90 @@ export const AdminLessonFilterDialog: React.FC<
   IAdminLessonFilterDialogProps
 > = ({ isOpen, initialFilters, onClose, onApply, onReset }) => {
   const t = useTranslate();
-  const [draft, setDraft] = useState<IAdminLessonFilters>(initialFilters);
+  const [filters, setFilters] = useState<IAdminLessonFilters>(initialFilters);
 
   useEffect(() => {
-    if (!isOpen) return;
-    const timeoutId = window.setTimeout(() => setDraft(initialFilters), 0);
-    return () => window.clearTimeout(timeoutId);
+    if (isOpen) setFilters(initialFilters);
   }, [isOpen, initialFilters]);
-
-  const levelOptions = [
-    { value: "", label: t(AppLocales.Admin.Lessons.Filters.AllLevels) },
-    ...ADMIN_LESSON_LEVELS.map((level) => ({ value: level, label: level })),
-  ];
-
-  const unitOptions = [
-    { value: "", label: t(AppLocales.Admin.Lessons.Filters.AllUnits) },
-    ...ADMIN_LESSON_UNITS.map((unit) => ({ value: unit, label: unit })),
-  ];
 
   return (
     <Dialog
       isOpen={isOpen}
       onClose={onClose}
       title={t(AppLocales.Admin.Lessons.Filters.Title)}
+      className="max-w-md"
       footer={
-        <div className="flex w-full flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-          <Button
-            variant={ButtonVariants.SECONDARY}
-            onClick={() => {
-              setDraft({ level: "", unit: "", from: "", to: "" });
-              onReset();
-            }}
-          >
+        <div className="flex w-full justify-between gap-2">
+          <Button variant={ButtonVariants.TERTIARY} onClick={onReset}>
             {t(AppLocales.Admin.Common.Actions.ResetFilter)}
           </Button>
-          <Button
-            onClick={() => {
-              onApply(draft);
-              onClose();
-            }}
-          >
-            {t(AppLocales.Admin.Common.Actions.ApplyFilter)}
-          </Button>
+          <div className="flex gap-2">
+            <Button variant={ButtonVariants.TERTIARY} onClick={onClose}>
+              {t(AppLocales.Admin.Common.Actions.Cancel)}
+            </Button>
+            <Button
+              onClick={() => {
+                onApply(filters);
+                onClose();
+              }}
+            >
+              {t(AppLocales.Admin.Common.Actions.ApplyFilter)}
+            </Button>
+          </div>
         </div>
       }
     >
       <div className="space-y-4">
         <Dropdown
-          label={t(AppLocales.Admin.Lessons.Filters.Level)}
-          value={draft.level}
+          label={t(AppLocales.Admin.Lessons.Filters.Status)}
+          value={filters.status}
           onValueChange={(value) =>
-            setDraft((current) => ({ ...current, level: value }))
+            setFilters((current) => ({ ...current, status: value }))
           }
-          options={levelOptions}
+          options={[
+            {
+              value: "",
+              label: t(AppLocales.Admin.Lessons.Filters.AllStatuses),
+            },
+            ...ADMIN_LESSON_STATUS_OPTIONS.map((status) => ({
+              value: status,
+              label: t(AppLocales.Admin.Lessons.Status[status]),
+            })),
+          ]}
+        />
+        <Dropdown
+          label={t(AppLocales.Admin.Lessons.Filters.Level)}
+          value={filters.level}
+          onValueChange={(value) =>
+            setFilters((current) => ({ ...current, level: value }))
+          }
+          options={[
+            {
+              value: "",
+              label: t(AppLocales.Admin.Lessons.Filters.AllLevels),
+            },
+            ...ADMIN_LESSON_LEVELS.map((level) => ({
+              value: String(level),
+              label: t(AppLocales.Admin.Lessons.Form.LevelOption, { level }),
+            })),
+          ]}
         />
         <Dropdown
           label={t(AppLocales.Admin.Lessons.Filters.Unit)}
-          value={draft.unit}
+          value={filters.unit}
           onValueChange={(value) =>
-            setDraft((current) => ({ ...current, unit: value }))
+            setFilters((current) => ({ ...current, unit: value }))
           }
-          options={unitOptions}
-        />
-        <DateTimePicker
-          type="date"
-          label={t(AppLocales.Admin.Lessons.Filters.From)}
-          value={draft.from}
-          onChange={(utc) =>
-            setDraft((current) => ({ ...current, from: utc }))
-          }
-        />
-        <DateTimePicker
-          type="date"
-          label={t(AppLocales.Admin.Lessons.Filters.To)}
-          value={draft.to}
-          onChange={(utc) => setDraft((current) => ({ ...current, to: utc }))}
+          options={[
+            {
+              value: "",
+              label: t(AppLocales.Admin.Lessons.Filters.AllUnits),
+            },
+            ...ADMIN_LESSON_UNITS.map((unit) => ({
+              value: unit,
+              label: unit,
+            })),
+          ]}
         />
       </div>
     </Dialog>
