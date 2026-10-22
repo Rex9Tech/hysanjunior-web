@@ -21,12 +21,12 @@ export const queryClient = new QueryClient({
 
 export const idbPersister: Persister = {
   persistClient: async (persistedClient: PersistedClient): Promise<void> => {
-    await set("rexone_react_query_cache", persistedClient);
+    await set("hysanjunior_react_query_cache", persistedClient);
   },
   restoreClient: async (): Promise<PersistedClient | undefined> => {
-    return await get<PersistedClient>("rexone_react_query_cache");
+    return await get<PersistedClient>("hysanjunior_react_query_cache");
   },
   removeClient: async (): Promise<void> => {
-    await del("rexone_react_query_cache");
+    await del("hysanjunior_react_query_cache");
   },
 };

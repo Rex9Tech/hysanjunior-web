@@ -70,7 +70,7 @@ axiosInstance.interceptors.request.use(
     // Always send platform so backend can enforce one active session per platform
     headers.set(AUTH_HEADERS.PLATFORM, PLATFORM_HEADER_VALUE);
 
-    // RexOne Core locale
+    // Hysan Junior Core locale
     headers.set(AUTH_HEADERS.LOCALE, getApiLocale());
 
     if (config.data instanceof FormData) {

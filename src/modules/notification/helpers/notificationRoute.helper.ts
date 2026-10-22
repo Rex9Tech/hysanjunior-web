@@ -1,6 +1,6 @@
 import AppRoutes from "../../../AppRoutes";
 
-const NOTIFICATION_ROUTE_ORIGIN = "https://notification.rexone.local";
+const NOTIFICATION_ROUTE_ORIGIN = "https://notification.hysanjunior.com";
 const EXTERNAL_LINK_PROTOCOL = "https:";
 
 export const NOTIFICATION_ROUTES = {
