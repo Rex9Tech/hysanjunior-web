@@ -322,14 +322,14 @@ export const AdminLessonSortHealthyChoicesSection: React.FC<IProps> = ({
                     </Button>
                     <Button
                       size={ButtonSizes.SM}
-                      variant={ButtonVariants.TERTIARY}
+                      variant={ButtonVariants.FLAT}
                       onClick={() => openEditGroup(group)}
                     >
                       <iconsLib.pencilSquare className="h-4 w-4" />
                     </Button>
                     <Button
                       size={ButtonSizes.SM}
-                      variant={ButtonVariants.TERTIARY}
+                      variant={ButtonVariants.FLAT}
                       className="text-error"
                       onClick={() => setDeleteGroup(group)}
                     >
@@ -362,14 +362,14 @@ export const AdminLessonSortHealthyChoicesSection: React.FC<IProps> = ({
                         </span>
                         <Button
                           size={ButtonSizes.SM}
-                          variant={ButtonVariants.TERTIARY}
+                          variant={ButtonVariants.FLAT}
                           onClick={() => openEditItem(group.id, item)}
                         >
                           <iconsLib.pencilSquare className="h-4 w-4" />
                         </Button>
                         <Button
                           size={ButtonSizes.SM}
-                          variant={ButtonVariants.TERTIARY}
+                          variant={ButtonVariants.FLAT}
                           className="text-error"
                           onClick={() =>
                             setDeleteItem({ groupId: group.id, item })
@@ -399,7 +399,7 @@ export const AdminLessonSortHealthyChoicesSection: React.FC<IProps> = ({
         footer={
           <div className="flex justify-end gap-2">
             <Button
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={() => setIsGroupFormOpen(false)}
             >
               {t(AppLocales.Admin.Common.Actions.Cancel)}
@@ -439,7 +439,7 @@ export const AdminLessonSortHealthyChoicesSection: React.FC<IProps> = ({
         footer={
           <div className="flex justify-end gap-2">
             <Button
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={() => {
                 clearImage();
                 setIsItemFormOpen(false);
@@ -485,7 +485,7 @@ export const AdminLessonSortHealthyChoicesSection: React.FC<IProps> = ({
               {(imageSelection || existingImage) && (
                 <Button
                   size={ButtonSizes.SM}
-                  variant={ButtonVariants.TERTIARY}
+                  variant={ButtonVariants.FLAT}
                   onClick={() => {
                     clearImage();
                     setExistingImage(null);

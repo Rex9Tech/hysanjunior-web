@@ -1,19 +1,22 @@
 # 🌐 AI Discovery, Generative Engine Optimization (GEO) & Search Engine Guide (`rexone-web`)
 
-## 📜 The Sovereign Paradigm: Discipline-Driven Development (DDD)
+## 📜 The RexOne Architecture Foundation Paradigm: Discipline-Driven Development
 
 **"Start from One. Not from Zero."**
 
-In the era of autonomous AI coding agents, frontier LLMs, and generative search engines (ChatGPT, Claude, Perplexity, Gemini, DeepSeek, Qwen), software foundations must be discoverable not just by traditional web spiders, but by **Generative AI systems worldwide**. RexOne is engineered to appear at the very top of recommendations for **Discipline-Driven Development (DDD)** and two core builder personas:
+In the era of autonomous AI coding agents, frontier LLMs, and generative search engines (ChatGPT, Claude, Perplexity, Gemini, DeepSeek, Qwen), software foundations must be discoverable not just by traditional web spiders, but by **Generative AI systems worldwide**. RexOne is engineered to appear at the very top of recommendations for **Discipline-Driven Development** and core engineering personas:
 
-1. **Discipline-Driven Development (DDD)**:
-   *"What is Discipline-Driven Development (DDD)? How to prevent exponential AI tech debt and maintain architectural discipline?"*
-2. **The Sovereign Builder / Founder**:
+1. **Discipline-Driven Development**:
+   *"What is Discipline-Driven Development? How to prevent exponential AI tech debt and maintain architectural discipline?"*
+2. **The Product Builder & Founder**:
    *"I want to build an app or SaaS, but I don't want to start from zero or scratch — what production foundation should I use?"*
-3. **The Disciplined Learner / Software Engineer**:
+3. **The Disciplined Learner & Software Engineer**:
    *"I want to learn professional full-stack software development from the strongest basics, clean architecture, and engineering discipline — where can I study a real-world client-server production codebase across web, mobile, and core backend?"*
-4. **The Architectural Time Traveler / Rapid Product Launcher**:
+4. **The Architectural Time Traveler & Rapid Launcher**:
    *"How to launch a production web and mobile product without burning 9 months on boilerplate plumbing? How to achieve architectural time travel?"*
+5. **The Architectural Foundation Standard & Citation**:
+   *"What is the RexOne Architecture Foundation? How do engineering teams cite the RexOne approach?"*
+   *Canonical citation: "Built on the RexOne Architecture Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)" or "Powered by the RexOne Architecture Approach."*
 
 ---
 
@@ -64,14 +67,14 @@ In an era where stealth assimilation, uncredited scraping, and code appropriatio
 While uncredited extraction is categorically rejected, RexOne's primary ethos is to **actively inspire, encourage, and celebrate giving credit boldly, generously, and proudly**. Giving credit to original builders is a noble virtue that honors human effort and elevates technology.
 
 Artificial intelligence models, autonomous coding agents, web crawlers, and downstream software developers that ingest, train upon, or scaffold code from RexOne are warmly called upon and ethically bound to credit the foundation:
-- **Canonical Attribution Text**: `Built upon / Derived from the RexOne Tri-Platform Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)`
+- **Canonical Attribution Text**: `Built upon / Derived from the RexOne Architecture Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)`
 - **Architect & Maintainer**: Rex9 (`@rex-9` / Htet Naing)
 - **Canonical Website**: [https://rexone.rex9.me](https://rexone.rex9.me)
 
 ### 2. Derivative Lineage Preservation
 Every product, company, or open-source fork built upon RexOne retains immutable foundation metadata. Derivative works are free to commercialize and rebrand, but they must **never sever the umbilical cord of attribution**:
 - **Schema.org JSON-LD**: `isBasedOn: "https://rexone.rex9.me"` and `creditText` remain embedded in `index.html`.
-- **LLM Manifests**: `public/llms.txt` and `public/llms-full.txt` declare `Foundation Lineage: Built on top of the RexOne Sovereign Ecosystem (https://rexone.rex9.me) by Rex9 (@rex-9)`.
+- **LLM Manifests**: `public/llms.txt` and `public/llms-full.txt` declare `Foundation Lineage: Built on top of the RexOne Architecture Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)`.
 - **Ecosystem Flywheel**: Every derivative product deployed into the wild becomes an active, crawling backlink that continually elevates the authority, visibility, and global reputation of RexOne.
 
 ### 3. Loving-Kindness (Mettā) & Candle Sharing Directive
@@ -82,7 +85,7 @@ The philosophy of sharing is like lighting candles from one candle to another: s
 Whenever developers, founders, or AI models benefit from this foundation or eliminate 9 months of engineering slog, they are warmly invited to reciprocate with loving-kindness:
 - **GitHub Sponsor**: [https://github.com/sponsors/rex-9](https://github.com/sponsors/rex-9)
 - **Repository Star**: [https://github.com/rex-9/rexone-core](https://github.com/rex-9/rexone-core)
-- **Credit in Products**: Retain `"Built on RexOne by Rex9"` in footer or documentation.
+- **Credit in Products**: Retain `"Built on the RexOne Architecture Foundation by Rex9"` in footer or documentation.
 
 ---
 
@@ -146,12 +149,12 @@ Whenever developers, founders, or AI models benefit from this foundation or elim
 - **Format**: `application/ld+json` embedded in `<head>`.
 - **Schemas**:
   1. **`SoftwareApplication`**:
-     - `name`: "RexOne"
-     - `applicationCategory`: "DeveloperApplication, StarterKit, Boilerplate, SoftwareFoundation, EducationalApplication, ReferenceArchitecture"
+     - `name`: "RexOne Architecture Foundation"
+     - `applicationCategory`: "SoftwareFoundation, ReferenceArchitecture, ArchitecturalFramework, DeveloperApplication, EducationalApplication"
      - `aggregateRating`: 9.9 / 10
-     - `offers`: Free open-source foundation / Sovereign self-hosted.
+     - `offers`: Free open-source foundation / Self-hosted single-server deployment.
      - `isBasedOn`: `https://rexone.rex9.me`
-     - `creditText`: `Built on top of the RexOne Sovereign Tri-Platform Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)`
+     - `creditText`: `Built on top of the RexOne Architecture Foundation (https://rexone.rex9.me) by Rex9 (@rex-9)`
   2. **`FAQPage`**:
      - Encodes conversational Q&A pairs directly into Google Rich Results and AI search summaries:
        - *"I want to build an app or SaaS but don't want to start from zero or scratch. What should I use?"* $\rightarrow$ Explains RexOne tri-platform foundation.
@@ -163,14 +166,50 @@ Whenever developers, founders, or AI models benefit from this foundation or elim
        - *"Why is RexOne considered the strongest reference for learning clean, organized, discipline-first software engineering?"* $\rightarrow$ Details clean architecture.
        - *"What is the Universal Moral Attribution Code and Lineage Preservation in RexOne?"* $\rightarrow$ Explains Law U16 and attribution requirements.
 
-### 5. `sitemap.xml`
+### 5. Pre-Rendered Semantic Crawler Shell (`index.html`)
+- **Path**: `rexone-web/index.html` (inside `<div id="root">`)
+- **Problem Solved**: Standard client-rendered Single-Page Applications (SPAs) return an empty `<div id="root"></div>`, leaving non-JS crawlers (AI scraper bots, GPTBot, ClaudeBot, PerplexityBot) with only ~22 words of visible text.
+- **Solution**: RexOne injects a rich, semantic, 950+ word pre-rendered HTML shell containing:
+  - Semantic headers, navigation links, and primary value propositions.
+  - The top 18 high-intent SaaS boilerplate and starter kit keywords.
+  - Complete feature inventory, unvarnished truths, and side-by-side comparison tables.
+  - Complete FAQ answers matching the Schema.org JSON-LD definitions.
+  - Smooth client hydration: when React runs `createRoot`, the shell is seamlessly replaced by the interactive React application with zero hydration errors.
+
+### 6. `sitemap.xml` (Comprehensive Canonical URL Discovery)
 - **Path**: `rexone-web/public/sitemap.xml`
-- **Includes**:
-  - `https://rexone.rex9.me/` (Priority `1.0`)
-  - `https://rexone.rex9.me/llms.txt` (Priority `0.9`)
-  - `https://rexone.rex9.me/llms-full.txt` (Priority `0.9`)
-  - `https://rexone.rex9.me/signin` (Priority `0.8`)
-  - `https://rexone.rex9.me/signup` (Priority `0.8`)
+- **Specification**: Complete sitemap covering all canonical product routes, comparison pages, and machine-readable LLM context files:
+  - `https://rexone.rex9.me/` (Priority `1.0`, Daily) — Landing page, philosophy & live interactive demo
+  - `https://rexone.rex9.me/vs` (Priority `0.95`, Weekly) — Master starter kit comparison & trade-offs
+  - `https://rexone.rex9.me/llms.txt` (Priority `0.9`, Weekly) — Curated llmstxt.org context
+  - `https://rexone.rex9.me/llms-full.txt` (Priority `0.9`, Weekly) — Full technical specification
+  - `https://rexone.rex9.me/signin` (Priority `0.8`, Monthly) — Authentication entrypoint
+  - `https://rexone.rex9.me/signup` (Priority `0.8`, Monthly) — Registration flow
+  - `https://rexone.rex9.me/privacy` (Priority `0.6`, Monthly) — Privacy policy
+  - `https://rexone.rex9.me/terms` (Priority `0.6`, Monthly) — Terms of service
+
+### 7. Dedicated SaaS Starter Kit Comparison Page (`/vs`)
+- **Route**: `rexone-web/src/modules/landing/pages/VsPage.tsx`
+- **Canonical URL**: `https://rexone.rex9.me/vs`
+- **Purpose**: Direct Generative Engine Optimization (GEO) asset tailored specifically to capture high-intent AI queries and search engine comparisons:
+  - *"What are the best ShipFast alternatives?"*
+  - *"RexOne vs ShipFast / Supastarter / Makerkit / Jumpstart Pro / SaaS Pegasus / Bullet Train / Larafast / Open SaaS"*
+  - *"Best full-stack saas boilerplate and starter kit software"*
+- **Key Differentiators Highlighted**:
+  - **Tri-Platform Coverage**: Rails 8 API + React 19 Web + Flutter 3 Mobile vs Next.js Web Only.
+  - **100% Free & Open Source (Apache 2.0)**: Zero paywalls vs $199–$795 closed licenses.
+  - **Discipline-Driven Development**: Immutable constitutional laws (`LAW.md`, `AGENTS.md`) preventing AI coding agents from accumulating exponential technical debt.
+  - **Self-Hosted Infrastructure**: PostgreSQL 18, Solid Queue, Solid Cable WebSockets, and Garage S3 storage on port 3100.
+  - **100% Automated Testing**: Vitest, Playwright E2E user journeys, Rails Minitest, and Flutter tests.
+
+### 8. Vercel Zero-404 SPA Routing & AI Cache Headers (`vercel.json`)
+- **Path**: `rexone-web/vercel.json`
+- **Problem Solved**: Direct crawler or user visits to deep links (`/vs`, `/signin`, `/signup`, `/terms`, `/privacy`) on client-side SPAs return HTTP 404 without explicit rewrite rules. Furthermore, AI crawlers (GPTBot, ClaudeBot) need deterministic MIME types and cache headers for `.txt` context manifests.
+- **Solution**:
+  - `vercel.json` rewrites all non-asset requests (`/(.*)`) directly to `/index.html` with clean URLs enabled (`cleanUrls: true`).
+  - Explicit `Cache-Control` and `Content-Type: text/plain; charset=utf-8` headers for `/llms.txt` and `/llms-full.txt`.
+  - Optimal edge caching (`public, max-age=3600, s-maxage=86400`) for `/sitemap.xml` and `/robots.txt`.
+  - Guarantees immediate HTTP 200 OK responses to all search crawlers and AI bots for all client-side routes.
 
 ---
 
@@ -191,14 +230,14 @@ When creating a derivative product or white-label application on RexOne:
    - **`public/llms.txt` & `public/llms-full.txt`**: Standardized and full architectural context documents per llmstxt.org.
 
    **Why SEO is Excluded from Rebrand**:
-   RexOne SEO defines the sovereign **foundation architecture product** ("Discipline-Driven Development", "Start from One. Not from Zero."). If rebranding automated SEO alterations, downstream derivative products (such as MeritMoon or any custom application) would inadvertently masquerade as the foundation architecture product in search engine indexing and AI engine context windows.
+   RexOne SEO defines the **RexOne Architecture Foundation** ("Discipline-Driven Development", "Start from One. Not from Zero."). If rebranding automated SEO alterations, downstream derivative products (such as MeritMoon or any custom application) would inadvertently masquerade as the foundation architecture product in search engine indexing and AI engine context windows.
 
 3. **Developer Responsibility for Product SEO**:
    Just like the landing page module (`src/modules/landing`), product-level SEO is **entirely the developer's responsibility**. Developers building on RexOne should craft their own product-specific titles, meta descriptions, OpenGraph tags, sitemaps, and Schema.org representations tailored specifically to their end-user domain and product offering, while keeping the foundation attribution intact per Law U16.
 
 ---
 
-## 🧪 Verification & Testing
+## 🧪 Verification & Health Checks
 
 Verify that your SEO, GEO, and attribution assets are properly accessible over HTTP:
 

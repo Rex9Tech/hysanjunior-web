@@ -38,7 +38,7 @@ export const DetailSection: React.FC<IDetailSectionProps> = ({
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-primary via-primary-light to-transparent" />
     )}
 
-    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-base-200/90 px-5 py-4 sm:px-6">
+    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-glass-border px-5 py-4 sm:px-6">
       <div className="flex items-center gap-3 min-w-0">
         {Icon && (
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary shadow-xs">

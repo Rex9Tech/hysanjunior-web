@@ -272,7 +272,7 @@ export const AdminLessonsPage: React.FC = () => {
             {!isDiscardedView ? (
               <Button
                 size={ButtonSizes.SM}
-                variant={ButtonVariants.TERTIARY}
+                variant={ButtonVariants.FLAT}
                 className="h-8 w-8 p-0 flex items-center justify-center rounded-lg border border-base-300 bg-base-100 text-base-content/70 hover:text-base-content hover:bg-base-200"
                 aria-label={t(AppLocales.Admin.Common.Actions.Edit)}
                 title={t(AppLocales.Admin.Common.Actions.Edit)}
@@ -290,7 +290,7 @@ export const AdminLessonsPage: React.FC = () => {
             ) : null}
             <Button
               size={ButtonSizes.SM}
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               className={
                 isDiscardedView
                   ? "h-8 w-8 p-0 flex items-center justify-center rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary/15"

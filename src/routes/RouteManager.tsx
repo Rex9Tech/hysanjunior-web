@@ -22,7 +22,7 @@ import {
 } from "../design/pages";
 import { UserPage } from "../modules/user";
 import { AnapanaRoute } from "../modules/anapana/pages";
-import { PrivacyPolicyPage, TermsPage } from "../modules/landing";
+import { PrivacyPolicyPage, TermsPage, VsPage } from "../modules/landing";
 import {
   AuthDialog,
   ConfirmEmailPage,
@@ -145,6 +145,18 @@ const router = createBrowserRouter(
           path={AppRoutes.client.public.TERMS_AND_CONDITIONS}
           element={<TermsPage />}
         />
+        <Route
+          path={AppRoutes.client.public.VS}
+          element={<VsPage />}
+        />
+        <Route
+          path="/vs-shipfast"
+          element={<Navigate to={AppRoutes.client.public.VS} replace />}
+        />
+        <Route
+          path="/alternatives/shipfast"
+          element={<Navigate to={AppRoutes.client.public.VS} replace />}
+        />
 
         {/* Public Routes */}
         <Route element={<PublicRoute />}>
@@ -170,6 +182,12 @@ const router = createBrowserRouter(
           />
         </Route>
 
+        {/* Sign Out (standalone action route) */}
+        <Route
+          path={AppRoutes.client.protected.SIGN_OUT}
+          element={<SignOutPage />}
+        />
+
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route
@@ -183,10 +201,6 @@ const router = createBrowserRouter(
           <Route
             path={AppRoutes.client.protected.PROFILE}
             element={<UserPage />}
-          />
-          <Route
-            path={AppRoutes.client.protected.SIGN_OUT}
-            element={<SignOutPage />}
           />
           <Route
             path={AppRoutes.client.protected.PAYMENT}

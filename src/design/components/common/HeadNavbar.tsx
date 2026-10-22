@@ -87,11 +87,15 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
   actions,
   children,
   className,
+  isAdmin = false,
   leading,
   showNotifications = true,
   showFeedback = true,
 }) => {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+
+  const resolvedLeading =
+    leading !== undefined ? leading : !isAdmin ? <HeadNavbarBrand /> : null;
 
   return (
     <>
@@ -113,7 +117,7 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
               {showFeedback && (
                 <Button
                   type={ButtonTypes.BUTTON}
-                  variant={ButtonVariants.TERTIARY}
+                  variant={ButtonVariants.GLASS}
                   size={ComponentSizes.SM}
                   className={cn(
                     "h-10 w-10 p-0 inline-flex items-center justify-center",
@@ -123,7 +127,7 @@ export const HeadNavbar: React.FC<HeadNavbarProps> = ({
                   title="Send Feedback"
                   aria-label="Send Feedback"
                 >
-                  <iconsLib.feedback className="h-5 w-5" />
+                  <iconsLib.feedback className="h-5 w-5 text-base-content/80 hover:text-base-content transition-colors" />
                 </Button>
               )}
               {showNotifications && (

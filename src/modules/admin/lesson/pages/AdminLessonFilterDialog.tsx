@@ -36,11 +36,11 @@ export const AdminLessonFilterDialog: React.FC<
       className="max-w-md"
       footer={
         <div className="flex w-full justify-between gap-2">
-          <Button variant={ButtonVariants.TERTIARY} onClick={onReset}>
+          <Button variant={ButtonVariants.FLAT} onClick={onReset}>
             {t(AppLocales.Admin.Common.Actions.ResetFilter)}
           </Button>
           <div className="flex gap-2">
-            <Button variant={ButtonVariants.TERTIARY} onClick={onClose}>
+            <Button variant={ButtonVariants.FLAT} onClick={onClose}>
               {t(AppLocales.Admin.Common.Actions.Cancel)}
             </Button>
             <Button

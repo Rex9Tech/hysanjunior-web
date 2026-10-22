@@ -66,7 +66,7 @@ export const DetailField: React.FC<IDetailFieldProps> = ({
         className={cn(
           "mt-2 min-w-0 wrap-break-word text-sm font-semibold text-base-content",
           mono &&
-            "font-mono text-xs text-base-content/90 bg-base-300/50 px-2.5 py-1 rounded-md border border-base-300/80 select-all max-w-full inline-block truncate",
+            "font-mono text-xs text-base-content/90 bg-glass-card px-2.5 py-1 rounded-md border border-glass-border select-all max-w-full inline-block truncate",
           isEmpty && "text-base-content/35 font-normal italic",
           valueClassName,
         )}

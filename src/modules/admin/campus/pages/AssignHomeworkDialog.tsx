@@ -154,7 +154,7 @@ export const AssignHomeworkDialog: React.FC<IAssignHomeworkDialogProps> = ({
       footer={
         <div className="flex w-full justify-end gap-2">
           <Button
-            variant={ButtonVariants.TERTIARY}
+            variant={ButtonVariants.FLAT}
             onClick={onClose}
             disabled={isSubmitting}
           >
@@ -247,7 +247,7 @@ export const AssignHomeworkDialog: React.FC<IAssignHomeworkDialogProps> = ({
                   </span>
                   <Button
                     size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
+                    variant={ButtonVariants.FLAT}
                     disabled={index === 0}
                     onClick={() => moveActivity(index, -1)}
                     aria-label={t(AppLocales.Admin.Campuses.Homework.MoveUp)}
@@ -256,7 +256,7 @@ export const AssignHomeworkDialog: React.FC<IAssignHomeworkDialogProps> = ({
                   </Button>
                   <Button
                     size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
+                    variant={ButtonVariants.FLAT}
                     disabled={index === activityKeys.length - 1}
                     onClick={() => moveActivity(index, 1)}
                     aria-label={t(AppLocales.Admin.Campuses.Homework.MoveDown)}
@@ -265,7 +265,7 @@ export const AssignHomeworkDialog: React.FC<IAssignHomeworkDialogProps> = ({
                   </Button>
                   <Button
                     size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
+                    variant={ButtonVariants.FLAT}
                     onClick={() =>
                       setActivityKeys((current) =>
                         current.filter((item) => item !== key),

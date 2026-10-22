@@ -13,3 +13,9 @@ export { DoctrineCard } from "./DoctrineCard";
 export { FeatureShowcase } from "./FeatureShowcase";
 export { LegalLayout } from "./LegalLayout";
 export { ProductHuntBadge } from "./ProductHuntBadge";
+export { ComparisonSection } from "./ComparisonSection";
+export { FaqSection, GENERAL_FAQS, COMPARISON_FAQS } from "./FaqSection";
+export type { IFaqItem, IFaqSectionProps } from "./FaqSection";
+export { LandingFooter } from "./LandingFooter";
+export type { LandingFooterPage, ILandingFooterProps } from "./LandingFooter";
+

@@ -29,6 +29,7 @@ class AppRoutes {
       ANAPANA: "/anapana",
       PRIVACY_POLICY: "/privacy",
       TERMS_AND_CONDITIONS: "/terms",
+      VS: "/vs",
       ROOT: "/",
     },
 

@@ -1,7 +1,7 @@
 // src/modules/landing/components/LegalLayout.tsx
 
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { icons, iconsLib, images } from "../../../assets";
 import AppRoutes from "../../../AppRoutes";
 import {
@@ -11,8 +11,7 @@ import {
   ComponentSizes,
   TextLink,
 } from "../../../design";
-import { LANDING_DATA } from "../constants";
-import { SocialProfiles } from "./SocialProfiles";
+import { LandingFooter } from "./LandingFooter";
 
 export interface ILegalTocItem {
   id: string;
@@ -35,7 +34,6 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
   children,
 }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState<string>("");
 
   const isPrivacy =
@@ -98,7 +96,7 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
     <div
       data-page="legal"
       data-theme="night"
-      className="min-h-screen w-full text-glow-white font-primary selection:bg-primary selection:text-primary-content bg-repeat bg-fixed flex flex-col justify-between"
+      className="min-h-screen w-full text-glow-white font-primary selection:bg-primary selection:text-primary-content bg-repeat bg-fixed relative"
       style={{
         backgroundImage: `url(${images.darkBrickWall.src})`,
         cursor: `url(${images.spotCursor.src}) 15 15, auto`,
@@ -128,9 +126,12 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
               asset={icons.logo}
               className="h-8 sm:h-9 w-8 sm:w-9 shrink-0 select-none transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.6)]"
             />
-            <div className="flex flex-col">
-              <span className="font-display text-xl sm:text-2xl font-bold tracking-wider text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary)]">
+            <div className="flex items-center gap-2">
+              <span className="font-display text-2xl sm:text-3xl font-bold tracking-wider text-glow-white [text-shadow:0_0_7px_var(--color-glow-white),0_0_15px_rgba(var(--color-primary-rgb),0.85),0_0_30px_rgba(var(--color-primary-rgb),0.5)]">
                 RexOne
+              </span>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold uppercase tracking-wider bg-primary/15 text-primary-light border border-primary/30">
+                Legal
               </span>
             </div>
           </TextLink>
@@ -138,14 +139,14 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
           {/* Center Document Switcher Tabs */}
           <nav
             aria-label="Legal Documents"
-            className="hidden sm:flex items-center gap-1.5 p-1 rounded-full bg-base-300/40 border border-glass-border backdrop-blur-md text-sm font-display tracking-wide"
+            className="hidden sm:flex items-center gap-1.5 p-1 rounded-full bg-base-300/40 border border-glass-border backdrop-blur-md text-xs sm:text-sm font-primary font-medium tracking-normal"
           >
             <TextLink
               to={AppRoutes.client.public.PRIVACY_POLICY}
               className={`px-4 py-1.5 rounded-full transition-all duration-300 hover:no-underline cursor-pointer ${
                 isPrivacy
                   ? "bg-primary text-primary-content shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.5)] font-bold"
-                  : "text-base-content/70 hover:text-glow-white"
+                  : "text-base-content/75 hover:text-white"
               }`}
             >
               Privacy Policy
@@ -155,43 +156,38 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
               className={`px-4 py-1.5 rounded-full transition-all duration-300 hover:no-underline cursor-pointer ${
                 isTerms
                   ? "bg-primary text-primary-content shadow-[0_0_12px_rgba(var(--color-primary-rgb),0.5)] font-bold"
-                  : "text-base-content/70 hover:text-glow-white"
+                  : "text-base-content/75 hover:text-white"
               }`}
             >
-              Terms & Conditions
+              Terms &amp; Conditions
             </TextLink>
           </nav>
 
-          {/* Right Action: Back to Home button */}
-          <div className="flex items-center gap-3">
+          {/* Right Action: Star Button (matching Home & VS) */}
+          <div className="flex items-center gap-2">
             <Button
-              variant={ButtonVariants.TERTIARY}
-              size={ComponentSizes.SM}
-              onClick={() => navigate(AppRoutes.client.public.ROOT)}
-              className="hidden md:inline-flex items-center gap-2 border border-glass-border bg-glass-card hover:bg-glass-card-hover text-glow-white hover:text-primary transition-all duration-300"
-            >
-              <iconsLib.chevronLeft className="w-4 h-4" />
-              <span>Back to Home</span>
-            </Button>
-            <Button
+              href="https://github.com/rex-9/rexone-core"
+              target="_blank"
+              rel="noopener noreferrer"
               variant={ButtonVariants.PRIMARY}
               size={ComponentSizes.SM}
-              onClick={() => navigate(AppRoutes.client.public.ROOT)}
-              className="md:hidden"
+              className="font-semibold shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.4)] px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2"
             >
-              Home
+              <iconsLib.sparkles className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-warning fill-warning" />
+              <span className="hidden sm:inline">Star on GitHub</span>
+              <span className="sm:hidden">Star</span>
             </Button>
           </div>
         </div>
 
         {/* Mobile Sub-Navigation Tabs */}
-        <div className="sm:hidden flex border-t border-glass-border/60 bg-base-300/30 px-4 py-2 justify-center gap-2 text-xs font-display">
+        <div className="sm:hidden flex border-t border-glass-border/60 bg-base-300/30 px-4 py-2 justify-center gap-2 text-xs font-primary font-medium">
           <TextLink
             to={AppRoutes.client.public.PRIVACY_POLICY}
             className={`px-3 py-1 rounded-full transition-all duration-300 hover:no-underline cursor-pointer ${
               isPrivacy
                 ? "bg-primary text-primary-content font-bold shadow-[0_0_8px_rgba(var(--color-primary-rgb),0.4)]"
-                : "text-base-content/70"
+                : "text-base-content/75 hover:text-white"
             }`}
           >
             Privacy Policy
@@ -201,16 +197,16 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
             className={`px-3 py-1 rounded-full transition-all duration-300 hover:no-underline cursor-pointer ${
               isTerms
                 ? "bg-primary text-primary-content font-bold shadow-[0_0_8px_rgba(var(--color-primary-rgb),0.4)]"
-                : "text-base-content/70"
+                : "text-base-content/75 hover:text-white"
             }`}
           >
-            Terms & Conditions
+            Terms &amp; Conditions
           </TextLink>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 sm:py-12 flex-1">
+      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8 pt-8 sm:pt-12 pb-0">
         {/* Document Header Hero */}
         <div className="mb-8 sm:mb-12 text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/15 border border-primary/30 text-primary-light text-xs font-semibold tracking-wider uppercase drop-shadow-[0_0_8px_rgba(var(--color-primary-rgb),0.4)]">
@@ -219,7 +215,7 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
             <span>{lastUpdated}</span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide text-glow-white [text-shadow:0_0_8px_var(--color-glow-white),0_0_20px_var(--color-primary),0_0_40px_var(--color-primary-dark)]">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide text-white">
             {title}
           </h1>
 
@@ -301,14 +297,12 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
                 </nav>
 
                 <div className="pt-3 border-t border-glass-border/60 text-xs text-base-content/50 space-y-2">
-                  <p>
-                    Questions or legal notices?
-                  </p>
+                  <p>Questions or legal notices?</p>
                   <a
-                    href="mailto:support@meritmoon.com"
+                    href="mailto:rex@rex9.me"
                     className="inline-flex items-center gap-1.5 text-primary hover:underline font-semibold"
                   >
-                    <span>support@meritmoon.com</span>
+                    <span>rex@rex9.me</span>
                   </a>
                 </div>
               </div>
@@ -324,45 +318,12 @@ export const LegalLayout: React.FC<ILegalLayoutProps> = ({
             {children}
           </article>
         </div>
+
+        {/* Unified Footer Component (Source of Truth) */}
+        <LandingFooter
+          activePage={isPrivacy ? "privacy" : isTerms ? "terms" : undefined}
+        />
       </main>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-glass-border/70 bg-glass-nav backdrop-blur-xl mt-16 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center space-y-4">
-          <SocialProfiles profiles={LANDING_DATA.profiles} />
-
-          <div className="flex items-center justify-center gap-6 text-xs text-base-content/60 font-medium">
-            <TextLink
-              to={AppRoutes.client.public.PRIVACY_POLICY}
-              className={`hover:text-primary transition-colors ${
-                isPrivacy ? "text-primary font-semibold" : ""
-              }`}
-            >
-              Privacy Policy
-            </TextLink>
-            <span className="text-base-content/30">•</span>
-            <TextLink
-              to={AppRoutes.client.public.TERMS_AND_CONDITIONS}
-              className={`hover:text-primary transition-colors ${
-                isTerms ? "text-primary font-semibold" : ""
-              }`}
-            >
-              Terms & Conditions
-            </TextLink>
-            <span className="text-base-content/30">•</span>
-            <TextLink
-              to={AppRoutes.client.public.ROOT}
-              className="hover:text-primary transition-colors"
-            >
-              RexOne Home
-            </TextLink>
-          </div>
-
-          <p className="text-xs text-base-content/40 font-medium">
-            © {new Date().getFullYear()} Rex9. Engineered with Soul & Clarity.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

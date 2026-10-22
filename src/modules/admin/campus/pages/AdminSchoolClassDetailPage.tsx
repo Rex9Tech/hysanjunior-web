@@ -263,7 +263,7 @@ export const AdminSchoolClassDetailPage: React.FC = () => {
         render: (row) => (
           <Button
             size={ButtonSizes.SM}
-            variant={ButtonVariants.TERTIARY}
+            variant={ButtonVariants.FLAT}
             onClick={() => setDiscardAssignmentTarget(row)}
           >
             {t(AppLocales.Admin.Campuses.ClassDetail.Unassign)}
@@ -312,7 +312,7 @@ export const AdminSchoolClassDetailPage: React.FC = () => {
         render: (row) => (
           <Button
             size={ButtonSizes.SM}
-            variant={ButtonVariants.TERTIARY}
+            variant={ButtonVariants.FLAT}
             onClick={() => setDiscardEnrollmentTarget(row)}
           >
             {t(AppLocales.Admin.Campuses.ClassDetail.Unenroll)}
@@ -471,7 +471,7 @@ export const AdminSchoolClassDetailPage: React.FC = () => {
             {canUpdateHomework ? (
               <Button
                 size={ButtonSizes.SM}
-                variant={ButtonVariants.TERTIARY}
+                variant={ButtonVariants.FLAT}
                 onClick={() => {
                   setEditingHomework(row);
                   setHomeworkDialogOpen(true);
@@ -483,7 +483,7 @@ export const AdminSchoolClassDetailPage: React.FC = () => {
             {canDiscardHomework ? (
               <Button
                 size={ButtonSizes.SM}
-                variant={ButtonVariants.TERTIARY}
+                variant={ButtonVariants.FLAT}
                 onClick={() => setDiscardHomeworkTarget(row)}
               >
                 {t(AppLocales.Admin.Campuses.ClassDetail.DiscardHomework)}

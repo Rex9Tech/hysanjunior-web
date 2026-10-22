@@ -217,7 +217,7 @@ export const AdminLessonStoryVideoSection: React.FC<IProps> = ({
                 </Button>
                 <Button
                   size={ButtonSizes.SM}
-                  variant={ButtonVariants.TERTIARY}
+                  variant={ButtonVariants.FLAT}
                   className="text-error"
                   onClick={() => void handleClear()}
                   disabled={isSaving}

@@ -201,7 +201,7 @@ export const AdminTeacherDetailPage: React.FC = () => {
           canUnassign ? (
             <Button
               size={ButtonSizes.SM}
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={() => setUnassignTarget(assignment)}
             >
               {t(AppLocales.Admin.Teachers.Detail.Unassign)}
@@ -287,7 +287,7 @@ export const AdminTeacherDetailPage: React.FC = () => {
           <div className="mt-4">
             <Button
               size={ButtonSizes.SM}
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={() => setRemoveCampusOpen(true)}
             >
               {t(AppLocales.Admin.Teachers.Detail.RemoveCampus)}

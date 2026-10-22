@@ -30,7 +30,7 @@ export const TestimonialCard: React.FC<ITestimonialCardProps> = ({
             <TextLink
               href={testimonial.link}
               external
-              className="font-display text-xl text-glow-white font-normal tracking-wide [text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary),0_0_24px_var(--color-primary-dark)] hover:text-primary-light hover:[text-shadow:0_0_14px_var(--color-primary-light)] transition-all duration-200 block no-underline"
+              className="font-display text-xl text-white font-normal tracking-wide hover:text-primary-light transition-all duration-200 block no-underline"
             >
               {testimonial.name}
             </TextLink>

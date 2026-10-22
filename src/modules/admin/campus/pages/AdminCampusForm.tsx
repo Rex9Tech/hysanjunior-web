@@ -137,7 +137,7 @@ export const AdminCampusForm: React.FC<IAdminCampusFormProps> = ({
           </Button>
           {imageAssetId || imageUrl ? (
             <Button
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               size={ComponentSizes.SM}
               className="text-error hover:bg-error/10"
               onClick={() => {

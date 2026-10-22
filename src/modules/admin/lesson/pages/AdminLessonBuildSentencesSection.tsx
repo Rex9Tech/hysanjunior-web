@@ -219,7 +219,7 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
             {pairs.length > 0 ? (
               <Button
                 size={ButtonSizes.SM}
-                variant={ButtonVariants.TERTIARY}
+                variant={ButtonVariants.FLAT}
                 className="text-error"
                 onClick={() => setIsClearOpen(true)}
               >
@@ -254,7 +254,7 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
                   </div>
                   <Button
                     size={ButtonSizes.SM}
-                    variant={ButtonVariants.TERTIARY}
+                    variant={ButtonVariants.FLAT}
                     onClick={() => {
                       setEditIndex(index);
                       setSentence(item.sentence);
@@ -278,7 +278,7 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
         footer={
           <div className="flex justify-end gap-2">
             <Button
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={() => setEditIndex(null)}
             >
               {t(AppLocales.Admin.Common.Actions.Cancel)}

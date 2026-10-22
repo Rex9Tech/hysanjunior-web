@@ -541,7 +541,7 @@ export const AdminStudentDetailPage: React.FC = () => {
                   {canUnlinkParent ? (
                     <Button
                       size={ButtonSizes.SM}
-                      variant={ButtonVariants.TERTIARY}
+                      variant={ButtonVariants.FLAT}
                       onClick={() => setUnlinkTarget(link)}
                     >
                       {t(AppLocales.Admin.Students.Detail.UnlinkParent)}

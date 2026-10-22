@@ -326,14 +326,14 @@ export const AdminLessonQuestionsSection: React.FC<IProps> = ({
                   <div className="flex gap-1.5">
                     <Button
                       size={ButtonSizes.SM}
-                      variant={ButtonVariants.TERTIARY}
+                      variant={ButtonVariants.FLAT}
                       onClick={() => openEdit(item)}
                     >
                       <iconsLib.pencilSquare className="h-4 w-4" />
                     </Button>
                     <Button
                       size={ButtonSizes.SM}
-                      variant={ButtonVariants.TERTIARY}
+                      variant={ButtonVariants.FLAT}
                       className="text-error"
                       onClick={() => setDeleteTarget(item)}
                     >
@@ -383,7 +383,7 @@ export const AdminLessonQuestionsSection: React.FC<IProps> = ({
         className="max-w-2xl"
         footer={
           <div className="flex justify-end gap-2">
-            <Button variant={ButtonVariants.TERTIARY} onClick={closeForm}>
+            <Button variant={ButtonVariants.FLAT} onClick={closeForm}>
               {t(AppLocales.Admin.Common.Actions.Cancel)}
             </Button>
             <Button
@@ -442,7 +442,7 @@ export const AdminLessonQuestionsSection: React.FC<IProps> = ({
                     {options.length > 2 ? (
                       <Button
                         size={ButtonSizes.SM}
-                        variant={ButtonVariants.TERTIARY}
+                        variant={ButtonVariants.FLAT}
                         className="text-error"
                         onClick={() => {
                           revoke(option);
@@ -497,7 +497,7 @@ export const AdminLessonQuestionsSection: React.FC<IProps> = ({
                       {(option.imageSelection || option.existingImage) && (
                         <Button
                           size={ButtonSizes.SM}
-                          variant={ButtonVariants.TERTIARY}
+                          variant={ButtonVariants.FLAT}
                           onClick={() => {
                             revoke(option);
                             updateOption(option.clientId, {

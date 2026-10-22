@@ -51,7 +51,7 @@ export const SponsorCard: React.FC<ISponsorCardProps> = ({
         {/* Identity & Subtitle */}
         <div className="flex-1 min-w-0 space-y-1.5">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <h3 className="font-display text-2xl sm:text-3xl font-normal text-glow-white tracking-wide [text-shadow:0_0_8px_var(--color-glow-white),0_0_16px_var(--color-primary)]">
+            <h3 className="font-display text-2xl sm:text-3xl font-normal text-white tracking-wide">
               Rex
             </h3>
             <TextLink
@@ -87,7 +87,7 @@ export const SponsorCard: React.FC<ISponsorCardProps> = ({
       <div className="relative z-10 py-5 space-y-4">
         <p className="text-sm sm:text-base text-base-content/80 leading-relaxed">
           Directly back independent open-source engineering. Your sponsorship
-          powers continuous architectural refinement, sovereign tooling, and
+          powers continuous architectural refinement, first-class tooling, and
           guarantees a zero-technical-debt foundation for developers and
           autonomous AI agents.
         </p>
@@ -139,7 +139,7 @@ export const SponsorCard: React.FC<ISponsorCardProps> = ({
           href={sponsorUrl}
           target="_blank"
           rel="noopener noreferrer"
-          variant={ButtonVariants.NEON}
+          variant={ButtonVariants.GLASS}
           size={ComponentSizes.LG}
           className="w-full sm:w-auto py-3! px-7! text-sm! sm:text-base! font-bold tracking-wider inline-flex items-center justify-center gap-2.5"
         >

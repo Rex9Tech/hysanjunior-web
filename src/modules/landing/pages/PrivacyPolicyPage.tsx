@@ -23,7 +23,7 @@ export const PrivacyPolicyPage: React.FC = () => {
   return (
     <LegalLayout
       title="Privacy Policy"
-      subtitle="At RexOne, sovereign architecture and user trust go hand in hand. This policy describes how we collect, safeguard, and honor your personal data across the RexOne ecosystem."
+      subtitle="At RexOne, disciplined architecture and user trust go hand in hand. This policy describes how we collect, safeguard, and honor your personal data across the RexOne ecosystem."
       lastUpdated="Effective Date: September 21, 2026"
       tableOfContents={PRIVACY_TOC}
     >
@@ -38,9 +38,9 @@ export const PrivacyPolicyPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
-          This Privacy Policy governs the collection, processing, and storage
-          of personal data by <strong>Rex9 / RexOne</strong> ("RexOne", "we",
-          "us", or "our") when you access or interact with our web client (
+          This Privacy Policy governs the collection, processing, and storage of
+          personal data by <strong>Rex9 / RexOne</strong> ("RexOne", "we", "us",
+          or "our") when you access or interact with our web client (
           <code className="text-primary font-mono text-xs px-1.5 py-0.5 rounded bg-base-300/60">
             rexone.rex9.me
           </code>
@@ -87,10 +87,10 @@ export const PrivacyPolicyPage: React.FC = () => {
               Identity & Authentication
             </h3>
             <p className="text-xs text-base-content/75 leading-relaxed">
-              Email addresses, salted and hashed credentials, confirmation codes,
-              and password recovery tokens. For Google OAuth users, we receive
-              your verified name, email address, and avatar image URI from
-              Google Identity Services.
+              Email addresses, salted and hashed credentials, confirmation
+              codes, and password recovery tokens. For Google OAuth users, we
+              receive your verified name, email address, and avatar image URI
+              from Google Identity Services.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </h3>
             <p className="text-xs text-base-content/75 leading-relaxed">
               Files, documents, audio recordings, or media assets uploaded to
-              your account. Stored under sovereign identifiers using our
+              your account. Stored under deterministic identifiers using our
               self-hosted Garage S3-compatible infrastructure with signed,
               expiring access tokens.
             </p>
@@ -208,7 +208,7 @@ export const PrivacyPolicyPage: React.FC = () => {
 
           <div className="p-4 rounded-xl bg-base-300/20 border border-glass-border/70 space-y-1.5">
             <h4 className="font-bold text-glow-white text-sm">
-              Sovereign Media Storage (Garage S3)
+              Self-Hosted Media Storage (Garage S3)
             </h4>
             <p className="text-xs leading-relaxed text-base-content/75">
               All binary assets, avatars, and user documents are stored in
@@ -313,15 +313,16 @@ export const PrivacyPolicyPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
-          RexOne uses browser storage exclusively for functional, authentication,
-          and security purposes. We do not use third-party advertising cookies,
-          behavioral tracking pixels, or cross-site fingerprinting.
+          RexOne uses browser storage exclusively for functional,
+          authentication, and security purposes. We do not use third-party
+          advertising cookies, behavioral tracking pixels, or cross-site
+          fingerprinting.
         </p>
         <ul className="space-y-2 text-xs sm:text-sm text-base-content/80 list-disc list-inside pl-2">
           <li>
             <strong>Session & Auth Tokens:</strong> Encrypted JSON Web Tokens
-            (JWT) stored in secure browser storage to authenticate API calls
-            and persist your session.
+            (JWT) stored in secure browser storage to authenticate API calls and
+            persist your session.
           </li>
           <li>
             <strong>UI State & Preferences:</strong> Lightweight local keys
@@ -345,7 +346,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
           Regardless of your physical jurisdiction, RexOne provides all users
-          with full sovereignty over their data:
+          with full control over their data:
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
           <div className="p-3.5 rounded-xl bg-base-300/25 border border-glass-border/60">
@@ -412,11 +413,11 @@ export const PrivacyPolicyPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
-          Our services are directed to developers, professionals, and individuals
-          who are at least 16 years of age (or the minimum legal age required
-          in your jurisdiction). We do not knowingly collect personal data
-          from children. If you become aware that a child has provided us with
-          personal information, please contact us immediately for removal.
+          Our services are directed to developers, professionals, and
+          individuals who are at least 16 years of age (or the minimum legal age
+          required in your jurisdiction). We do not knowingly collect personal
+          data from children. If you become aware that a child has provided us
+          with personal information, please contact us immediately for removal.
         </p>
       </section>
 
@@ -433,11 +434,11 @@ export const PrivacyPolicyPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-base-content/80 text-sm sm:text-base leading-relaxed">
-          We may update this Privacy Policy periodically to reflect architectural
-          refinements, legal requirements, or new features. When changes are
-          made, the "Effective Date" at the top will be updated. In case of
-          material adjustments, we will notify registered users via in-app
-          notification or transactional email.
+          We may update this Privacy Policy periodically to reflect
+          architectural refinements, legal requirements, or new features. When
+          changes are made, the "Effective Date" at the top will be updated. In
+          case of material adjustments, we will notify registered users via
+          in-app notification or transactional email.
         </p>
       </section>
 
@@ -464,19 +465,19 @@ export const PrivacyPolicyPage: React.FC = () => {
           <p className="text-xs sm:text-sm text-base-content/80">
             Support & Privacy Email:{" "}
             <a
-              href="mailto:support@meritmoon.com"
+              href="mailto:rex@rex9.me"
               className="text-primary hover:underline font-semibold"
             >
-              support@meritmoon.com
+              rex@rex9.me
             </a>
           </p>
           <p className="text-xs sm:text-sm text-base-content/80">
             Lead Architect Email:{" "}
             <a
-              href="mailto:rex@meritmoon.com"
+              href="mailto:rex@rex9.me"
               className="text-primary hover:underline font-semibold"
             >
-              rex@meritmoon.com
+              rex@rex9.me
             </a>
           </p>
         </div>

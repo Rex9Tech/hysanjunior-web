@@ -287,7 +287,7 @@ export const AdminCampusDetailPage: React.FC = () => {
           <div className="flex justify-end gap-2">
             <Button
               size={ButtonSizes.SM}
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={(e) => {
                 e.stopPropagation();
                 setEditingClass(row);
@@ -298,7 +298,7 @@ export const AdminCampusDetailPage: React.FC = () => {
             </Button>
             <Button
               size={ButtonSizes.SM}
-              variant={ButtonVariants.TERTIARY}
+              variant={ButtonVariants.FLAT}
               onClick={(e) => {
                 e.stopPropagation();
                 setDiscardClassTarget(row);
@@ -350,7 +350,7 @@ export const AdminCampusDetailPage: React.FC = () => {
         render: (row) => (
           <Button
             size={ButtonSizes.SM}
-            variant={ButtonVariants.TERTIARY}
+            variant={ButtonVariants.FLAT}
             onClick={() => setDiscardMembershipTarget(row)}
           >
             {t(AppLocales.Admin.Campuses.Teachers.Remove)}
