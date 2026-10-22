@@ -13,6 +13,26 @@ import { VersionController, VersionService } from "./version";
 import { PaymentController, PaymentService } from "./payment";
 import { AiController, AiService } from "./ai";
 import { LessonController, LessonService } from "./lesson";
+import {
+  StudentController,
+} from "./student";
+import {
+  TeacherController,
+} from "./teacher";
+import {
+  CampusController,
+  CampusService,
+  SchoolClassController,
+  SchoolClassService,
+  CampusMembershipController,
+  CampusMembershipService,
+  ClassAssignmentController,
+  ClassAssignmentService,
+  ClassEnrollmentController,
+  ClassEnrollmentService,
+  ParentStudentController,
+  ParentStudentService,
+} from "./campus";
 
 export * from "./analytics";
 export * from "./chat";
@@ -28,6 +48,9 @@ export * from "./version";
 export * from "./payment";
 export * from "./ai";
 export * from "./lesson";
+export * from "./campus";
+export * from "./student";
+export * from "./teacher";
 export * from "./components";
 export * from "./helpers/admin.helper";
 export * from "./constants";
@@ -61,4 +84,18 @@ export const Admin = {
   AiService,
   LessonController,
   LessonService,
+  CampusController,
+  CampusService,
+  SchoolClassController,
+  SchoolClassService,
+  CampusMembershipController,
+  CampusMembershipService,
+  ClassAssignmentController,
+  ClassAssignmentService,
+  ClassEnrollmentController,
+  ClassEnrollmentService,
+  ParentStudentController,
+  ParentStudentService,
+  StudentController,
+  TeacherController,
 };

@@ -16,8 +16,11 @@ import { NOTIFICATION_SOCKET_TYPES } from "../../../notification/constants";
 import { ConfirmDialog } from "../../components";
 import { Admin } from "../..";
 import {
-  clearLessonAiPreview,
+  clearLessonAiGenerating,
+  finishLessonAiGenerating,
+  isLessonAiGenerating,
   LESSON_AI_PREVIEW_KINDS,
+  markLessonAiGenerating,
   parseLessonAiSocketMessage,
   readLessonAiPreview,
 } from "../../../../helpers/lessonAiSocket";
@@ -31,6 +34,8 @@ interface IProps {
   onLessonChange: () => void;
 }
 
+const KIND = LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES;
+
 export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
   lesson,
   onLessonChange,
@@ -39,11 +44,15 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
   const toast = useToast();
   const toastRef = useRef(toast);
   const tRef = useRef(t);
+  const onLessonChangeRef = useRef(onLessonChange);
   toastRef.current = toast;
   tRef.current = t;
+  onLessonChangeRef.current = onLessonChange;
 
   const [pairs, setPairs] = useState(lesson.build_the_sentences);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(() =>
+    isLessonAiGenerating(lesson.id, KIND),
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [sentence, setSentence] = useState("");
@@ -51,37 +60,46 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
   const [isClearOpen, setIsClearOpen] = useState(false);
 
   useEffect(() => {
+    if (isLessonAiGenerating(lesson.id, KIND)) {
+      setIsGenerating(true);
+    }
+  }, [lesson.id]);
+
+  useEffect(() => {
+    if (isGenerating) return;
     setPairs(lesson.build_the_sentences);
-  }, [lesson.build_the_sentences]);
+  }, [lesson.build_the_sentences, isGenerating]);
 
   const syncPairs = async (next: IAdminLessonBuildSentencePair[]) => {
     const result = await Admin.LessonController.updateLesson(lesson.id, {
       build_the_sentences: next,
     });
     if (!result.success) {
-      toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.Update));
+      toastRef.current.error(
+        result.error ||
+          tRef.current(AppLocales.Admin.Lessons.Errors.Update),
+      );
       return false;
     }
-    onLessonChange();
+    onLessonChangeRef.current();
     return true;
   };
 
-  useEffect(() => {
-    const applyGenerated = async (next: IAdminLessonBuildSentencePair[]) => {
-      setIsGenerating(false);
-      clearLessonAiPreview(
-        lesson.id,
-        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
-      );
-      const ok = await syncPairs(next);
-      if (!ok) return;
-      toastRef.current.success(
-        tRef.current(
-          AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess,
-        ),
-      );
-    };
+  const applyGenerated = async (next: IAdminLessonBuildSentencePair[]) => {
+    if (!next.length) return;
+    setIsGenerating(false);
+    finishLessonAiGenerating(lesson.id, KIND);
+    setPairs(next);
+    const ok = await syncPairs(next);
+    if (!ok) return;
+    toastRef.current.success(
+      tRef.current(
+        AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess,
+      ),
+    );
+  };
 
+  useEffect(() => {
     const handler = (message: ISocketMessage) => {
       const data = parseLessonAiSocketMessage(message, lesson.id);
       if (!data) return;
@@ -97,6 +115,7 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
         NOTIFICATION_SOCKET_TYPES.LESSON_BUILD_THE_SENTENCES_FAILED
       ) {
         setIsGenerating(false);
+        clearLessonAiGenerating(lesson.id, KIND);
         toastRef.current.error(
           data.error ||
             tRef.current(
@@ -113,27 +132,19 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
 
   useEffect(() => {
     if (!isGenerating) return;
-    const timer = window.setInterval(() => {
+
+    const applyCached = () => {
+      if (!isLessonAiGenerating(lesson.id, KIND)) return;
       const cached = readLessonAiPreview<IAdminLessonBuildSentencePair[]>(
         lesson.id,
-        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
+        KIND,
       );
       if (!cached?.length) return;
-      setIsGenerating(false);
-      clearLessonAiPreview(
-        lesson.id,
-        LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
-      );
-      void syncPairs(cached).then((ok) => {
-        if (ok) {
-          toastRef.current.success(
-            tRef.current(
-              AppLocales.Admin.Lessons.BuildSentences.Toasts.GenerateSuccess,
-            ),
-          );
-        }
-      });
-    }, 1000);
+      void applyGenerated(cached);
+    };
+
+    applyCached();
+    const timer = window.setInterval(applyCached, 1000);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGenerating, lesson.id]);
@@ -143,15 +154,13 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
       toast.error(t(AppLocales.Admin.Lessons.BuildSentences.Errors.VocabsRequired));
       return;
     }
+    markLessonAiGenerating(lesson.id, KIND);
     setIsGenerating(true);
-    clearLessonAiPreview(
-      lesson.id,
-      LESSON_AI_PREVIEW_KINDS.BUILD_THE_SENTENCES,
-    );
     const result =
       await Admin.LessonController.createBuildTheSentences(lesson.id);
     if (!result.success) {
       setIsGenerating(false);
+      clearLessonAiGenerating(lesson.id, KIND);
       toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.AiQueue));
     }
   };
@@ -222,11 +231,11 @@ export const AdminLessonBuildSentencesSection: React.FC<IProps> = ({
       >
         <div className="space-y-4">
           {isGenerating ? (
-            <p className="text-body-s font-medium text-primary">
-              {t(AppLocales.Admin.Lessons.Ai.Pending)}
-            </p>
-          ) : null}
-          {pairs.length === 0 ? (
+            <TextInput
+              value={t(AppLocales.Admin.Lessons.Ai.Pending)}
+              readOnly
+            />
+          ) : pairs.length === 0 ? (
             <p className="text-body-s text-base-content/60 py-4 text-center">
               {t(AppLocales.Admin.Lessons.BuildSentences.Empty)}
             </p>

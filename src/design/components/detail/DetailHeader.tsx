@@ -49,7 +49,7 @@ export const DetailHeader: React.FC<IDetailHeaderProps> = ({
     <div className={cn("space-y-4", className)}>
       {/* Top Navigation Row */}
       <div className="flex min-w-0 items-center justify-between gap-3">
-        <Breadcrumbs items={breadcrumbs} className="min-w-0 flex-1" />
+        <Breadcrumbs items={breadcrumbs ?? []} className="min-w-0 flex-1" />
         <Button
           size={ButtonSizes.SM}
           variant={ButtonVariants.SECONDARY}

@@ -46,6 +46,9 @@ export const parseLessonAiSocketMessage = (
 const previewStorageKey = (lessonId: string, kind: string) =>
   `admin.lesson.ai_preview.${kind}.${lessonId}`;
 
+const pendingStorageKey = (lessonId: string, kind: string) =>
+  `admin.lesson.ai_pending.${kind}.${lessonId}`;
+
 export const readLessonAiPreview = <T,>(
   lessonId: string,
   kind: string,
@@ -80,6 +83,51 @@ export const clearLessonAiPreview = (lessonId: string, kind: string): void => {
   } catch {
     // ignore
   }
+};
+
+/** True while a lesson AI job is queued / in flight (survives remounts). */
+export const isLessonAiGenerating = (lessonId: string, kind: string): boolean => {
+  try {
+    return sessionStorage.getItem(pendingStorageKey(lessonId, kind)) === "1";
+  } catch {
+    return false;
+  }
+};
+
+/** Mark AI job started; clears any stale preview so pollers won't finish early. */
+export const markLessonAiGenerating = (
+  lessonId: string,
+  kind: string,
+): void => {
+  try {
+    sessionStorage.setItem(pendingStorageKey(lessonId, kind), "1");
+  } catch {
+    // ignore
+  }
+  clearLessonAiPreview(lessonId, kind);
+};
+
+export const clearLessonAiGenerating = (
+  lessonId: string,
+  kind: string,
+): void => {
+  try {
+    sessionStorage.removeItem(pendingStorageKey(lessonId, kind));
+  } catch {
+    // ignore
+  }
+};
+
+/**
+ * Finish a generation cycle. Defers preview clear so sibling socket listeners
+ * (e.g. useSocket cache write) in the same tick cannot leave a stale preview.
+ */
+export const finishLessonAiGenerating = (
+  lessonId: string,
+  kind: string,
+): void => {
+  clearLessonAiGenerating(lessonId, kind);
+  window.setTimeout(() => clearLessonAiPreview(lessonId, kind), 0);
 };
 
 export const LESSON_AI_PREVIEW_KINDS = {

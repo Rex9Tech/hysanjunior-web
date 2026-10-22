@@ -102,6 +102,11 @@ export const IMAGE_ASSET_TYPES: readonly string[] = [
 export const isSrtSubtitleFile = (file: File): boolean =>
   /\.srt$/i.test(file.name);
 
+export const isMp3AudioFile = (file: File): boolean =>
+  /\.mp3$/i.test(file.name) ||
+  file.type === "audio/mpeg" ||
+  file.type === "audio/mp3";
+
 export const FILE_SIZE_UNITS = ["B", "KB", "MB", "GB", "TB"] as const;
 
 export const formatAssetFileSize = (bytes?: number | null): string => {

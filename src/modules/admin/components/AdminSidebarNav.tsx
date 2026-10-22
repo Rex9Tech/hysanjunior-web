@@ -120,6 +120,24 @@ const navSections: IAdminNavSection[] = [
         resource: ADMIN_RESOURCES.LESSONS,
         icon: iconsLib.document,
       },
+      {
+        labelKey: AppLocales.Admin.Nav.Items.Campuses,
+        to: AppRoutes.client.protected.admin.CAMPUSES,
+        resource: ADMIN_RESOURCES.CAMPUSES,
+        icon: iconsLib.home,
+      },
+      {
+        labelKey: AppLocales.Admin.Nav.Items.Students,
+        to: AppRoutes.client.protected.admin.STUDENTS,
+        resource: ADMIN_RESOURCES.CLASS_ENROLLMENTS,
+        icon: iconsLib.userGroup,
+      },
+      {
+        labelKey: AppLocales.Admin.Nav.Items.Teachers,
+        to: AppRoutes.client.protected.admin.TEACHERS,
+        resource: ADMIN_RESOURCES.CAMPUS_MEMBERSHIPS,
+        icon: iconsLib.user,
+      },
     ],
   },
   {

@@ -16,8 +16,11 @@ import { NOTIFICATION_SOCKET_TYPES } from "../../../notification/constants";
 import { ConfirmDialog } from "../../components";
 import { Admin } from "../..";
 import {
-  clearLessonAiPreview,
+  clearLessonAiGenerating,
+  finishLessonAiGenerating,
+  isLessonAiGenerating,
   LESSON_AI_PREVIEW_KINDS,
+  markLessonAiGenerating,
   parseLessonAiSocketMessage,
   readLessonAiPreview,
 } from "../../../../helpers/lessonAiSocket";
@@ -31,6 +34,8 @@ interface IProps {
   lesson: IAdminLesson;
   onLessonChange: () => void;
 }
+
+const KIND = LESSON_AI_PREVIEW_KINDS.WORD_FAMILIES;
 
 type TFamilyDraft = {
   key: string;
@@ -78,7 +83,9 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
   const [drafts, setDrafts] = useState<TFamilyDraft[]>(() =>
     toDrafts(lesson.word_families),
   );
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(() =>
+    isLessonAiGenerating(lesson.id, KIND),
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isClearOpen, setIsClearOpen] = useState(false);
@@ -86,6 +93,12 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
   const [newWords, setNewWords] = useState("");
   const [patternError, setPatternError] = useState("");
   const [wordsError, setWordsError] = useState("");
+
+  useEffect(() => {
+    if (isLessonAiGenerating(lesson.id, KIND)) {
+      setIsGenerating(true);
+    }
+  }, [lesson.id]);
 
   useEffect(() => {
     if (isGenerating) return;
@@ -110,12 +123,8 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
   const applyGenerated = (
     items: Array<{ pattern: string; words: string[] }>,
   ) => {
-    if (!items.length) {
-      setIsGenerating(false);
-      return;
-    }
+    if (!items.length) return;
 
-    // Same UX as story order: put AI output straight into the fields.
     setDrafts(
       items.map((item, index) => ({
         key: `generated-${index}-${item.pattern}`,
@@ -124,7 +133,7 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
       })),
     );
     setIsGenerating(false);
-    clearLessonAiPreview(lesson.id, LESSON_AI_PREVIEW_KINDS.WORD_FAMILIES);
+    finishLessonAiGenerating(lesson.id, KIND);
     toastRef.current.success(
       tRef.current(
         AppLocales.Admin.Lessons.WordFamilies.Toasts.GenerateSuccess,
@@ -145,6 +154,7 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
 
       if (data.type === NOTIFICATION_SOCKET_TYPES.LESSON_WORD_FAMILIES_FAILED) {
         setIsGenerating(false);
+        clearLessonAiGenerating(lesson.id, KIND);
         toastRef.current.error(
           data.error ||
             tRef.current(
@@ -161,23 +171,29 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
 
   useEffect(() => {
     if (!isGenerating) return;
-    const timer = window.setInterval(() => {
+
+    const applyCached = () => {
+      if (!isLessonAiGenerating(lesson.id, KIND)) return;
       const cached = readLessonAiPreview<
         Array<{ pattern: string; words: string[] }>
-      >(lesson.id, LESSON_AI_PREVIEW_KINDS.WORD_FAMILIES);
+      >(lesson.id, KIND);
       if (!cached?.length) return;
       applyGenerated(cached);
-    }, 1000);
+    };
+
+    applyCached();
+    const timer = window.setInterval(applyCached, 1000);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGenerating, lesson.id]);
 
   const handleGenerate = async () => {
+    markLessonAiGenerating(lesson.id, KIND);
     setIsGenerating(true);
-    clearLessonAiPreview(lesson.id, LESSON_AI_PREVIEW_KINDS.WORD_FAMILIES);
     const result = await Admin.LessonController.createWordFamilies(lesson.id);
     if (!result.success) {
       setIsGenerating(false);
+      clearLessonAiGenerating(lesson.id, KIND);
       toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.AiQueue));
     }
   };
@@ -297,16 +313,18 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
         }
       >
         <div className="space-y-4">
-          {isGenerating ? (
-            <p className="text-body-s font-medium text-primary">
-              {t(AppLocales.Admin.Lessons.Ai.Pending)}
-            </p>
-          ) : null}
-
           {drafts.length === 0 ? (
-            <p className="text-body-s text-base-content/60 py-4 text-center">
-              {t(AppLocales.Admin.Lessons.WordFamilies.Empty)}
-            </p>
+            isGenerating ? (
+              <TextInput
+                label={t(AppLocales.Admin.Lessons.WordFamilies.PatternLabel)}
+                value={t(AppLocales.Admin.Lessons.Ai.Pending)}
+                readOnly
+              />
+            ) : (
+              <p className="text-body-s text-base-content/60 py-4 text-center">
+                {t(AppLocales.Admin.Lessons.WordFamilies.Empty)}
+              </p>
+            )
           ) : (
             <ul className="space-y-4">
               {drafts.map((draft) => (
@@ -318,8 +336,12 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
                     label={t(
                       AppLocales.Admin.Lessons.WordFamilies.PatternLabel,
                     )}
-                    value={draft.pattern}
-                    disabled={isGenerating}
+                    value={
+                      isGenerating
+                        ? t(AppLocales.Admin.Lessons.Ai.Pending)
+                        : draft.pattern
+                    }
+                    readOnly={isGenerating}
                     onChange={(e) => {
                       const value = e.target.value;
                       setDrafts((current) =>
@@ -333,11 +355,15 @@ export const AdminLessonWordFamiliesSection: React.FC<IProps> = ({
                   />
                   <TextInput
                     label={t(AppLocales.Admin.Lessons.WordFamilies.WordsLabel)}
-                    value={draft.wordsText}
+                    value={
+                      isGenerating
+                        ? t(AppLocales.Admin.Lessons.Ai.Pending)
+                        : draft.wordsText
+                    }
                     helperText={t(
                       AppLocales.Admin.Lessons.WordFamilies.WordsHelper,
                     )}
-                    disabled={isGenerating}
+                    readOnly={isGenerating}
                     onChange={(e) => {
                       const value = e.target.value;
                       setDrafts((current) =>

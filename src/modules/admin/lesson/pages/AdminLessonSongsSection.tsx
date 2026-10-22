@@ -27,6 +27,7 @@ import {
   ASSET_FORMATS,
   ASSET_STATUSES,
   ASSET_TYPES,
+  isMp3AudioFile,
 } from "../../asset/constants";
 import type { IAdminAsset } from "../../asset/types";
 import type { IAdminLesson, IAdminLessonAsset } from "../types";
@@ -128,6 +129,10 @@ export const AdminLessonSongsSection: React.FC<IProps> = ({
   const handleUpload = async () => {
     if (!audioFile) {
       toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.AudioRequired));
+      return;
+    }
+    if (!isMp3AudioFile(audioFile)) {
+      toast.error(t(AppLocales.Admin.Lessons.Songs.Errors.Mp3Only));
       return;
     }
     setIsSaving(true);
@@ -237,7 +242,7 @@ export const AdminLessonSongsSection: React.FC<IProps> = ({
               </Button>
               <FileInput
                 label={t(AppLocales.Admin.Lessons.Songs.UploadAudioLabel)}
-                accept="audio/*"
+                accept=".mp3,audio/mpeg"
                 buttonText={
                   audioFile?.name ||
                   t(AppLocales.Admin.Lessons.Songs.ChooseAudio)
@@ -272,6 +277,7 @@ export const AdminLessonSongsSection: React.FC<IProps> = ({
         onClose={() => setIsPickerOpen(false)}
         assetType={ASSET_TYPES.GENERAL}
         format={ASSET_FORMATS.AUDIO}
+        extension="mp3"
         title={t(AppLocales.Admin.Lessons.Songs.PickerTitle)}
         selectedAssetId={lesson.song_asset_id}
         onSelect={(asset) => {

@@ -373,8 +373,11 @@
         "logs": "လော့ဂ်များ",
         "assets": "ပိုင်ဆိုင်မှုများ",
         "lessons": "သင်ခန်းစာများ",
+        "campuses": "ကျောင်းခွဲများ",
         "versions": "ဗားရှင်းများ",
-        "user_versions": "အသုံးပြုသူ ဗားရှင်းများ"
+        "user_versions": "အသုံးပြုသူ ဗားရှင်းများ",
+        "students": "ကျောင်းသားများ",
+        "teachers": "ဆရာ/ဆရာမများ"
       }
     },
     "common": {
@@ -1905,7 +1908,7 @@
         "unpublished": "Unpublished"
       },
       "ai": {
-        "pending": "AI Generating…",
+        "pending": "Generating…",
         "accept_preview": "Accept preview"
       },
       "table": {
@@ -1968,18 +1971,19 @@
         "replace_button": "Replace",
         "clear_button": "Clear song",
         "upload_audio_label": "Or upload audio",
-        "choose_audio": "Choose audio",
-        "audio_helper": "Max {{size}}MB.",
+        "choose_audio": "Choose MP3",
+        "audio_helper": "MP3 only. Max {{size}}MB.",
         "upload_srt_label": "Subtitle (SRT)",
         "choose_srt": "Choose SRT",
         "upload_button": "Upload song",
-        "picker_title": "Select song audio",
+        "picker_title": "Select song (MP3)",
         "toasts": {
           "save_success": "Song saved",
           "clear_success": "Song cleared"
         },
         "errors": {
-          "audio_required": "Audio file is required"
+          "audio_required": "Audio file is required",
+          "mp3_only": "Only MP3 audio files are allowed"
         }
       },
       "story_video": {
@@ -2207,6 +2211,446 @@
           "delete_group_title": "Delete group?",
           "delete_group_message": "Remove this sort group and all of its items."
         }
+      }
+    },
+    "campuses": {
+      "title": "ကျောင်းခွဲများ",
+      "description": "ကျောင်းခွဲ၊ အဆင့်အလိုက် class၊ ဆရာ၊ ကျောင်းသားနှင့် မိဘ ချိတ်ဆက်မှုများကို စီမံပါ။",
+      "create_title": "ကျောင်းခွဲ ဖန်တီးရန်",
+      "edit_title": "ကျောင်းခွဲ ပြင်ဆင်ရန်",
+      "create_button": "ကျောင်းခွဲ ဖန်တီးရန်",
+      "search_placeholder": "ကျောင်းခွဲများ ရှာရန်...",
+      "empty": "စစ်ထုတ်ချက်နှင့် ကိုက်ညီသော ကျောင်းခွဲ မရှိပါ။",
+      "recycle_title": "ဖယ်ရှားထားသော ကျောင်းခွဲများ",
+      "recycle_description": "soft-delete လုပ်ထားသော ကျောင်းခွဲများကို ပြန်ထားနိုင်သည်။",
+      "recycle_empty": "ဖယ်ရှားထားသော ကျောင်းခွဲ မရှိပါ။",
+      "tabs": {
+        "active": "အသုံးပြုနေဆဲ",
+        "recycle_bin": "recycle bin"
+      },
+      "status": {
+        "active": "အသုံးပြုနေဆဲ",
+        "inactive": "ပိတ်ထား"
+      },
+      "table": {
+        "image": "ဓာတ်ပုံ",
+        "name": "အမည်",
+        "code": "ကုဒ်",
+        "phone": "ဖုန်း",
+        "location": "တည်နေရာ",
+        "status": "အခြေအနေ",
+        "classes": "Class များ",
+        "teachers": "ဆရာများ",
+        "students": "ကျောင်းသားများ"
+      },
+      "form": {
+        "name_label": "အမည်",
+        "name_placeholder": "ကျောင်းခွဲအမည်",
+        "name_error": "အမည် လိုအပ်သည်",
+        "code_label": "ကုဒ်",
+        "code_placeholder": "ထူးခြားသော ကုဒ် (optional)",
+        "phone_label": "ဖုန်း",
+        "phone_placeholder": "ဥပမာ 09444440120",
+        "location_label": "တည်နေရာ",
+        "location_placeholder": "ကျောင်းခွဲ လိပ်စာ",
+        "image_label": "ကျောင်းခွဲ ဓာတ်ပုံ",
+        "image_helper": "Asset library မှ ပုံရွေးပါ။ Optional။",
+        "choose_image": "ဓာတ်ပုံ ရွေးရန်",
+        "remove_image": "ဖယ်ရန်",
+        "picker_title": "ကျောင်းခွဲ ဓာတ်ပုံ ရွေးပါ",
+        "status_label": "အခြေအနေ",
+        "create_campus": "ကျောင်းခွဲ ဖန်တီးရန်",
+        "save_campus": "ကျောင်းခွဲ သိမ်းရန်"
+      },
+
+      "class_form": {
+        "name_label": "Class name",
+        "name_placeholder": "e.g. A or Morning",
+        "name_error": "Class name is required",
+        "level_label": "Level",
+        "level_option": "Level {{level}}",
+        "level_error": "Level is required",
+        "status_label": "Status",
+        "create_class": "Create class",
+        "save_class": "Save class"
+      },
+      "detail": {
+        "title": "Campus",
+        "description": "Campus overview and management",
+        "overview": "Overview",
+        "workflow": "Suggested workflow",
+        "step_teachers": "Add teachers to this campus (they need the teacher_admin role).",
+        "step_classes": "Create classes with a level and name.",
+        "step_assign": "Open a class and assign campus teachers to it.",
+        "step_enroll": "Enroll students into the class (student role required).",
+        "step_parents": "Link parents to students from the class student list.",
+        "tabs": {
+          "overview": "Overview",
+          "classes": "Classes",
+          "teachers": "Teachers",
+          "students": "Students"
+        }
+      },
+      "classes": {
+        "add": "Add class",
+        "empty": "No classes yet for this campus.",
+        "all_levels": "All levels",
+        "table": {
+          "name": "Class",
+          "level": "Level",
+          "status": "Status",
+          "students": "Students",
+          "teachers": "Teachers"
+        }
+      },
+      "teachers": {
+        "add": "ဆရာ ချိတ်ရန်",
+        "add_label": "ရှိပြီးသား ဆရာ user ရှာရန်",
+        "create": "ဆရာ ဖန်တီးရန်",
+        "remove": "ဖယ်ရှားရန်",
+        "empty": "ဤ campus တွင် ဆရာ မထည့်ရသေးပါ။",
+        "role_hint": "teacher_admin role ရှိပြီးသား user ကို ချိတ်နိုင်သည်။ သို့မဟုတ် ဤ campus အတွက် ဆရာ အသစ် ဖန်တီးနိုင်သည်။",
+        "table": {
+          "teacher": "ဆရာ",
+          "kind": "အမျိုးအစား"
+        }
+      },
+      "students": {
+        "create": "ကျောင်းသား ဖန်တီးရန်",
+        "empty": "ဤ campus တွင် active ကျောင်းသား စာရင်းသွင်းမှု မရှိပါ။",
+        "all_classes": "အတန်းအားလုံး",
+        "table": {
+          "student": "ကျောင်းသား",
+          "class": "အတန်း",
+          "level": "Level",
+          "status": "အခြေအနေ",
+          "parents": "မိဘများ"
+        }
+      },
+      "class_detail": {
+        "title": "အတန်း",
+        "description": "ဤအတန်းအတွက် ဆရာ သတ်မှတ်၊ ကျောင်းသား ထည့်၊ အိမ်စာ ပေးနိုင်သည်။",
+        "overview": "အတန်းအသေးစိတ်",
+        "teachers": "သတ်မှတ်ထားသော ဆရာများ",
+        "students": "စာရင်းသွင်းထားသော ကျောင်းသားများ",
+        "homework": "အိမ်စာ",
+        "teachers_empty": "ဤအတန်းတွင် ဆရာ မသတ်မှတ်ရသေးပါ။",
+        "students_empty": "ဤအတန်းတွင် ကျောင်းသား မထည့်ရသေးပါ။",
+        "homework_empty": "ဤအတန်းတွင် အိမ်စာ မပေးရသေးပါ။",
+        "assign": "ဆရာ သတ်မှတ်ရန်",
+        "assign_label": "Campus ဆရာ",
+        "assign_hint": "ဤ campus တွင် ရှိပြီးသား ဆရာများသာ သတ်မှတ်နိုင်သည်။",
+        "select_campus_teacher": "Campus ဆရာ ရွေးပါ",
+        "unassign": "ဖယ်ရှားရန်",
+        "enroll": "ကျောင်းသား ထည့်ရန်",
+        "enroll_label": "ကျောင်းသား ရှာရန်",
+        "enroll_hint": "User တွင် student role ရှိရမည်။ Active စာရင်းသွင်းမှု တစ်ခုသာ။",
+        "unenroll": "စာရင်းမှ ဖယ်ရန်",
+        "assign_homework": "အိမ်စာ ပေးရန်",
+        "edit_homework": "ပြင်ရန်",
+        "discard_homework": "ဖယ်ရှားရန်",
+        "teachers_table": {
+          "teacher": "ဆရာ"
+        },
+        "homework_table": {
+          "lesson": "သင်ခန်းစာ",
+          "activities": "လေ့ကျင့်ခန်းများ",
+          "intros": "အရင်ဖွင့်ရန်",
+          "due": "နောက်ဆုံးနေ့"
+        }
+      },
+      "homework": {
+        "assign_title": "အိမ်စာ ပေးရန်",
+        "edit_title": "အိမ်စာ ပြင်ရန်",
+        "assign": "ပေးရန်",
+        "save": "သိမ်းရန်",
+        "lesson": "သင်ခန်းစာ",
+        "select_lesson": "Published သင်ခန်းစာ ရွေးပါ",
+        "play_song_at_first": "သီချင်းကို အရင်ဖွင့်ရန်",
+        "play_story_at_first": "ပုံပြင်ကို အရင်ဖွင့်ရန်",
+        "activities_title": "လေ့ကျင့်ခန်းများ (အစဉ်အတိုင်း)",
+        "activities_empty": "အနည်းဆုံး လေ့ကျင့်ခန်း တစ်ခု ထည့်ပါ။",
+        "add_activity": "လေ့ကျင့်ခန်း ထည့်ရန်",
+        "select_activity": "လေ့ကျင့်ခန်း ရွေးပါ",
+        "add": "ထည့်ရန်",
+        "remove": "ဖယ်ရန်",
+        "move_up": "အပေါ်ရွှေ့ရန်",
+        "move_down": "အောက်ရွှေ့ရန်",
+        "title_optional": "ခေါင်းစဉ် (optional)",
+        "title_placeholder": "ဥပမာ Week 1 practice",
+        "due_on": "နောက်ဆုံးနေ့ (optional)",
+        "song_badge": "သီချင်း",
+        "story_badge": "ပုံပြင်",
+        "activities": {
+          "listen_and_tap": "Listen And Tap",
+          "speak_and_record": "Speak and Record",
+          "trace_and_write": "Trace and Write",
+          "blend_the_sound": "Blend the sound",
+          "sort_the_word_families": "Sort the word families",
+          "read_a_story": "Read a Story",
+          "sing_and_chant": "Sing and chant",
+          "put_the_story_in_order": "Put the story in order",
+          "build_the_sentences": "Build the sentences",
+          "made_good_choice": "Made good choice",
+          "sort_healthy_choices": "Sort Healthy Choices"
+        }
+      },
+      "parents": {
+        "title": "မိဘ ချိတ်ဆက်မှုများ",
+        "hint": "မိဘများကို ကျောင်းသားနှင့်သာ ချိတ်သည် — campus အဖွဲ့ဝင် မဟုတ်ပါ။",
+        "manage": "မိဘများ",
+        "add_label": "မိဘ ရှာရန်",
+        "link": "မိဘ ချိတ်ရန်",
+        "unlink": "ဖြုတ်ရန်",
+        "empty": "ဤကျောင်းသားနှင့် ချိတ်ထားသော မိဘ မရှိပါ။"
+      },
+      "user_search": {
+        "placeholder": "အမည်၊ username သို့မဟုတ် email ဖြင့် ရှာပါ…",
+        "searching": "ရှာနေသည်…"
+      },
+      "toasts": {
+        "create_success": "Campus ဖန်တီးပြီး",
+        "update_success": "Campus ပြင်ပြီး",
+        "delete_success": "Campus ဖျက်သိမ်းပြီး",
+        "restore_success": "Campus ပြန်ထားပြီး",
+        "create_class_success": "အတန်း ဖန်တီးပြီး",
+        "update_class_success": "အတန်း ပြင်ပြီး",
+        "delete_class_success": "အတန်း ဖျက်သိမ်းပြီး",
+        "add_teacher_success": "ဆရာကို campus ထဲ ထည့်ပြီး",
+        "remove_teacher_success": "ဆရာကို campus မှ ဖယ်ပြီး",
+        "assign_teacher_success": "ဆရာကို အတန်းသို့ သတ်မှတ်ပြီး",
+        "unassign_teacher_success": "ဆရာကို အတန်းမှ ဖယ်ပြီး",
+        "enroll_student_success": "ကျောင်းသား ထည့်ပြီး",
+        "unenroll_student_success": "ကျောင်းသား ဖယ်ပြီး",
+        "assign_homework_success": "အိမ်စာ ပေးပြီး",
+        "update_homework_success": "အိမ်စာ ပြင်ပြီး",
+        "discard_homework_success": "အိမ်စာ ဖယ်ပြီး",
+        "link_parent_success": "မိဘ ချိတ်ပြီး",
+        "unlink_parent_success": "မိဘ ဖြုတ်ပြီး"
+      },
+      "errors": {
+        "load_list": "Campus စာရင်း မရယူနိုင်ပါ",
+        "load_one": "Campus မရယူနိုင်ပါ",
+        "create": "Campus မဖန်တီးနိုင်ပါ",
+        "update": "Campus မပြင်နိုင်ပါ",
+        "delete": "Campus မဖျက်သိမ်းနိုင်ပါ",
+        "restore": "Campus မပြန်ထားနိုင်ပါ",
+        "load_classes": "အတန်းစာရင်း မရယူနိုင်ပါ",
+        "load_class": "အတန်း မရယူနိုင်ပါ",
+        "create_class": "အတန်း မဖန်တီးနိုင်ပါ",
+        "update_class": "အတန်း မပြင်နိုင်ပါ",
+        "delete_class": "အတန်း မဖျက်သိမ်းနိုင်ပါ",
+        "restore_class": "အတန်း မပြန်ထားနိုင်ပါ",
+        "load_teachers": "ဆရာစာရင်း မရယူနိုင်ပါ",
+        "add_teacher": "ဆရာ မထည့်နိုင်ပါ",
+        "remove_teacher": "ဆရာ မဖယ်နိုင်ပါ",
+        "load_students": "ကျောင်းသားစာရင်း မရယူနိုင်ပါ",
+        "load_assignments": "အတန်းဆရာများ မရယူနိုင်ပါ",
+        "assign_teacher": "ဆရာ မသတ်မှတ်နိုင်ပါ",
+        "unassign_teacher": "ဆရာ မဖယ်နိုင်ပါ",
+        "load_enrollments": "စာရင်းသွင်းမှုများ မရယူနိုင်ပါ",
+        "enroll_student": "ကျောင်းသား မထည့်နိုင်ပါ",
+        "unenroll_student": "ကျောင်းသား မဖယ်နိုင်ပါ",
+        "load_homeworks": "အိမ်စာ မရယူနိုင်ပါ",
+        "load_lessons": "သင်ခန်းစာများ မရယူနိုင်ပါ",
+        "assign_homework": "အိမ်စာ မပေးနိုင်ပါ",
+        "update_homework": "အိမ်စာ မပြင်နိုင်ပါ",
+        "discard_homework": "အိမ်စာ မဖယ်နိုင်ပါ",
+        "load_parents": "မိဘ ချိတ်ဆက်မှုများ မရယူနိုင်ပါ",
+        "link_parent": "မိဘ မချိတ်နိုင်ပါ",
+        "unlink_parent": "မိဘ မဖြုတ်နိုင်ပါ"
+      },
+      "confirm": {
+        "delete_title": "Campus ဖျက်သိမ်းမလား?",
+        "delete_message": "ဤ campus ကို recycle bin သို့ ရွှေ့မည်။",
+        "restore_title": "Campus ပြန်ထားမလား?",
+        "restore_message": "ဤ campus ကို ပြန်အသက်သွင်းမည်။",
+        "delete_class_title": "အတန်း ဖျက်သိမ်းမလား?",
+        "delete_class_message": "ဤအတန်းကို soft-delete လုပ်မည်။",
+        "remove_teacher_title": "ဆရာ ဖယ်မလား?",
+        "remove_teacher_message": "ဤဆရာကို campus မှ ဖြုတ်မည်။",
+        "unassign_teacher_title": "ဆရာ ဖယ်မလား?",
+        "unassign_teacher_message": "ဤဆရာကို အတန်းမှ ဖယ်မည်။",
+        "unenroll_title": "ကျောင်းသား ဖယ်မလား?",
+        "unenroll_message": "ဤကျောင်းသား၏ စာရင်းသွင်းမှုကို ဖယ်မည်။",
+        "discard_homework_title": "အိမ်စာ ဖယ်မလား?",
+        "discard_homework_message": "ဤအိမ်စာကို အတန်းမှ ဖယ်မည်။",
+        "unlink_parent_title": "မိဘ ဖြုတ်မလား?",
+        "unlink_parent_message": "ဤမိဘကို ကျောင်းသားနှင့် မချိတ်တော့ပါ။"
+      }
+    },
+    "students": {
+      "title": "ကျောင်းသားများ",
+
+      "description": "ကျောင်းသား ဖန်တီး၊ campus class ထဲ ထည့်၊ မိဘနှင့် ချိတ်ပါ။",
+      "create_title": "ကျောင်းသား ဖန်တီးရန်",
+      "create_button": "ကျောင်းသား ဖန်တီးရန်",
+      "empty": "စစ်ထုတ်ချက်နှင့် ကိုက်ညီသော ကျောင်းသား စာရင်းသွင်းမှု မရှိပါ။",
+      "filters": {
+        "campus": "Campus",
+        "level": "Level",
+        "class": "အတန်း",
+        "all_campuses": "Campus အားလုံး",
+        "all_levels": "Level အားလုံး",
+        "all_classes": "အတန်းအားလုံး"
+      },
+      "table": {
+        "student": "ကျောင်းသား",
+        "campus": "Campus",
+        "level": "Level",
+        "class": "အတန်း",
+        "status": "အခြေအနေ",
+        "parents": "မိဘများ",
+        "no_parents": "မရှိ"
+      },
+      "form": {
+        "student_section": "ကျောင်းသား",
+        "placement_section": "အတန်းနေရာချထားမှု",
+        "parent_section": "မိဘ",
+        "parent_hint": "ရွေးချယ်နိုင်သည်။ မိဘအသစ် ဖန်တီးနိုင်သည် သို့မဟုတ် ရှိပြီးသား parent user ကို ချိတ်နိုင်သည်။",
+        "username_label": "Username",
+        "username_error": "Username လိုအပ်သည်",
+        "name_label": "အမည်",
+        "name_error": "အမည် လိုအပ်သည်",
+        "email_label": "Email",
+        "email_error": "Email လိုအပ်သည်",
+        "campus_label": "Campus",
+        "campus_placeholder": "Campus ရွေးပါ",
+        "level_label": "Level",
+        "level_placeholder": "Level ရွေးပါ",
+        "class_label": "အတန်း",
+        "class_placeholder": "အတန်းရွေးပါ",
+        "placement_error": "Campus၊ level နှင့် အတန်း လိုအပ်သည်",
+        "parent_mode_label": "မိဘ ရွေးချယ်မှု",
+        "parent_mode_none": "ယခု မိဘ မချိတ်သေး",
+        "parent_mode_create": "မိဘအသစ် ဖန်တီးရန်",
+        "parent_mode_link": "ရှိပြီးသား မိဘ ချိတ်ရန်",
+        "parent_search_label": "မိဘ user ရှာရန်",
+        "parent_search_placeholder": "အမည်၊ username သို့မဟုတ် email ဖြင့် ရှာပါ",
+        "submit": "ကျောင်းသား ဖန်တီးရန်"
+      },
+      "detail": {
+        "title": "ကျောင်းသား",
+        "description": "စာရင်းသွင်းမှု၊ အတန်း၊ အိမ်စာနှင့် မိဘ ချိတ်ဆက်မှုများ။",
+        "overview": "အကျဉ်းချုပ်",
+        "change_class": "အတန်း ပြောင်းရန်",
+        "save_class": "အတန်း သိမ်းရန်",
+        "open_campus": "Campus ဖွင့်ရန်",
+        "open_class": "အတန်း ဖွင့်ရန်",
+        "homework": "အိမ်စာ",
+        "homework_hint": "ဤကျောင်းသား၏ အတန်းသို့ ပေးထားသော အိမ်စာ။ ပေးရန်/ပြင်ရန်ကို အတန်း detail မှ လုပ်ပါ။",
+        "homework_empty": "ဤကျောင်းသား၏ အတန်းတွင် အိမ်စာ မပေးရသေးပါ။",
+        "homework_table": {
+          "lesson": "သင်ခန်းစာ",
+          "activities": "လေ့ကျင့်ခန်းများ",
+          "intros": "အရင်ဖွင့်ရန်",
+          "due": "နောက်ဆုံးနေ့"
+        },
+        "parents": "မိဘများ",
+        "parents_hint": "မိဘသည် campus member မဟုတ်ပါ။ ကျောင်းသားနှင့် ဤနေရာတွင် ချိတ်ပါ။",
+        "parents_empty": "မိဘ မချိတ်ရသေးပါ။",
+        "link_parent": "မိဘ ချိတ်ရန်",
+        "unlink_parent": "ဖြုတ်ရန်"
+      },
+      "toasts": {
+        "create_success": "ကျောင်းသား ဖန်တီးပြီး အတန်းထဲ ထည့်ပြီးပါပြီ။",
+        "change_class_success": "ကျောင်းသားအတန်း ပြင်ဆင်ပြီးပါပြီ။",
+        "class_unchanged": "ကျောင်းသားသည် ဤအတန်းတွင် ရှိပြီးသားဖြစ်သည်။",
+        "link_parent_success": "မိဘကို ကျောင်းသားနှင့် ချိတ်ပြီးပါပြီ။",
+        "unlink_parent_success": "မိဘ-ကျောင်းသား ချိတ်ဆက်မှု ဖယ်ရှားပြီးပါပြီ။"
+      },
+      "errors": {
+        "load_list": "ကျောင်းသားစာရင်း မရယူနိုင်ပါ။",
+        "load_one": "ဤကျောင်းသား စာရင်းသွင်းမှု မရယူနိုင်ပါ။",
+        "load_roles": "Roles မရယူနိုင်ပါ။",
+        "role_missing": "လိုအပ်သော role \"{{role}}\" မတွေ့ပါ။",
+        "create_student": "ကျောင်းသား user မဖန်တီးနိုင်ပါ။",
+        "create_parent": "မိဘ user မဖန်တီးနိုင်ပါ။",
+        "load_homeworks": "ဤကျောင်းသား၏ အိမ်စာ မရယူနိုင်ပါ။",
+
+        "create_failed": "ကျောင်းသား ဖန်တီးမှု မပြီးစီးနိုင်ပါ။",
+        "enroll": "ကျောင်းသား ဖန်တီးပြီးသော်လည်း အတန်းထည့်မှု မအောင်မြင်ပါ။ Campus သို့မဟုတ် Students မှ ဆက်လုပ်ပါ။",
+        "change_class": "အတန်း မပြောင်းနိုင်ပါ။",
+        "parent_required": "မိဘ အချက်အလက် ရွေးပါ သို့မဟုတ် ဖြည့်ပါ။",
+        "link_parent": "မိဘ မချိတ်နိုင်ပါ။",
+        "unlink_parent": "မိဘ မဖြုတ်နိုင်ပါ။"
+      },
+      "confirm": {
+        "unlink_parent_title": "မိဘ ဖြုတ်မလား?",
+        "unlink_parent_message": "ဤမိဘ-ကျောင်းသား ချိတ်ဆက်မှုကို ဖယ်ရှားမည်။ User အကောင့်နှစ်ခုလုံး ဆက်ရှိနေမည်။"
+      }
+    },
+    "teachers": {
+      "title": "ဆရာ/ဆရာမများ",
+      "description": "ဆရာ ဖန်တီး၊ campus ထည့်၊ အတန်း assign လုပ်ပါ။",
+      "create_title": "ဆရာ ဖန်တီးရန်",
+      "create_button": "ဆရာ ဖန်တီးရန်",
+      "empty": "စစ်ထုတ်ချက်နှင့် ကိုက်ညီသော campus ဆရာ မရှိပါ။",
+      "filters": {
+        "campus": "Campus",
+        "all_campuses": "Campus အားလုံး"
+      },
+      "table": {
+        "teacher": "ဆရာ",
+        "campus": "Campus",
+        "kind": "အမျိုးအစား",
+        "created": "ထည့်သည့်နေ့"
+      },
+      "form": {
+        "teacher_section": "ဆရာ",
+        "placement_section": "Campus နေရာချထားမှု",
+        "placement_hint": "Campus လိုအပ်သည်။ အတန်း assign က ရွေးချယ်နိုင်ပြီး နောက်မှ ထပ်လုပ်နိုင်သည်။",
+        "username_label": "Username",
+        "username_error": "Username လိုအပ်သည်",
+        "name_label": "အမည်",
+        "name_error": "အမည် လိုအပ်သည်",
+        "email_label": "Email",
+        "email_error": "Email လိုအပ်သည်",
+        "campus_label": "Campus",
+        "campus_placeholder": "Campus ရွေးပါ",
+        "campus_error": "Campus လိုအပ်သည်",
+        "class_label": "အတန်း (ရွေးချယ်နိုင်)",
+        "class_placeholder": "အတန်း မရွေးသေး",
+        "submit": "ဆရာ ဖန်တီးရန်"
+      },
+      "detail": {
+        "title": "ဆရာ",
+        "description": "Campus membership နှင့် အတန်း assignment များ။",
+        "overview": "အကျဉ်းချုပ်",
+        "open_campus": "Campus ဖွင့်ရန်",
+        "remove_campus": "Campus မှ ဖယ်ရှားရန်",
+        "classes": "Assign လုပ်ထားသော အတန်းများ",
+        "classes_hint": "အတန်း assign မလုပ်မီ campus membership ရှိရမည်။",
+        "classes_empty": "အတန်း မ assign ရသေးပါ။",
+        "class_column": "အတန်း",
+        "assign": "အတန်း assign",
+        "assign_label": "အတန်း",
+        "assign_placeholder": "အတန်းရွေးပါ",
+        "unassign": "ဖြုတ်ရန်"
+      },
+      "toasts": {
+        "create_success": "ဆရာ ဖန်တီးပြီး campus ထည့်ပြီးပါပြီ။",
+        "assign_class_success": "ဆရာကို အတန်းသို့ assign လုပ်ပြီးပါပြီ။",
+        "unassign_class_success": "အတန်း assignment ဖယ်ရှားပြီးပါပြီ။",
+        "remove_campus_success": "ဆရာကို campus မှ ဖယ်ရှားပြီးပါပြီ။"
+      },
+      "errors": {
+        "load_list": "ဆရာစာရင်း မရယူနိုင်ပါ။",
+        "load_one": "ဤဆရာ membership မရယူနိုင်ပါ။",
+        "load_roles": "Roles မရယူနိုင်ပါ။",
+        "role_missing": "လိုအပ်သော role \"{{role}}\" မတွေ့ပါ။",
+        "create_teacher": "ဆရာ user မဖန်တီးနိုင်ပါ။",
+        "create_failed": "ဆရာ ဖန်တီးမှု မပြီးစီးနိုင်ပါ။",
+        "attach_campus": "ဆရာ ဖန်တီးပြီးသော်လည်း campus ထည့်မှု မအောင်မြင်ပါ။ Campus Teachers မှ ဆက်လုပ်ပါ။",
+        "assign_class": "အတန်းသို့ မ assign နိုင်ပါ။",
+        "unassign_class": "အတန်း assignment မဖြုတ်နိုင်ပါ။",
+        "remove_campus": "Campus မှ မဖယ်ရှားနိုင်ပါ။"
+      },
+      "confirm": {
+        "unassign_title": "အတန်း ဖြုတ်မလား?",
+        "unassign_message": "ဤအတန်းမှ ဆရာကို ဖယ်ရှားမည်။ Campus membership ဆက်ရှိနေမည်။",
+        "remove_campus_title": "Campus မှ ဖယ်ရှားမလား?",
+        "remove_campus_message": "ဤဆရာကို campus မှ ဖြုတ်မည်။ လိုအပ်ပါက အတန်း assignment များကို အရင် ရှင်းပါ။"
       }
     }
   },

@@ -373,8 +373,11 @@
         "logs": "Client Logs & Telemetry",
         "assets": "Assets",
         "lessons": "Lessons",
+        "campuses": "Campuses",
         "versions": "Versions",
-        "user_versions": "User Versions"
+        "user_versions": "User Versions",
+        "students": "Students",
+        "teachers": "Teachers"
       }
     },
     "common": {
@@ -1905,7 +1908,7 @@
         "unpublished": "Unpublished"
       },
       "ai": {
-        "pending": "AI Generating…",
+        "pending": "Generating…",
         "accept_preview": "Accept preview"
       },
       "table": {
@@ -1968,18 +1971,19 @@
         "replace_button": "Replace",
         "clear_button": "Clear song",
         "upload_audio_label": "Or upload audio",
-        "choose_audio": "Choose audio",
-        "audio_helper": "Max {{size}}MB.",
+        "choose_audio": "Choose MP3",
+        "audio_helper": "MP3 only. Max {{size}}MB.",
         "upload_srt_label": "Subtitle (SRT)",
         "choose_srt": "Choose SRT",
         "upload_button": "Upload song",
-        "picker_title": "Select song audio",
+        "picker_title": "Select song (MP3)",
         "toasts": {
           "save_success": "Song saved",
           "clear_success": "Song cleared"
         },
         "errors": {
-          "audio_required": "Audio file is required"
+          "audio_required": "Audio file is required",
+          "mp3_only": "Only MP3 audio files are allowed"
         }
       },
       "story_video": {
@@ -2207,6 +2211,448 @@
           "delete_group_title": "Delete group?",
           "delete_group_message": "Remove this sort group and all of its items."
         }
+      }
+    },
+    "campuses": {
+      "title": "Campuses",
+      "description": "Manage campuses, classes by level, teachers, students, and parent links.",
+      "create_title": "Create Campus",
+      "edit_title": "Edit Campus",
+      "create_button": "Create Campus",
+      "search_placeholder": "Search campuses...",
+      "empty": "No campuses match your filters.",
+      "recycle_title": "Discarded campuses",
+      "recycle_description": "Restore campuses that were soft-deleted.",
+      "recycle_empty": "No discarded campuses.",
+      "tabs": {
+        "active": "Active",
+        "recycle_bin": "Recycle bin"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "table": {
+        "image": "Photo",
+        "name": "Name",
+        "code": "Code",
+        "phone": "Phone",
+        "location": "Location",
+        "status": "Status",
+        "classes": "Classes",
+        "teachers": "Teachers",
+        "students": "Students"
+      },
+      "form": {
+        "name_label": "Name",
+        "name_placeholder": "Campus name",
+        "name_error": "Name is required",
+        "code_label": "Code",
+        "code_placeholder": "Optional unique code",
+        "phone_label": "Phone",
+        "phone_placeholder": "e.g. 09444440120",
+        "location_label": "Location",
+        "location_placeholder": "Campus address",
+        "image_label": "Campus photo",
+        "image_helper": "Pick an image from the asset library. Optional.",
+        "choose_image": "Choose photo",
+        "remove_image": "Remove",
+        "picker_title": "Select campus photo",
+        "status_label": "Status",
+        "create_campus": "Create campus",
+        "save_campus": "Save campus"
+      },
+      "class_form": {
+        "name_label": "Class name",
+        "name_placeholder": "e.g. A or Morning",
+        "name_error": "Class name is required",
+        "level_label": "Level",
+        "level_option": "Level {{level}}",
+        "level_error": "Level is required",
+        "status_label": "Status",
+        "create_class": "Create class",
+        "save_class": "Save class"
+      },
+      "detail": {
+        "title": "Campus",
+        "description": "Campus overview and management",
+
+        "overview": "Overview",
+        "workflow": "Suggested workflow",
+        "step_teachers": "Add teachers to this campus (they need the teacher_admin role).",
+        "step_classes": "Create classes with a level and name.",
+        "step_assign": "Open a class and assign campus teachers to it.",
+        "step_enroll": "Enroll students into the class (student role required).",
+        "step_parents": "Link parents to students from the class student list.",
+        "tabs": {
+          "overview": "Overview",
+          "classes": "Classes",
+          "teachers": "Teachers",
+          "students": "Students"
+        }
+      },
+      "classes": {
+        "add": "Add class",
+        "empty": "No classes yet for this campus.",
+        "all_levels": "All levels",
+        "table": {
+          "name": "Class",
+          "level": "Level",
+          "status": "Status",
+          "students": "Students",
+          "teachers": "Teachers"
+        }
+      },
+      "teachers": {
+        "add": "Attach teacher",
+        "add_label": "Search existing teacher user",
+        "create": "Create teacher",
+        "remove": "Remove",
+        "empty": "No teachers attached to this campus yet.",
+        "role_hint": "Attach an existing user with the teacher_admin role, or create a new teacher for this campus.",
+        "table": {
+          "teacher": "Teacher",
+          "kind": "Kind"
+        }
+      },
+      "students": {
+        "create": "Create student",
+        "empty": "No active student enrollments for this campus.",
+        "all_classes": "All classes",
+        "table": {
+          "student": "Student",
+          "class": "Class",
+          "level": "Level",
+          "status": "Status",
+          "parents": "Parents"
+        }
+      },
+      "class_detail": {
+        "title": "Class",
+        "description": "Assign teachers, enroll students, and assign homework for this class.",
+        "overview": "Class details",
+        "teachers": "Assigned teachers",
+        "students": "Enrolled students",
+        "homework": "Homework",
+        "teachers_empty": "No teachers assigned to this class yet.",
+        "students_empty": "No students enrolled in this class yet.",
+        "homework_empty": "No homework assigned to this class yet.",
+        "assign": "Assign teacher",
+        "assign_label": "Campus teacher",
+        "assign_hint": "Only teachers already on this campus can be assigned.",
+        "select_campus_teacher": "Select a campus teacher",
+        "unassign": "Unassign",
+        "enroll": "Enroll student",
+        "enroll_label": "Search student user",
+        "enroll_hint": "User must have the student role. Only one active enrollment per student.",
+        "unenroll": "Unenroll",
+        "assign_homework": "Assign homework",
+        "edit_homework": "Edit",
+        "discard_homework": "Remove",
+        "teachers_table": {
+          "teacher": "Teacher"
+        },
+        "homework_table": {
+          "lesson": "Lesson",
+          "activities": "Activities",
+          "intros": "Play first",
+          "due": "Due"
+        }
+      },
+      "homework": {
+        "assign_title": "Assign homework",
+        "edit_title": "Edit homework",
+        "assign": "Assign",
+        "save": "Save",
+        "lesson": "Lesson",
+        "select_lesson": "Select a published lesson",
+        "play_song_at_first": "Play song at first",
+        "play_story_at_first": "Play story at first",
+        "activities_title": "Activities (in play order)",
+        "activities_empty": "Add at least one activity.",
+        "add_activity": "Add activity",
+        "select_activity": "Select an activity",
+        "add": "Add",
+        "remove": "Remove",
+        "move_up": "Move up",
+        "move_down": "Move down",
+        "title_optional": "Title (optional)",
+        "title_placeholder": "e.g. Week 1 practice",
+        "due_on": "Due date (optional)",
+        "song_badge": "Song",
+        "story_badge": "Story",
+        "activities": {
+          "listen_and_tap": "Listen And Tap",
+          "speak_and_record": "Speak and Record",
+          "trace_and_write": "Trace and Write",
+          "blend_the_sound": "Blend the sound",
+          "sort_the_word_families": "Sort the word families",
+          "read_a_story": "Read a Story",
+          "sing_and_chant": "Sing and chant",
+          "put_the_story_in_order": "Put the story in order",
+          "build_the_sentences": "Build the sentences",
+          "made_good_choice": "Made good choice",
+          "sort_healthy_choices": "Sort Healthy Choices"
+        }
+      },
+
+      "parents": {
+        "title": "Parent links",
+        "hint": "Parents are linked to students only — they are not campus members.",
+        "manage": "Parents",
+        "add_label": "Search parent user",
+        "link": "Link parent",
+        "unlink": "Unlink",
+        "empty": "No parents linked to this student."
+      },
+      "user_search": {
+        "placeholder": "Search by name, username, or email…",
+        "searching": "Searching…"
+      },
+      "toasts": {
+        "create_success": "Campus created",
+        "update_success": "Campus updated",
+        "delete_success": "Campus discarded",
+        "restore_success": "Campus restored",
+        "create_class_success": "Class created",
+        "update_class_success": "Class updated",
+        "delete_class_success": "Class discarded",
+        "add_teacher_success": "Teacher added to campus",
+        "remove_teacher_success": "Teacher removed from campus",
+        "assign_teacher_success": "Teacher assigned to class",
+        "unassign_teacher_success": "Teacher unassigned from class",
+        "enroll_student_success": "Student enrolled",
+        "unenroll_student_success": "Student unenrolled",
+        "assign_homework_success": "Homework assigned",
+        "update_homework_success": "Homework updated",
+        "discard_homework_success": "Homework removed",
+        "link_parent_success": "Parent linked",
+        "unlink_parent_success": "Parent unlinked"
+      },
+      "errors": {
+
+        "load_list": "Failed to load campuses",
+        "load_one": "Failed to load campus",
+        "create": "Failed to create campus",
+        "update": "Failed to update campus",
+        "delete": "Failed to discard campus",
+        "restore": "Failed to restore campus",
+        "load_classes": "Failed to load classes",
+        "load_class": "Failed to load class",
+        "create_class": "Failed to create class",
+        "update_class": "Failed to update class",
+        "delete_class": "Failed to discard class",
+        "restore_class": "Failed to restore class",
+        "load_teachers": "Failed to load teachers",
+        "add_teacher": "Failed to add teacher",
+        "remove_teacher": "Failed to remove teacher",
+        "load_students": "Failed to load students",
+        "load_assignments": "Failed to load class teachers",
+        "assign_teacher": "Failed to assign teacher",
+        "unassign_teacher": "Failed to unassign teacher",
+        "load_enrollments": "Failed to load enrollments",
+        "enroll_student": "Failed to enroll student",
+        "unenroll_student": "Failed to unenroll student",
+        "load_homeworks": "Failed to load homework",
+        "load_lessons": "Failed to load lessons",
+        "assign_homework": "Failed to assign homework",
+        "update_homework": "Failed to update homework",
+        "discard_homework": "Failed to remove homework",
+        "load_parents": "Failed to load parent links",
+        "link_parent": "Failed to link parent",
+        "unlink_parent": "Failed to unlink parent"
+      },
+      "confirm": {
+        "delete_title": "Discard campus?",
+        "delete_message": "This campus will move to the recycle bin.",
+        "restore_title": "Restore campus?",
+        "restore_message": "This campus will become active again.",
+        "delete_class_title": "Discard class?",
+        "delete_class_message": "This class will be soft-deleted.",
+        "remove_teacher_title": "Remove teacher?",
+        "remove_teacher_message": "This teacher will be detached from the campus.",
+        "unassign_teacher_title": "Unassign teacher?",
+        "unassign_teacher_message": "This teacher will be removed from the class.",
+        "unenroll_title": "Unenroll student?",
+        "unenroll_message": "This student's enrollment will be removed.",
+        "discard_homework_title": "Remove homework?",
+        "discard_homework_message": "This homework assignment will be removed from the class.",
+        "unlink_parent_title": "Unlink parent?",
+        "unlink_parent_message": "This parent will no longer be linked to the student."
+      }
+    },
+    "students": {
+      "title": "Students",
+      "description": "Create students, place them in a campus class, and link parents.",
+
+      "create_title": "Create Student",
+      "create_button": "Create Student",
+      "empty": "No student enrollments match your filters.",
+      "filters": {
+        "campus": "Campus",
+        "level": "Level",
+        "class": "Class",
+        "all_campuses": "All campuses",
+        "all_levels": "All levels",
+        "all_classes": "All classes"
+      },
+      "table": {
+        "student": "Student",
+        "campus": "Campus",
+        "level": "Level",
+        "class": "Class",
+        "status": "Status",
+        "parents": "Parents",
+        "no_parents": "None"
+      },
+      "form": {
+        "student_section": "Student",
+        "placement_section": "Class placement",
+        "parent_section": "Parent",
+        "parent_hint": "Optional. Create a new parent or link an existing parent user (parent role required).",
+        "username_label": "Username",
+        "username_error": "Username is required",
+        "name_label": "Name",
+        "name_error": "Name is required",
+        "email_label": "Email",
+        "email_error": "Email is required",
+        "campus_label": "Campus",
+        "campus_placeholder": "Select campus",
+        "level_label": "Level",
+        "level_placeholder": "Select level",
+        "class_label": "Class",
+        "class_placeholder": "Select class",
+        "placement_error": "Campus, level, and class are required",
+        "parent_mode_label": "Parent option",
+        "parent_mode_none": "No parent for now",
+        "parent_mode_create": "Create new parent",
+        "parent_mode_link": "Link existing parent",
+        "parent_search_label": "Search parent user",
+        "parent_search_placeholder": "Search by name, username, or email",
+        "submit": "Create student"
+      },
+      "detail": {
+        "title": "Student",
+        "description": "Enrollment, class placement, homework, and parent links.",
+        "overview": "Overview",
+        "change_class": "Change class",
+        "save_class": "Save class",
+        "open_campus": "Open campus",
+        "open_class": "Open class",
+        "homework": "Homework",
+        "homework_hint": "Homework assigned to this student’s class. Assign or edit from the class detail page.",
+        "homework_empty": "No homework assigned to this student’s class yet.",
+        "homework_table": {
+          "lesson": "Lesson",
+          "activities": "Activities",
+          "intros": "Play first",
+          "due": "Due"
+        },
+        "parents": "Parents",
+        "parents_hint": "Parents are not campus members. Link them here to the student account.",
+        "parents_empty": "No parents linked yet.",
+        "link_parent": "Link parent",
+        "unlink_parent": "Unlink"
+      },
+      "toasts": {
+        "create_success": "Student created and enrolled.",
+        "change_class_success": "Student class updated.",
+        "class_unchanged": "Student is already in this class.",
+        "link_parent_success": "Parent linked to student.",
+        "unlink_parent_success": "Parent unlinked from student."
+      },
+      "errors": {
+        "load_list": "Could not load students.",
+        "load_one": "Could not load this student enrollment.",
+        "load_roles": "Could not load roles.",
+        "role_missing": "Required role \"{{role}}\" was not found.",
+        "create_student": "Could not create the student user.",
+        "create_parent": "Could not create the parent user.",
+        "create_failed": "Could not complete student creation.",
+        "enroll": "Student was created but enrollment failed. Finish enrollment from Campus or Students.",
+        "change_class": "Could not change the student class.",
+        "parent_required": "Select or enter parent details.",
+        "load_homeworks": "Could not load homework for this student.",
+
+        "link_parent": "Could not link parent.",
+        "unlink_parent": "Could not unlink parent."
+      },
+      "confirm": {
+        "unlink_parent_title": "Unlink parent?",
+        "unlink_parent_message": "Remove this parent-student link. Both user accounts stay active."
+      }
+    },
+    "teachers": {
+      "title": "Teachers",
+      "description": "Create teachers, attach them to a campus, and assign classes.",
+      "create_title": "Create Teacher",
+      "create_button": "Create Teacher",
+      "empty": "No campus teachers match your filters.",
+      "filters": {
+        "campus": "Campus",
+        "all_campuses": "All campuses"
+      },
+      "table": {
+        "teacher": "Teacher",
+        "campus": "Campus",
+        "kind": "Kind",
+        "created": "Added"
+      },
+      "form": {
+        "teacher_section": "Teacher",
+        "placement_section": "Campus placement",
+        "placement_hint": "Campus is required. Class assignment is optional and can be added later.",
+        "username_label": "Username",
+        "username_error": "Username is required",
+        "name_label": "Name",
+        "name_error": "Name is required",
+        "email_label": "Email",
+        "email_error": "Email is required",
+        "campus_label": "Campus",
+        "campus_placeholder": "Select campus",
+        "campus_error": "Campus is required",
+        "class_label": "Class (optional)",
+        "class_placeholder": "No class yet",
+        "submit": "Create teacher"
+      },
+      "detail": {
+        "title": "Teacher",
+        "description": "Campus membership and class assignments.",
+        "overview": "Overview",
+        "open_campus": "Open campus",
+        "remove_campus": "Remove from campus",
+        "classes": "Assigned classes",
+        "classes_hint": "Teacher must belong to the campus before class assignment.",
+        "classes_empty": "No classes assigned yet.",
+        "class_column": "Class",
+        "assign": "Assign class",
+        "assign_label": "Class",
+        "assign_placeholder": "Select class",
+        "unassign": "Unassign"
+      },
+      "toasts": {
+        "create_success": "Teacher created and attached to campus.",
+        "assign_class_success": "Teacher assigned to class.",
+        "unassign_class_success": "Teacher unassigned from class.",
+        "remove_campus_success": "Teacher removed from campus."
+      },
+      "errors": {
+        "load_list": "Could not load teachers.",
+        "load_one": "Could not load this teacher membership.",
+        "load_roles": "Could not load roles.",
+        "role_missing": "Required role \"{{role}}\" was not found.",
+        "create_teacher": "Could not create the teacher user.",
+        "create_failed": "Could not complete teacher creation.",
+        "attach_campus": "Teacher was created but campus attach failed. Finish from Campus Teachers.",
+        "assign_class": "Could not assign the teacher to this class.",
+        "unassign_class": "Could not unassign the teacher.",
+        "remove_campus": "Could not remove the teacher from this campus."
+      },
+      "confirm": {
+        "unassign_title": "Unassign class?",
+        "unassign_message": "Remove this teacher from the class. Campus membership stays.",
+        "remove_campus_title": "Remove from campus?",
+        "remove_campus_message": "Detach this teacher from the campus. Class assignments on this campus should be cleared first if required by Core rules."
       }
     }
   },

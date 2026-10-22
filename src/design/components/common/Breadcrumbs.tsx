@@ -15,7 +15,7 @@ export interface IBreadcrumbsProps {
 }
 
 export const Breadcrumbs: React.FC<IBreadcrumbsProps> = ({
-  items,
+  items = [],
   className,
   ariaLabel = "Breadcrumb",
 }) => (

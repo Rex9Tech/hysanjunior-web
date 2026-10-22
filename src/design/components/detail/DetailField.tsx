@@ -44,7 +44,7 @@ export const DetailField: React.FC<IDetailFieldProps> = ({
   return (
     <div
       className={cn(
-        "group relative flex flex-col justify-between rounded-xl border border-base-200/90 bg-base-200/30 p-3.5 sm:p-4 transition-all duration-200 hover:border-primary/40 hover:bg-base-200/60 hover:shadow-xs min-w-0",
+        "group relative flex flex-col justify-between rounded-xl border border-primary bg-base-200/30 p-3.5 sm:p-4 transition-all duration-200 hover:bg-base-200/60 hover:shadow-xs min-w-0",
         fullWidth && "col-span-full",
         className,
       )}

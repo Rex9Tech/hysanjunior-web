@@ -18,9 +18,20 @@ export interface IAdminAssetSelectDialogProps {
   assetType?: string;
   /** File format filter (e.g. video). Sent as API param and applied client-side. */
   format?: string;
+  /** File extension filter (e.g. mp3). Applied client-side. */
+  extension?: string;
   title?: string;
   selectedAssetId?: string | null;
 }
+
+const matchesExtension = (asset: IAdminAsset, extension: string): boolean => {
+  const normalized = extension.replace(/^\./, "").toLowerCase();
+  const assetExt = (asset.extension || "").replace(/^\./, "").toLowerCase();
+  if (assetExt === normalized) return true;
+  const name = (asset.name || "").toLowerCase();
+  const url = (asset.url || "").toLowerCase();
+  return name.endsWith(`.${normalized}`) || url.includes(`.${normalized}`);
+};
 
 export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
   isOpen,
@@ -28,6 +39,7 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
   onSelect,
   assetType,
   format,
+  extension,
   title,
   selectedAssetId,
 }) => {
@@ -64,12 +76,18 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
 
         const result = await Admin.AssetController.getAssets(params);
         if (result.success) {
-          const nextAssets = format
-            ? result.assets.filter(
-                (asset) =>
-                  (asset.format || "").toLowerCase() === format.toLowerCase(),
-              )
-            : result.assets;
+          let nextAssets = result.assets;
+          if (format) {
+            nextAssets = nextAssets.filter(
+              (asset) =>
+                (asset.format || "").toLowerCase() === format.toLowerCase(),
+            );
+          }
+          if (extension) {
+            nextAssets = nextAssets.filter((asset) =>
+              matchesExtension(asset, extension),
+            );
+          }
           setAssets(nextAssets);
           setPagination(result.pagination);
         } else {
@@ -80,7 +98,7 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
         setLoading(false, { overlay: false });
       }
     },
-    [assetType, format, limit, setLoading],
+    [assetType, extension, format, limit, setLoading],
   );
 
   useEffect(() => {
@@ -145,6 +163,11 @@ export const AdminAssetSelectDialog: React.FC<IAdminAssetSelectDialogProps> = ({
               {format && (
                 <Badge variant="secondary" className="capitalize">
                   {format}
+                </Badge>
+              )}
+              {extension && (
+                <Badge variant="secondary" className="uppercase">
+                  {extension.replace(/^\./, "")}
                 </Badge>
               )}
             </div>

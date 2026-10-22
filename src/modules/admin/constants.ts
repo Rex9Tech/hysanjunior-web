@@ -68,8 +68,16 @@ export const ADMIN_RESOURCES = {
   PAYMENT_COUPONS: "payment_coupons",
   PAYMENT_USER_COUPONS: "payment_user_coupons",
 
-  // Client-only / mock resources (no backend permission yet)
+  // Content management
   LESSONS: "lessons",
+  CAMPUSES: "campuses",
+  SCHOOL_CLASSES: "school_classes",
+  CAMPUS_MEMBERSHIPS: "campus_memberships",
+  CLASS_ASSIGNMENTS: "class_assignments",
+  CLASS_ENROLLMENTS: "class_enrollments",
+  CLASS_HOMEWORKS: "class_homeworks",
+  PARENT_STUDENTS: "parent_students",
+
 
   // Aliases for seamless component compatibility
   ROOMS: "chat_rooms",
@@ -145,6 +153,9 @@ export const ADMIN_NAV_LABELS = {
   USERS: "Users",
   ASSETS: "Assets",
   LESSONS: "Lessons",
+  CAMPUSES: "Campuses",
+  STUDENTS: "Students",
+  TEACHERS: "Teachers",
   VERSIONS: "Versions",
   USER_VERSIONS: "User Versions",
 } as const;

@@ -10,8 +10,11 @@ import SocketService, {
 import { NOTIFICATION_SOCKET_TYPES } from "../../../notification/constants";
 import { Admin } from "../..";
 import {
-  clearLessonAiPreview,
+  finishLessonAiGenerating,
+  clearLessonAiGenerating,
+  isLessonAiGenerating,
   LESSON_AI_PREVIEW_KINDS,
+  markLessonAiGenerating,
   parseLessonAiSocketMessage,
   readLessonAiPreview,
 } from "../../../../helpers/lessonAiSocket";
@@ -21,6 +24,8 @@ interface IProps {
   lesson: IAdminLesson;
   onLessonChange: () => void;
 }
+
+const KIND = LESSON_AI_PREVIEW_KINDS.STORY_ORDER;
 
 const applyStoryOrder = (lines: string[]) =>
   lines.map((line) => line.trim()).filter(Boolean).join("\n");
@@ -37,8 +42,16 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
   tRef.current = t;
 
   const [sentences, setSentences] = useState(lesson.story_order.join("\n"));
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(() =>
+    isLessonAiGenerating(lesson.id, KIND),
+  );
   const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if (isLessonAiGenerating(lesson.id, KIND)) {
+      setIsGenerating(true);
+    }
+  }, [lesson.id]);
 
   useEffect(() => {
     if (isGenerating) return;
@@ -52,9 +65,10 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
 
       if (data.type === NOTIFICATION_SOCKET_TYPES.LESSON_STORY_ORDER_GENERATED) {
         const next = data.story_order ?? [];
+        if (!next.length) return;
         setIsGenerating(false);
         setSentences(applyStoryOrder(next));
-        clearLessonAiPreview(lesson.id, LESSON_AI_PREVIEW_KINDS.STORY_ORDER);
+        finishLessonAiGenerating(lesson.id, KIND);
         toastRef.current.success(
           tRef.current(
             AppLocales.Admin.Lessons.StoryOrder.Toasts.GenerateSuccess,
@@ -64,6 +78,7 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
 
       if (data.type === NOTIFICATION_SOCKET_TYPES.LESSON_STORY_ORDER_FAILED) {
         setIsGenerating(false);
+        clearLessonAiGenerating(lesson.id, KIND);
         toastRef.current.error(
           data.error ||
             tRef.current(AppLocales.Admin.Lessons.StoryOrder.Errors.Generate),
@@ -77,25 +92,33 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
 
   useEffect(() => {
     if (!isGenerating) return;
-    const timer = window.setInterval(() => {
-      const cached = readLessonAiPreview<string[]>(
-        lesson.id,
-        LESSON_AI_PREVIEW_KINDS.STORY_ORDER,
-      );
+
+    const applyCached = () => {
+      if (!isLessonAiGenerating(lesson.id, KIND)) return;
+      const cached = readLessonAiPreview<string[]>(lesson.id, KIND);
       if (!cached?.length) return;
       setSentences(applyStoryOrder(cached));
       setIsGenerating(false);
-      clearLessonAiPreview(lesson.id, LESSON_AI_PREVIEW_KINDS.STORY_ORDER);
-    }, 1000);
+      finishLessonAiGenerating(lesson.id, KIND);
+      toastRef.current.success(
+        tRef.current(
+          AppLocales.Admin.Lessons.StoryOrder.Toasts.GenerateSuccess,
+        ),
+      );
+    };
+
+    applyCached();
+    const timer = window.setInterval(applyCached, 1000);
     return () => window.clearInterval(timer);
   }, [isGenerating, lesson.id]);
 
   const handleGenerate = async () => {
+    markLessonAiGenerating(lesson.id, KIND);
     setIsGenerating(true);
-    clearLessonAiPreview(lesson.id, LESSON_AI_PREVIEW_KINDS.STORY_ORDER);
     const result = await Admin.LessonController.createStoryOrder(lesson.id);
     if (!result.success) {
       setIsGenerating(false);
+      clearLessonAiGenerating(lesson.id, KIND);
       toast.error(result.error || t(AppLocales.Admin.Lessons.Errors.AiQueue));
     }
   };
@@ -117,6 +140,8 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
     toast.success(t(AppLocales.Admin.Lessons.StoryOrder.Toasts.SaveSuccess));
     onLessonChange();
   };
+
+  const pendingLabel = t(AppLocales.Admin.Lessons.Ai.Pending);
 
   return (
     <DetailSection
@@ -147,21 +172,18 @@ export const AdminLessonStoryOrderSection: React.FC<IProps> = ({
         </div>
       }
     >
-      <div className="space-y-4">
-        {isGenerating ? (
-          <p className="text-body-s font-medium text-primary">
-            {t(AppLocales.Admin.Lessons.Ai.Pending)}
-          </p>
-        ) : null}
-        <TextArea
-          label={t(AppLocales.Admin.Lessons.StoryOrder.SentencesLabel)}
-          helperText={t(AppLocales.Admin.Lessons.StoryOrder.SentencesHelper)}
-          value={sentences}
-          onChange={(e) => setSentences(e.target.value)}
-          rows={6}
-          disabled={isGenerating}
-        />
-      </div>
+      <TextArea
+        label={t(AppLocales.Admin.Lessons.StoryOrder.SentencesLabel)}
+        helperText={
+          isGenerating
+            ? pendingLabel
+            : t(AppLocales.Admin.Lessons.StoryOrder.SentencesHelper)
+        }
+        value={isGenerating ? pendingLabel : sentences}
+        onChange={(e) => setSentences(e.target.value)}
+        rows={6}
+        readOnly={isGenerating}
+      />
     </DetailSection>
   );
 };

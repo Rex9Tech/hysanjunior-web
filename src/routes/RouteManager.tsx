@@ -93,6 +93,17 @@ import {
   AdminLessonsPage,
   AdminLessonCreatePage,
   AdminLessonEditPage,
+  AdminCampusesPage,
+  AdminCampusCreatePage,
+  AdminCampusEditPage,
+  AdminCampusDetailPage,
+  AdminSchoolClassDetailPage,
+  AdminStudentsPage,
+  AdminStudentCreatePage,
+  AdminStudentDetailPage,
+  AdminTeachersPage,
+  AdminTeacherCreatePage,
+  AdminTeacherDetailPage,
   AdminVersionsPage,
   AdminDiscardedVersionsPage,
   AdminVersionCreatePage,
@@ -869,6 +880,77 @@ const router = createBrowserRouter(
             <Route
               path={AppRoutes.client.protected.admin.LESSON_EDIT}
               element={<AdminLessonEditPage />}
+            />
+          </Route>
+          <Route
+            element={
+              <AdminRootRoute
+                action={ADMIN_ACTIONS.READ}
+                resource={ADMIN_RESOURCES.CAMPUSES}
+              />
+            }
+          >
+            <Route
+              path={AppRoutes.client.protected.admin.CAMPUSES}
+              element={<AdminCampusesPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.CAMPUS_CREATE}
+              element={<AdminCampusCreatePage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.CAMPUS_DETAIL}
+              element={<AdminCampusDetailPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.CAMPUS_EDIT}
+              element={<AdminCampusEditPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.SCHOOL_CLASS_DETAIL}
+              element={<AdminSchoolClassDetailPage />}
+            />
+          </Route>
+          <Route
+            element={
+              <AdminRootRoute
+                action={ADMIN_ACTIONS.READ}
+                resource={ADMIN_RESOURCES.CLASS_ENROLLMENTS}
+              />
+            }
+          >
+            <Route
+              path={AppRoutes.client.protected.admin.STUDENTS}
+              element={<AdminStudentsPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.STUDENT_CREATE}
+              element={<AdminStudentCreatePage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.STUDENT_DETAIL}
+              element={<AdminStudentDetailPage />}
+            />
+          </Route>
+          <Route
+            element={
+              <AdminRootRoute
+                action={ADMIN_ACTIONS.READ}
+                resource={ADMIN_RESOURCES.CAMPUS_MEMBERSHIPS}
+              />
+            }
+          >
+            <Route
+              path={AppRoutes.client.protected.admin.TEACHERS}
+              element={<AdminTeachersPage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.TEACHER_CREATE}
+              element={<AdminTeacherCreatePage />}
+            />
+            <Route
+              path={AppRoutes.client.protected.admin.TEACHER_DETAIL}
+              element={<AdminTeacherDetailPage />}
             />
           </Route>
           <Route

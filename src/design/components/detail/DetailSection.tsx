@@ -27,7 +27,10 @@ export const DetailSection: React.FC<IDetailSectionProps> = ({
 }) => (
   <section
     className={cn(
-      "relative overflow-hidden rounded-2xl border border-base-300/80 bg-base-100/90 backdrop-blur-md shadow-xs transition-all duration-200 hover:border-primary",
+      "relative overflow-hidden rounded-2xl bg-base-100/90 backdrop-blur-md shadow-xs transition-all duration-200",
+      accent
+        ? "border border-primary"
+        : "border border-base-300/80 hover:border-primary/50",
       className,
     )}
   >

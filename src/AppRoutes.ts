@@ -87,6 +87,17 @@ class AppRoutes {
         LESSONS: AppRoutes.admin("/lessons"),
         LESSON_CREATE: AppRoutes.admin("/lessons/create"),
         LESSON_EDIT: AppRoutes.admin("/lessons/:id/edit"),
+        CAMPUSES: AppRoutes.admin("/campuses"),
+        CAMPUS_CREATE: AppRoutes.admin("/campuses/create"),
+        CAMPUS_DETAIL: AppRoutes.admin("/campuses/:id"),
+        CAMPUS_EDIT: AppRoutes.admin("/campuses/:id/edit"),
+        SCHOOL_CLASS_DETAIL: AppRoutes.admin("/school-classes/:id"),
+        STUDENTS: AppRoutes.admin("/students"),
+        STUDENT_CREATE: AppRoutes.admin("/students/create"),
+        STUDENT_DETAIL: AppRoutes.admin("/students/:id"),
+        TEACHERS: AppRoutes.admin("/teachers"),
+        TEACHER_CREATE: AppRoutes.admin("/teachers/create"),
+        TEACHER_DETAIL: AppRoutes.admin("/teachers/:id"),
         ACCESSES: AppRoutes.admin("/accesses"),
         ACCESS_DETAIL: AppRoutes.admin("/accesses/:id"),
         ACCESS_CREATE: AppRoutes.admin("/accesses/create"),
@@ -345,6 +356,32 @@ class AppRoutes {
         LESSONS: AppRoutes.adminApi("/lessons"), // GET, POST
         LESSON_DETAIL: AppRoutes.adminApi("/lessons/:id"), // GET, PATCH/PUT, DELETE
         LESSON_UNDISCARD: AppRoutes.adminApi("/lessons/:id/undiscard"), // POST
+        CAMPUSES: AppRoutes.adminApi("/campuses"), // GET, POST
+        CAMPUS_DETAIL: AppRoutes.adminApi("/campuses/:id"), // GET, PATCH/PUT, DELETE
+        CAMPUS_UNDISCARD: AppRoutes.adminApi("/campuses/:id/undiscard"), // POST
+        CAMPUS_STUDENTS: AppRoutes.adminApi("/campuses/:id/students"), // GET
+        SCHOOL_CLASSES: AppRoutes.adminApi("/school_classes"), // GET, POST
+        SCHOOL_CLASS_DETAIL: AppRoutes.adminApi("/school_classes/:id"), // GET, PATCH/PUT, DELETE
+        SCHOOL_CLASS_UNDISCARD: AppRoutes.adminApi(
+          "/school_classes/:id/undiscard",
+        ), // POST
+        CAMPUS_MEMBERSHIPS: AppRoutes.adminApi("/campus_memberships"), // GET, POST
+        CAMPUS_MEMBERSHIP_DETAIL: AppRoutes.adminApi(
+          "/campus_memberships/:id",
+        ), // DELETE
+        CLASS_ASSIGNMENTS: AppRoutes.adminApi("/class_assignments"), // GET, POST
+        CLASS_ASSIGNMENT_DETAIL: AppRoutes.adminApi(
+          "/class_assignments/:id",
+        ), // DELETE
+        CLASS_ENROLLMENTS: AppRoutes.adminApi("/class_enrollments"), // GET, POST
+        CLASS_ENROLLMENT_DETAIL: AppRoutes.adminApi(
+          "/class_enrollments/:id",
+        ), // GET, PATCH/PUT, DELETE
+        CLASS_HOMEWORKS: AppRoutes.adminApi("/class_homeworks"), // GET, POST
+        CLASS_HOMEWORK_DETAIL: AppRoutes.adminApi("/class_homeworks/:id"), // GET, PATCH/PUT, DELETE
+        PARENT_STUDENTS: AppRoutes.adminApi("/parent_students"), // GET, POST
+        PARENT_STUDENT_DETAIL: AppRoutes.adminApi("/parent_students/:id"), // DELETE
+
         LESSON_CREATE_WORD_FAMILIES: AppRoutes.adminApi(
           "/lessons/:id/create_word_families",
         ), // POST

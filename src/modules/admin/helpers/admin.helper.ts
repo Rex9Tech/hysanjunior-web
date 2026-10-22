@@ -4,6 +4,8 @@ import { ADMIN_NOTIFICATION_PAGE_META } from "../notification/constants";
 import { ADMIN_PRODUCT_PAGE_META } from "../product/constants";
 import { ADMIN_ROLE_PAGE_META } from "../role/constants";
 import { ADMIN_USER_PAGE_META } from "../user/constants";
+import { ADMIN_STUDENT_PAGE_META } from "../student/constants";
+import { ADMIN_TEACHER_PAGE_META } from "../teacher/constants";
 
 export { formatDateTime } from "../../../helpers/date.helper";
 
@@ -13,6 +15,8 @@ const adminPageMeta: Record<string, IAdminPageMeta> = {
   ...ADMIN_NOTIFICATION_PAGE_META,
   ...ADMIN_PRODUCT_PAGE_META,
   ...ADMIN_CHAT_PAGE_META,
+  ...ADMIN_STUDENT_PAGE_META,
+  ...ADMIN_TEACHER_PAGE_META,
 };
 
 const escapeRouteSegment = (segment: string): string =>
